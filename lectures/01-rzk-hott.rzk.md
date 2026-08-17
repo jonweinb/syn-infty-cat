@@ -80,7 +80,7 @@ For intuition, remember how you would start a mathematical definition or proof w
 
 In the above example, $n : \mathbb N \vdash \mathbb R^n$ we can capture the family of zero vectors as
 
-$$ n : \mathbb N \vdash \mathbf{0}\_n : \mathbb R^n. $$
+$$ n : \mathbb N \vdash \mathbf{0}_n : \mathbb R^n. $$
 
 If $A$ is a type with no dependency, we say then $A$ is a type in the **empty context**:
 
@@ -369,7 +369,7 @@ $$ \frac{\vdash a:A \quad \vdash b:B}{\vdash (a,b) :A \times B}(\text{$\times$-i
 
 $$\frac{\vdash p : A \times B}{\vdash \mathrm{first}(p) : A }(\text{$\times$-elim${}_1$})$$
 
-$$\frac{\vdash p : A \times B}{\vdash \mathrm{second}(p) : A }(\text{$\times$-elim${}\_2$})
+$$\frac{\vdash p : A \times B}{\vdash \mathrm{second}(p) : A }(\text{$\times$-elim${}_2$})
 
 $$
 
@@ -549,7 +549,7 @@ For a type $A$ and terms $x,y:A$ there is the identity type $x =_A y$ (it could 
 
 **2. Introduction rule:**
 
-$$ \frac{\vdash A \quad \vdash x:A}{\vdash \mathtt{refl}\_x : x =_A x}(\text{$=$-intro})$$
+$$ \frac{\vdash A \quad \vdash x:A}{\vdash \mathtt{refl}_x : x =_A x}(\text{$=$-intro})$$
 
 Every term is canonically identical to itself.
 
