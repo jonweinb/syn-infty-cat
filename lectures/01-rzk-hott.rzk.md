@@ -178,21 +178,21 @@ In Rzk, this reads as follows:
 
 ```rzk
 #def apply
-    ( A B : U)
-    ( f : A → B)
-    ( a : A)
+  ( A B : U)
+  ( f : A → B)
+  ( a : A)
   : B
-  := (f a)
+  := f a
 ```
 
 Let us try to use this to define the composite of two functions: given types $A, B, C$ and functions $f : A \to B$ and $g : B \to C$ we want to express the **composite function** $g \circ f : A \to C$. Can you do it in Rzk using `\ `?
 
 ```rzk
 #def compose
-    ( A B C : U)
-    ( g : B → C) (f : A → B)
+  ( A B C : U)
+  ( g : B → C) (f : A → B)
   : A → C
-  := \ a -> (g (f a))
+  := ?
 
 ```
 
@@ -323,12 +323,12 @@ $$ \frac{\vdash A \quad x:A\vdash B(x) \quad \vdash f : \prod\_{x:A}B(x) \quad \
 
 ```rzk
 #def dapply
-    ( A : U)
-    ( B : A → U)
-    ( f : (x : A) → B x)
-    ( a : A)
+  ( A : U)
+  ( B : A → U)
+  ( f : (x : A) → B x)
+  ( a : A)
   : B a
-  := f(a)
+  := f a
 ```
 
 **Local vs. global style rules:** In dependent type theory, any rule can be used in any context. For notational simplicity we are hence presenting all our rules in **local** style, leaving an arbitrary background context $\Gamma$ implicit. For instance, the by $\prod$-formation rule
@@ -389,9 +389,9 @@ Introduction is implemented using the parenthesis primitive `( , )`:
 
 ```rzk
 #def pair
-    ( A B : U)
-    ( a : A)
-    ( b : B)
+  ( A B : U)
+  ( a : A)
+  ( b : B)
   : prod A B
   := ?
 ```
@@ -450,7 +450,9 @@ A proper systematic treatment of variables in type theory requires extra care an
 In analogy to the notion of the total space $E$ of a bundle $p : E \to B$, given a family $B : A \to \mathcal U$, we call the type $\sum_{x:A} B(x)$ the **total type** of the family $B$:
 
 ```rzk
-#def total-type (A : U) (B : A → U)
+#def total-type
+  ( A : U)
+  ( B : A → U)
   : U
   := Σ (a : A) , B a
 ```
@@ -458,7 +460,11 @@ In analogy to the notion of the total space $E$ of a bundle $p : E \to B$, given
 To produce a term out of the total type $\sum_{x:A} B(x)$ into any type $C$ it suffices to have a dependent function $f : \prod_{a:A} B(a) \to C$. This is called the **recursion principle for $\sum$-types**:
 
 ```rzk
-#def rec-Sigma (A : U) (B : A → U) (C : U) (f : (a : A) → B a → C)
+#def rec-Sigma
+  ( A : U)
+  ( B : A → U)
+  ( C : U)
+  ( f : (a : A) → B a → C)
   : total-type A B → C
   := ?
 ```
@@ -468,7 +474,11 @@ Note that we have $\lambda$-abstracted over a term in constructor-form `(a , b)`
 Similarly, we also can prove the **induction principle for $\sum$-types** where $C$ is not a constant type but a family over $\sum_{x:A} B(x)$:
 
 ```rzk
-#def ind-Sigma (A : U) (B : A → U) (C : (total-type A B) → U) (f : (a : A) → (b : B a) → C (a , b))
+#def ind-Sigma
+  ( A : U)
+  ( B : A → U)
+  ( C : (total-type A B) → U)
+  ( f : (a : A) → (b : B a) → C (a , b))
   : ( z : total-type A B) → C z
   := ?
 ```
@@ -480,7 +490,10 @@ In total, what we would like is a term as follows:
 $$ \mathrm{ac}_{A,B,R} : \left( \prod_{x:A} \sum*{y:B} Rxy\right) \to \left( \sum*{f : A \to B} \prod\_{x:A} R x (fx)) \right) $$
 
 ```rzk
-#def ac (A B : U) (R : A → B → U) (g : (x : A) → Σ (y : B) , R x y)
+#def ac
+  ( A B : U)
+  ( R : A → B → U)
+  ( g : (x : A) → Σ (y : B) , R x y)
   : Σ ( f : A → B) , (x : A) → R x (f x)
   := ?
 ```
@@ -518,7 +531,8 @@ $$\text{modus-ponens}_{A,B} : \left(A \times (A \to B)\right) \to B$$
 Can you solve the following goal in Rzk?
 
 ```rzk
-#def modus-ponens (A B : U)
+#def modus-ponens
+  ( A B : U)
   : prod A (A → B) → B
   := ?
 ```
@@ -559,8 +573,8 @@ Namely, the introduction rule can be stated as:
 
 ```rzk
 #def intro-path
-     ( A : U)
-     ( x : A)
+  ( A : U)
+  ( x : A)
   : ( x =_{A} x)
   := ?
 ```
@@ -597,17 +611,22 @@ You can prove these later in the exercises. To give you a taste, here are two ex
 * **Symmetry:**
 ```rzk
 #def rev
-    ( A : U)
-    ( x : A)
-    ( y : A)
-    ( p : x = y)
+  ( A : U)
+  ( x : A)
+  ( y : A)
+  ( p : x = y)
   : y = x
   := ind-path A x (\ y' → \ p' → (y' = x)) refl y p
 ```
 
 * **Transport:**
 ```rzk
-#def transport (A : U) (B : A → U) (x y : A) (p : x = y) (b : B x)
+#def transport
+  ( A : U)
+  ( B : A → U)
+  ( x y : A)
+  ( p : x = y)
+  ( b : B x)
   : B y
   := ind-path A x (\ y' → \ p' → B y') b y p
 ```
@@ -626,16 +645,24 @@ But this is not just an equation; it's a type itself! So saying that this law ho
 
 $$\text{right-unit}_{x,y,p} : \mathrm{concat}_{x,y,y}(p,\mathtt{refl}_y) = p$$
 
-More explicitly, this term is exhbited as a higher "path between paths:"
+More explicitly, this term is exhibited as a higher "path between paths:"
 
 $$\text{right-unit}_{x,y,p} : \mathrm{concat}_{x,y,y}(p,\mathtt{refl}_y) =_{(x=_Ay)} p$$
 
 Again, we construct such a term by path induction:
 
 ```rzk
-#def right-unit (A : U) (x y : A) (p : x = y)
+#def right-unit
+  ( A : U)
+  ( x y : A)
+  ( p : x = y)
   : concat A x y y p refl = p
-  := (ind-path A x (\ y' → \ p' → concat A x y' y' p' refl = p') refl y p)
+  :=
+  ind-path A x
+  (\ y' → \ p' → concat A x y' y' p' refl = p')
+  ( refl)
+  ( y)
+  ( p)
 ```
 
 Similarly, one can prove the left unit law as well as associativity (see the exercises/Yoneda game):
@@ -675,7 +702,7 @@ We will not go into details about these models but outline below how this presen
 | $p : x=_A y$               | `p : x =_{A} y`                         | equality witness     | $x = y$                           | path                |
 | $\sum_{x,y:A} x=_A y$      | `Σ (x y : A) , Σ (y : A) , x = _{A}  y` | equality relation    | diagonal $\{(a,a) \; \mid \; a:A\}$ | path space          |
 
-**NB:** "Space" her can mean e.g. Kan complex, a notion of $\infty$-groupoids in simplicial sets (cf. Nima's lecture). Accordingly, fibrations are then Kan fibrations.
+**NB:** "Space" here can mean e.g. Kan complex, a notion of $\infty$-groupoids in simplicial sets (cf. Nima's lecture). Accordingly, fibrations are then Kan fibrations.
 
 ## §1.8. Equivalences
 
@@ -723,15 +750,18 @@ In Rzk, these definitions are given as follows:
 
 ```rzk
 #def is-equiv
-( A B : U)
-( f : A → B)
+  ( A B : U)
+  ( f : A → B)
   : U
-  := prod
-    ( Σ ( r : B → A) , homotopy A A (\ a → r (f a)) (id A))
-    ( Σ ( s : B → A) , homotopy B B (\ b → f (s b)) (id B))
+  :=
+  prod
+  ( Σ ( r : B → A)
+    , homotopy A A (\ a → r (f a)) (id A))
+  ( Σ ( s : B → A)
+    , homotopy B B (\ b → f (s b)) (id B))
 
 #def Equiv
-    ( A B : U)
+  ( A B : U)
   : U
   := Σ (f : A → B) , (is-equiv A B f)
 
@@ -739,7 +769,8 @@ In Rzk, these definitions are given as follows:
   ( A B : U)
   ( f : A → B)
   ( is-equiv-f : is-equiv A B f)
-  : Σ ( s : B → A) , homotopy B B (\ b → f (s b)) (id B)
+  : Σ ( s : B → A)
+    , homotopy B B (\ b → f (s b)) (id B)
   := second is-equiv-f
 
 #def section-is-equiv
@@ -774,24 +805,24 @@ In Rzk, these definitions read as follows:
 
 ```rzk
 #def is-contr
-    ( A : U)
+  ( A : U)
   : U
   := Σ (c : A) , (x : A) → c = x
 
 #def is-prop
-     ( A : U)
+  ( A : U)
   : U
   := (x y : A) → x = y
 
 #def is-set
-    ( A : U)
+  ( A : U)
   : U
   := (x y : A) → is-prop (x = y)
 ```
 
 We also say that contractible types are of **homotopy level (h-level)** $-2$, or that they are **$(-2)$-types**. For $n \geq -1$, we say that a type $A$ has **h-level** $n$ or is an **$n$-type** if for all $x,y:A$ the identity type $(x = y)$ is an $(n-1)$-type:
 
-$$ \text{is-$n$-type}(A) :\equiv \prod\_{x,y:A} \text{is-$(n-1)$-type}\left((x = y)\right) $$
+$$ \text{is-$n$-type}(A) :\equiv \prod\_{x,y:A}~\text{is-$(n-1)$-type}\left((x = y)\right) $$
 
 One can show that the $(-1)$-types are exactly the propositions, and the $0$-types are exactly the sets.
 
@@ -834,8 +865,8 @@ We can introduce shortcuts for these:
   := first is-contr-A
 
 #def homotopy-contraction
-( A : U)
-( is-contr-A : is-contr A)
+  ( A : U)
+  ( is-contr-A : is-contr A)
   : ( z : A) → (center-contraction A is-contr-A) = z
   := second is-contr-A
 ```
@@ -851,10 +882,10 @@ In Rzk, this reads as follows:
   ( x y : A)
   : x = y
   :=
-    concat A x (center-contraction A is-contr-A) y
-      ( rev A (center-contraction A is-contr-A) x
-        ( homotopy-contraction A is-contr-A x))
-      ( homotopy-contraction A is-contr-A y)
+  concat A x (center-contraction A is-contr-A) y
+  ( rev A ( center-contraction A is-contr-A) x
+    ( homotopy-contraction A is-contr-A x))
+  ( homotopy-contraction A is-contr-A y)
 ```
 
 Notably, the properties of a type being contractible/a proposition/a set, or, of a map being an equivalence are actually properties in the sense that they are all propositions in the sense that we can construct terms of the following types:
@@ -916,13 +947,13 @@ This is defined as follows:
   ( p : f = g)
   : ( x : X) → (f x = g x)
   :=
-    ind-path
-      ( ( x : X) → A x)
-      ( f)
-      ( \ g' p' → (x : X) → (f x = g' x))
-      ( \ x → refl)
-      ( g)
-      ( p)
+  ind-path
+  ( ( x : X) → A x)
+  ( f)
+  ( \ g' p' → (x : X) → (f x = g' x))
+  ( \ x → refl)
+  ( g)
+  ( p)
 ```
 
 But this map need not be an equivalence in general! Thus, we will assume this as a principle:
@@ -931,11 +962,12 @@ But this map need not be an equivalence in general! Thus, we will assume this as
 #def FunExt
   : U
   :=
-    ( X : U)
+  ( X : U)
   → ( A : X → U)
   → ( f : (x : X) → A x)
   → ( g : (x : X) → A x)
-  → is-equiv (f = g) ((x : X) → f x = g x) (htpy-eq X A f g)
+  → is-equiv (f = g) ((x : X) → f x = g x)
+    ( htpy-eq X A f g)
 
 #assume funext : FunExt
 ```
