@@ -936,6 +936,8 @@ But this map need not be an equivalence in general! Thus, we will assume this as
   → ( f : (x : X) → A x)
   → ( g : (x : X) → A x)
   → is-equiv (f = g) ((x : X) → f x = g x) (htpy-eq X A f g)
+
+#assume funext : FunExt
 ```
 
 ## Bibliography
