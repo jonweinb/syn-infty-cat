@@ -1027,7 +1027,7 @@
 <p>In homotopy type theory, the notion of identity is <strong>intensional</strong>, meaning we would like to keep track of <em>how</em> and not just <em>if</em> two terms of a type are equal. Homotopy type theory supports identity types due to Martin-Löf which are defined as follows:</p>
 <p><strong>1. Formation rule:</strong></p>
 <div class="arithmatex">\[ \frac{\vdash A \quad \vdash x,y:A}{\vdash x =_A y}(\text{$=$-form})\]</div>
-<p>For a type <span class="arithmatex">\(A\)</span> and terms <span class="arithmatex">\(x,y:A\)</span> there is the identity type <span class="arithmatex">\(x =_A y\)</span> (it could be empty). We also call $<span class="arithmatex">\(x =_A y\)</span> a <strong>path type</strong> and its inhabitants <strong>paths</strong>.</p>
+<p>For a type <span class="arithmatex">\(A\)</span> and terms <span class="arithmatex">\(x,y:A\)</span> there is the identity type <span class="arithmatex">\(x =_A y\)</span> (it could be empty). We also call <span class="arithmatex">\(x =_A y\)</span> a <strong>path type</strong> and its inhabitants <strong>paths</strong>.</p>
 <p><strong>2. Introduction rule:</strong></p>
 <div class="arithmatex">\[ \frac{\vdash A \quad \vdash x:A}{\vdash \mathtt{refl}_x : x =_A x}(\text{$=$-intro})\]</div>
 <p>Every term is canonically identical to itself.</p>
@@ -1395,6 +1395,8 @@ We also say that contractible types are of <strong>homotopy level (h-level)</str
 </span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>  → <span class="p">( </span>f <span class="p">:</span> <span class="p">(</span>x <span class="p">:</span> X) → A x)
 </span><span id="__span-28-7"><a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>  → <span class="p">( </span>g <span class="p">:</span> <span class="p">(</span>x <span class="p">:</span> X) → A x)
 </span><span id="__span-28-8"><a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>  → is-equiv (f = g) <span class="p">(</span>(x <span class="p">:</span> X) → f x = g x) (htpy-eq X A f g)
+</span><span id="__span-28-9"><a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>
+</span><span id="__span-28-10"><a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a><span class="kr">#assume</span><span class="p"> </span>funext : FunExt
 </span></code></pre></div>
 <h2 id="bibliography">Bibliography<a class="headerlink" href="#bibliography" title="Permanent link">&para;</a></h2>
 <p>Some suggested further reading:</p>
