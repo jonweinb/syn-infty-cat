@@ -5,6 +5,7 @@
 This lecture series is a hands-on introduction to higher category theory in the proof assistant [Rzk](https://rzk-lang.github.io/). We will work **synthetically**, i.e., in a language where the underlying homotopical notions will be primitives. Our language will be based on **homotopy type theory**, namely an extension thereof that adds simplicial shapes to reason about $\infty$-categories. The notation of the lectures will (largely) be in line with the architecture of the [sHoTT library](https://rzk-lang.github.io/sHoTT/) and its [code conventions](https://rzk-lang.github.io/sHoTT/STYLEGUIDE/).
 
 We will do [literate programming](https://en.wikipedia.org/wiki/Literate_programming) in `.rzk.md`-files. Since Rzk supports various languages, at the beginning of each file, we have to explicitly set the language mode of Rzk:
+
 ```rzk
 
 #lang rzk-1
@@ -16,14 +17,14 @@ To typecheck the code in the lecture notes do the following:
 1. Clone the repository locally (e.g. through `gh repo clone jonweinb/syn-infty-cat`)
 2. On a terminal, `cd` into the downloaded repository.
 3. On the terminal run:
-`rzk typecheck --allow-holes lectures/*.rzk.md`
-
+   `rzk typecheck --allow-holes lectures/*.rzk.md`
 
 Today's lecture is an introduction to (homotopy) type theory in Rzk. We will introduce:
-* dependent types
-* how to construct new types out of old ones using type formers
-* identity types
-* basic synthetic homotopy theory in type theory
+
+- dependent types
+- how to construct new types out of old ones using type formers
+- identity types
+- basic synthetic homotopy theory in type theory
 
 ## §1.1. Dependent types
 
@@ -65,7 +66,7 @@ or, for short:
 
 $$\Gamma \vdash A$$
 
-We say that *"A is a type in context $\Gamma$."*
+We say that _"A is a type in context $\Gamma$."_
 
 Just as types can be depend on contexts, so can terms:
 
@@ -79,8 +80,7 @@ For intuition, remember how you would start a mathematical definition or proof w
 
 In the above example, $n : \mathbb N \vdash \mathbb R^n$ we can capture the family of zero vectors as
 
-$$ n : \mathbb N \vdash \mathbf{0}_n :  \mathbb R^n. $$
-
+$$ n : \mathbb N \vdash \mathbf{0}\_n : \mathbb R^n. $$
 
 If $A$ is a type with no dependency, we say then $A$ is a type in the **empty context**:
 
@@ -90,12 +90,11 @@ E.g., the type naturals itself does not depend on any other type, so
 
 $$ \vdash \mathbb N.$$
 
-
 ## §1.2. Hello Rzk!
 
 Rzk implements dependent type theory. We want to start by formalizing the following simple fact:
 
-*"If A is a type and a:A, then there is a term of type A."*
+_"If A is a type and a:A, then there is a term of type A."_
 
 The judgment that $A$ be a type in Rzk is encoded by expressing that $A$ itself is a term of the **universe type** $\mathcal U$, the type of all types.
 
@@ -109,17 +108,17 @@ Thus, the assertion that $A$ be a type is written in Rzk as `A : U`.
 
 Let us come back to our first statement:
 
-*"If A is a type and a:A, then there is a term of type A."*
+_"If A is a type and a:A, then there is a term of type A."_
 
 Our **assumptions** are written in parentheses and left of the colon:
 
-*"If A is a type and a is a term of type A..."*
+_"If A is a type and a is a term of type A..."_
 
 Our **goal** is the unique type on the right of the colon:
 
-*"...then there is a term of type A"*
+_"...then there is a term of type A"_
 
-The question mark ``?`` represents an unfulfilled goal, also called a **hole**. We can fill the hole by replacing it by a term of the appropriate type.
+The question mark `?` represents an unfulfilled goal, also called a **hole**. We can fill the hole by replacing it by a term of the appropriate type.
 
 In this case, since we already know that $a:A$, we can just use this same term to fill the hole:
 
@@ -149,7 +148,7 @@ In mathematics, we would write something akin to:
 
 $$A \to B, \, a \mapsto f(a)$$
 
-We call a term of the form $\lambda a.b$ a **$\lambda$-abstraction**. In Rzk, instead of $\lambda a.b$ we write ``\ a -> b ``.
+We call a term of the form $\lambda a.b$ a **$\lambda$-abstraction**. In Rzk, instead of $\lambda a.b$ we write `\ a -> b `.
 
 The identity function $\mathrm{id}_A : A \to A$ sends each $a : A$ to itself:
 
@@ -160,7 +159,7 @@ The identity function $\mathrm{id}_A : A \to A$ sends each $a : A$ to itself:
   := \ a -> a
 ```
 
-  We can also define a constant function: given types $A$ and $B$ and a term $x :B$, the **constant function** with value $x$ is defined as $\mathrm{const}_x :\equiv \lambda a.x : A \to B$:
+We can also define a constant function: given types $A$ and $B$ and a term $x :B$, the **constant function** with value $x$ is defined as $\mathrm{const}_x :\equiv \lambda a.x : A \to B$:
 
 ```rzk
 
@@ -171,7 +170,7 @@ The identity function $\mathrm{id}_A : A \to A$ sends each $a : A$ to itself:
   := \ _ -> x
 ```
 
-  The $\lambda$-operator **build** terms of a function type: if for every $a : A$ we have a term $f(a) : B$ this defines a term $f:A \to B$.
+The $\lambda$-operator **build** terms of a function type: if for every $a : A$ we have a term $f(a) : B$ this defines a term $f:A \to B$.
 
 Conversely, can we also **destroy** function terms? E.g., given a function $f : A \to B$ can we get a type of one of the original terms? Indeed, assuming we also have $a : A$ we get back a term in $B$ just by applying $f$ to $a$, denoted by $f(a) : B$.
 
@@ -179,21 +178,21 @@ In Rzk, this reads as follows:
 
 ```rzk
 #def apply
-    ( A B : U)
-    ( f : A → B)
-    ( a : A)
+  ( A B : U)
+  ( f : A → B)
+  ( a : A)
   : B
-  := (f a)
+  := f a
 ```
 
-Let us try to use this to define the composite of two functions: given types $A, B, C$ and functions $f : A \to B$ and $g : B \to C$ we want to express the **composite function** $g \circ f : A \to C$. Can you do it in Rzk using ``\ ``?
+Let us try to use this to define the composite of two functions: given types $A, B, C$ and functions $f : A \to B$ and $g : B \to C$ we want to express the **composite function** $g \circ f : A \to C$. Can you do it in Rzk using `\ `?
 
 ```rzk
 #def compose
-    ( A B C : U)
-    ( g : B → C) (f : A → B)
+  ( A B C : U)
+  ( g : B → C) (f : A → B)
   : A → C
-  := \ a -> (g (f a))
+  := ?
 
 ```
 
@@ -203,7 +202,7 @@ The $\to$-operator assigning to two types $A$ and $B$ a new type $A \to B$ is an
 
 The contrast between building terms and destorying terms in type theory is analogous to constructors and destructors in programming.
 
-Type-theoretic reasoning is often presented in a  **deductive systems** using derivations often denoted in the format:
+Type-theoretic reasoning is often presented in a **deductive systems** using derivations often denoted in the format:
 
 $$ \frac{\text{Hypotheses}}{\text{Conclusion}}$$
 
@@ -243,13 +242,11 @@ or in $\lambda$-notation:
 
 $$ (\lambda x.x^3)(2) = 2^3 $$
 
- This does not automatically hold in type theory, and hence has to be postulated. This is called the **$\beta$-rule** (leaving the premises over the types and terms involved implicit):
+This does not automatically hold in type theory, and hence has to be postulated. This is called the **$\beta$-rule** (leaving the premises over the types and terms involved implicit):
 
 $$ (\lambda x.f)(a) \equiv f[a/x] \qquad (\text{$\to$-$\beta$})$$
 
-
-
-4.2 **$\eta$-conversion rule:** In type theory, a function should *name itself*. We want to refer to a function $\lambda x.f$ simply by $f$. This is achieved by the $\eta$-rule (again suppressing the implied premises):
+4.2 **$\eta$-conversion rule:** In type theory, a function should _name itself_. We want to refer to a function $\lambda x.f$ simply by $f$. This is achieved by the $\eta$-rule (again suppressing the implied premises):
 
 $$ \lambda x.f(x) \equiv f \qquad(\text{$\to$-$\eta$}) $$
 
@@ -276,7 +273,7 @@ $$
 
 It is instructive to compare the tree-shaped derivation of function composition with our earlier Rzk counterpart. In this lecture series, we will mostly disregard the deductive system perspective and just focus on formalization. But we will present new type formers using rules, so it is useful to keep this perspective in the back of your mind as well.
 
-A key idea of *dependent* type theory is that it should capture dependent or indexed constructions natively. Functions are ubiquitous in mathematics but they are sometimes not convenient. For instance, in differential geometry a vector field is defined as follows.
+A key idea of _dependent_ type theory is that it should capture dependent or indexed constructions natively. Functions are ubiquitous in mathematics but they are sometimes not convenient. For instance, in differential geometry a vector field is defined as follows.
 
 Let $M$ be a (topological/differentiable/smooth...) manifold and $p : TM \to M$ its tangent projection. A vector field on $M$ is a (continuous/differentiable/smooth...function) $X : M \to TM$ such that $p \circ X = \mathrm{id}_M$. This amounts to viewing $X$ as a generalized "function"
 
@@ -288,7 +285,7 @@ Crucially, $X$ naturally appears here as a "function with varying codomain." To 
 
 Just as an ordinary function type captures ordinary functions $A \to B$, a dependent function type should capture **dependent functions** $(x : A ) \to B(x)$.
 
-To make this rigoros, let $A$ be a type and $x : A \vdash B(x)$ be a dependent type. Then the **dependent function type** $(x:A) \to B(x)$ or $\prod_{x:A} B(x)$ is defined by the following rules:
+To make this rigorous, let $A$ be a type and $x : A \vdash B(x)$ be a dependent type. Then the **dependent function type** $(x:A) \to B(x)$ or $\prod_{x:A} B(x)$ is defined by the following rules:
 
 1. **Formation rules:**
 
@@ -326,14 +323,13 @@ $$ \frac{\vdash A \quad x:A\vdash B(x) \quad \vdash f : \prod_{x:A}B(x) \quad \v
 
 ```rzk
 #def dapply
-    ( A : U)
-    ( B : A → U)
-    ( f : (x : A) → B x)
-    ( a : A)
+  ( A : U)
+  ( B : A → U)
+  ( f : (x : A) → B x)
+  ( a : A)
   : B a
-  := f(a)
+  := f a
 ```
-
 
 **Local vs. global style rules:** In dependent type theory, any rule can be used in any context. For notational simplicity we are hence presenting all our rules in **local** style, leaving an arbitrary background context $\Gamma$ implicit. For instance, the by $\prod$-formation rule
 
@@ -352,8 +348,6 @@ For $\Gamma, x : A$ the notation $\Gamma,x:A$ stands for the **extended context*
 $$\Gamma, x:A \equiv [x_1 : A_1, x_2 : A_2(x_1), \ldots, x_n : A_n(x_1,\ldots, x_{n-1}), x:A(x_1,\ldots,x_n)].$$
 
 Sometimes, an extended context $\Gamma, x:A$ is also written as $\Gamma.A$.
-
-
 
 ## §1.4. Dependent pair types
 
@@ -375,9 +369,8 @@ $$ \frac{\vdash a:A \quad \vdash b:B}{\vdash (a,b) :A \times B}(\text{$\times$-i
 
 $$\frac{\vdash p : A \times B}{\vdash \mathrm{first}(p) : A }(\text{$\times$-elim${}_1$})$$
 
+$$\frac{\vdash p : A \times B}{\vdash \mathrm{second}(p) : A }(\text{$\times$-elim${}\_2$})
 
-
-$$\frac{\vdash p : A \times B}{\vdash \mathrm{second}(p) : B }(\text{$\times$-elim${}_2$})
 $$
 
 4. **Computation rules**
@@ -396,9 +389,9 @@ Introduction is implemented using the parenthesis primitive `( , )`:
 
 ```rzk
 #def pair
-    ( A B : U)
-    ( a : A)
-    ( b : B)
+  ( A B : U)
+  ( a : A)
+  ( b : B)
   : prod A B
   := ( a , b )
 ```
@@ -457,7 +450,9 @@ A proper systematic treatment of variables in type theory requires extra care an
 In analogy to the notion of the total space $E$ of a bundle $p : E \to B$, given a family $B : A \to \mathcal U$, we call the type $\sum_{x:A} B(x)$ the **total type** of the family $B$:
 
 ```rzk
-#def total-type (A : U) (B : A → U)
+#def total-type
+  ( A : U)
+  ( B : A → U)
   : U
   := Σ (a : A), B(a)
 ```
@@ -465,7 +460,11 @@ In analogy to the notion of the total space $E$ of a bundle $p : E \to B$, given
 To produce a term out of the total type $\sum_{x:A} B(x)$ into any type $C$ it suffices to have a dependent function $f : \prod_{a:A} B(a) \to C$. This is called the **recursion principle for $\sum$-types**:
 
 ```rzk
-#def rec-Sigma (A : U) (B : A → U) (C : U) (f : (a : A) → B a → C)
+#def rec-Sigma
+  ( A : U)
+  ( B : A → U)
+  ( C : U)
+  ( f : (a : A) → B a → C)
   : total-type A B → C
   := ?
 ```
@@ -475,7 +474,11 @@ Note that we have $\lambda$-abstracted over a term in constructor-form `(a , b)`
 Similarly, we also can prove the **induction principle for $\sum$-types** where $C$ is not a constant type but a family over $\sum_{x:A} B(x)$:
 
 ```rzk
-#def ind-Sigma (A : U) (B : A → U) (C : (total-type A B) → U) (f : (a : A) → (b : B a) → C (a , b))
+#def ind-Sigma
+  ( A : U)
+  ( B : A → U)
+  ( C : (total-type A B) → U)
+  ( f : (a : A) → (b : B a) → C (a , b))
   : ( z : total-type A B) → C z
   := ?
 ```
@@ -487,7 +490,10 @@ In total, what we would like is a term as follows:
 $$ \mathrm{ac}_{A,B,R} : \left( \prod_{x:A} \sum_{y:B} Rxy\right) \to \left( \sum_{f : A \to B} \prod_{x:A} R x (fx)) \right) $$
 
 ```rzk
-#def ac (A B : U) (R : A → B → U) (g : (x : A) → Σ (y : B) , R x y)
+#def ac
+  ( A B : U)
+  ( R : A → B → U)
+  ( g : (x : A) → Σ (y : B) , R x y)
   : Σ ( f : A → B) , (x : A) → R x (f x)
   := ?
 ```
@@ -498,14 +504,14 @@ As suggested by the above axiom of choice, a fruitful way to think about types i
 
 It is crucial to note that not every type is a proposition but for the moment we don't need to worry about that.
 
-Let's make the above precise. A logical proposition should be interpreted as a type. A proof or witness of this proposition should give rise to a term of this type. The type formers will then lift correspondingly. E.g., if $A$ and $B$ correspond to propositions, the type $A \times B$ should correspond to their conjunction: its terms are of the form $(a , b) : A \times B$, i.e., they are *pairs* of a proof (or witness or evidence) of $A$ and a proof of $B$.
+Let's make the above precise. A logical proposition should be interpreted as a type. A proof or witness of this proposition should give rise to a term of this type. The type formers will then lift correspondingly. E.g., if $A$ and $B$ correspond to propositions, the type $A \times B$ should correspond to their conjunction: its terms are of the form $(a , b) : A \times B$, i.e., they are _pairs_ of a proof (or witness or evidence) of $A$ and a proof of $B$.
 
 This interpretation is known as the **Curry--Howard correspondence**, closely related to the **Brouwer--Heyting--Kolmogorov (BHK) interpretation** in constructive mathematics.
 
 | Logic                                        | Type theory                           | Rzk               |
-|----------------------------------------------|---------------------------------------|-------------------|
+| -------------------------------------------- | ------------------------------------- | ----------------- |
 | proposition $A$                              | type $A$                              | `A`               |
-| witness of $A$                              | term $x : A$                              | `a : A`               |
+| witness of $A$                               | term $x : A$                          | `a : A`           |
 | implication $A \implies B$                   | function type $A \to B$               | `A → B`           |
 | conjunction $A \land B$                      | product type $A \times B$             | `prod A B`        |
 | disjunction $A \lor B$                       | coproduct type $A + B$                | `coprod A B`      |
@@ -514,9 +520,9 @@ This interpretation is known as the **Curry--Howard correspondence**, closely re
 | universal quantification $\forall x, B(x)$   | dep. function type $\prod_{x:A} B(x)$ | `(x : A) → B(x)`  |
 | existential quantification $\exists x, B(x)$ | dep. pair type $\sum_{x : A} B(x)$    | `Σ (x : A) , B x` |
 
-Propositions as types and the Curry--Howard correspondence are important paradigms all through constructive mathematics and functional programming. It allows for constructive proofs of logical laws. E.g., the *modus ponens* law says:
+Propositions as types and the Curry--Howard correspondence are important paradigms all through constructive mathematics and functional programming. It allows for constructive proofs of logical laws. E.g., the _modus ponens_ law says:
 
-*If $A$ is true, and if $A$ implies $B$, then $B$ is true.*
+_If $A$ is true, and if $A$ implies $B$, then $B$ is true._
 
 Translating this via the Curry--Howard correspondence means we have to give a function:
 
@@ -525,15 +531,15 @@ $$\text{modus-ponens}_{A,B} : \left(A \times (A \to B)\right) \to B$$
 Can you solve the following goal in Rzk?
 
 ```rzk
-#def modus-ponens (A B : U)
+#def modus-ponens
+  ( A B : U)
   : prod A (A → B) → B
   := ?
 ```
 
-
 ## §1.6. Identity types
 
-In homotopy type theory, the notion of identity is **intensional**, meaning we would like to keep track of *how* and not just *if* two terms of a type are equal. Homotopy type theory supports identity types due to Martin-Löf which are defined as follows:
+In homotopy type theory, the notion of identity is **intensional**, meaning we would like to keep track of _how_ and not just _if_ two terms of a type are equal. Homotopy type theory supports identity types due to Martin-Löf which are defined as follows:
 
 **1. Formation rule:**
 
@@ -543,13 +549,14 @@ For a type $A$ and terms $x,y:A$ there is the identity type $x =_A y$ (it could 
 
 **2. Introduction rule:**
 
-$$ \frac{\vdash A \quad \vdash x:A}{\vdash \mathtt{refl}_x : x =_A x}(\text{$=$-intro})$$
+$$ \frac{\vdash A \quad \vdash x:A}{\vdash \mathtt{refl}\_x : x =_A x}(\text{$=$-intro})$$
 
 Every term is canonically identical to itself.
 
 **3. Elimination rule:**
 
-$$ \frac{\vdash A \quad \vdash x:A
+$$
+\frac{\vdash A \quad \vdash x:A
 \quad \vdash C : \prod_{y : A} (x = y) \to \mathcal U \quad \vdash d : C(x,\mathtt{refl}_x)}{y:A , p : (x=_Ay)\vdash \text{ind-path}_{x,d}(y,p) : C(y,p)}(\text{$=$-elim})$$
 
 This rule might make you wonder. It is a strong principle that says: given a family $C : \prod_{y : A} (x = y) \to \mathcal U$, we can get a section of $C$ from just a single term of the fiber $C(x,\mathtt{refl}_x)$.
@@ -566,10 +573,10 @@ Namely, the introduction rule can be stated as:
 
 ```rzk
 #def intro-path
-     ( A : U)
-     ( x : A)
-  : ( x = x)
-  := refl
+  ( A : U)
+  ( x : A)
+  : ( x =_{A} x)
+  := ?
 ```
 
 Both in type-theoretic and Rzk syntax we can drop the subscript, and simply write $x = y$ or `x = y`, resp.
@@ -604,19 +611,24 @@ You can prove these later in the exercises. To give you a taste, here are two ex
 * **Symmetry:**
 ```rzk
 #def rev
-    ( A : U)
-    ( x : A)
-    ( y : A)
-    ( p : x = y)
+  ( A : U)
+  ( x : A)
+  ( y : A)
+  ( p : x = y)
   : y = x
-  := ind-path A x (\ y → \ p → (y = x)) refl y p
+  := ind-path A x (\ y' → \ p' → (y' = x)) refl y p
 ```
 
 * **Transport:**
 ```rzk
-#def transport (A : U) (B : A → U) (x y : A) (p : x = y) (b : B x)
+#def transport
+  ( A : U)
+  ( B : A → U)
+  ( x y : A)
+  ( p : x = y)
+  ( b : B x)
   : B y
-  := ind-path A x (\ y → \ p → B y) b y p
+  := ind-path A x (\ y' → \ p' → B y') b y p
 ```
 
 Do you notice the power of path induction? It seems hard to define functions depending on arbitrary paths in such an abstract setting, but path induction lets us reduce this to the case of reflexivity which makes giving the actual function seem trivial.
@@ -633,16 +645,24 @@ But this is not just an equation; it's a type itself! So saying that this law ho
 
 $$\text{right-unit}_{x,y,p} : \mathrm{concat}_{x,y,y}(p,\mathtt{refl}_y) = p$$
 
-More explicitly, this term is exhbited as a higher "path between paths:"
+More explicitly, this term is exhibited as a higher "path between paths:"
 
 $$\text{right-unit}_{x,y,p} : \mathrm{concat}_{x,y,y}(p,\mathtt{refl}_y) =_{(x=_Ay)} p$$
 
 Again, we construct such a term by path induction:
 
 ```rzk
-#def right-unit (A : U) (x y : A) (p : x = y)
+#def right-unit
+  ( A : U)
+  ( x y : A)
+  ( p : x = y)
   : concat A x y y p refl = p
-  := (ind-path A x (\ y → \ p → concat A x y y p refl = p) refl y p)
+  :=
+  ind-path A x
+  (\ y' → \ p' → concat A x y' y' p' refl = p')
+  ( refl)
+  ( y)
+  ( p)
 ```
 
 Similarly, one can prove the left unit law as well as associativity (see the exercises/Yoneda game):
@@ -682,7 +702,7 @@ We will not go into details about these models but outline below how this presen
 | $p : x=_A y$               | `p : x =_{A} y`                         | equality witness     | $x = y$                           | path                |
 | $\sum_{x,y:A} x=_A y$      | `Σ (x y : A) , Σ (y : A) , x = _{A}  y` | equality relation    | diagonal $\{(a,a) \; \mid \; a:A\}$ | path space          |
 
-**NB:** "Space" her can mean e.g. Kan complex, a notion of $\infty$-groupoids in simplicial sets (cf. Nima's lecture). Accordingly, fibrations are then Kan fibrations.
+**NB:** "Space" here can mean e.g. Kan complex, a notion of $\infty$-groupoids in simplicial sets (cf. Nima's lecture). Accordingly, fibrations are then Kan fibrations.
 
 ## §1.8. Equivalences
 
@@ -719,7 +739,8 @@ Now , a map $f : A \to B$ is an **equivalence** if it comes equipped with a left
 
 
 $$ \text{is-equiv}_{A,B}(f) :\equiv \sum_{r : B \to A} (r \circ f \sim \mathrm{id}_A) \times
-(f \circ s \sim \mathrm{id}_A)$$
+(f \circ s \sim \mathrm{id}_A)
+$$
 
 Then, the type of equivalences from $A$ to $B$ is any map $f : A \to B$ together with a proof that $f$ is an equivalence:
 
@@ -729,15 +750,18 @@ In Rzk, these definitions are given as follows:
 
 ```rzk
 #def is-equiv
-( A B : U)
-( f : A → B)
+  ( A B : U)
+  ( f : A → B)
   : U
-  := prod
-    ( Σ ( r : B → A) , homotopy A A (\ a → r (f a)) (id A))
-    ( Σ ( s : B → A) , homotopy B B (\ b → f (s b)) (id B))
+  :=
+  prod
+  ( Σ ( r : B → A)
+    , homotopy A A (\ a → r (f a)) (id A))
+  ( Σ ( s : B → A)
+    , homotopy B B (\ b → f (s b)) (id B))
 
 #def Equiv
-    ( A B : U)
+  ( A B : U)
   : U
   := Σ (f : A → B) , (is-equiv A B f)
 
@@ -745,7 +769,8 @@ In Rzk, these definitions are given as follows:
   ( A B : U)
   ( f : A → B)
   ( is-equiv-f : is-equiv A B f)
-  : Σ ( s : B → A) , homotopy B B (\ b → f (s b)) (id B)
+  : Σ ( s : B → A)
+    , homotopy B B (\ b → f (s b)) (id B)
   := second is-equiv-f
 
 #def section-is-equiv
@@ -780,29 +805,30 @@ In Rzk, these definitions read as follows:
 
 ```rzk
 #def is-contr
-    ( A : U)
+  ( A : U)
   : U
   := Σ (c : A) , (x : A) → c = x
 
 #def is-prop
-     ( A : U)
+  ( A : U)
   : U
   := (x y : A) → x = y
 
 #def is-set
-    ( A : U)
+  ( A : U)
   : U
   := (x y : A) → is-prop (x = y)
 ```
+
 We also say that contractible types are of **homotopy level (h-level)** $-2$, or that they are **$(-2)$-types**. For $n \geq -1$, we say that a type $A$ has **h-level** $n$ or is an **$n$-type** if for all $x,y:A$ the identity type $(x = y)$ is an $(n-1)$-type:
 
-$$ \text{is-$n$-type}(A) :\equiv \prod_{x,y:A} \text{is-$(n-1)$-type}\left((x = y)\right) $$
+$$ \text{is-$n$-type}(A) :\equiv \prod_{x,y:A}~\text{is-$(n-1)$-type}\left((x = y)\right) $$
 
 One can show that the $(-1)$-types are exactly the propositions, and the $0$-types are exactly the sets.
 
 For $n \geq 1$, the $n$-types correspond to $n$-groupoids.
 
-Types that are not of h-level $n$ for any finite $n$ correspond to full homotopy types *aka* $\infty$-groupoids.
+Types that are not of h-level $n$ for any finite $n$ correspond to full homotopy types _aka_ $\infty$-groupoids.
 
 Indeed, any $n$-type is also an $(n+1)$-type, for all $n \geq -2$, but not the other way around.
 
@@ -812,8 +838,7 @@ In particular, recalling the Curry--Howard--Voevodsky correspondence, these cons
 
 As an example of a contractible type we can exhibit the unit type $\mathbf{1}$. Indeed, any contractible type will turn out to be equivalent to $\mathbf{1}$.
 
-
-In Rzk, any two inhabitants of the unit type are *judgmentally* equal, hence they can be identified by $\mathrm{refl}$. We denote the unit type by `Unit` and its distinguished inhabitant by `unit : Unit`. Let us prove that `Unit` is contractible:
+In Rzk, any two inhabitants of the unit type are _judgmentally_ equal, hence they can be identified by $\mathrm{refl}$. We denote the unit type by `Unit` and its distinguished inhabitant by `unit : Unit`. Let us prove that `Unit` is contractible:
 
 ```rzk
 #def is-contr-Unit
@@ -826,8 +851,9 @@ Every contractible type is a proposition. To prove this we have to produce a fun
 $$ \prod_{A : \mathcal U} \text{is-contr}(A)\to \text{is-prop}(A) $$
 
 Let $A : \mathcal U$ and $c : \text{is-contr}(A)$. Then $c$ consists of:
-* a **center of contraction** $\mathrm{first}(c): A$
-* a **contracting homotopy** $\mathrm{second}(c) : \prod_{x : A} (c = x)$
+
+- a **center of contraction** $\mathrm{first}(c): A$
+- a **contracting homotopy** $\mathrm{second}(c) : \prod_{x : A} (c = x)$
 
 We can introduce shortcuts for these:
 
@@ -839,8 +865,8 @@ We can introduce shortcuts for these:
   := first is-contr-A
 
 #def homotopy-contraction
-( A : U)
-( is-contr-A : is-contr A)
+  ( A : U)
+  ( is-contr-A : is-contr A)
   : ( z : A) → (center-contraction A is-contr-A) = z
   := second is-contr-A
 ```
@@ -856,10 +882,10 @@ In Rzk, this reads as follows:
   ( x y : A)
   : x = y
   :=
-    concat A x (center-contraction A is-contr-A) y
-      ( rev A (center-contraction A is-contr-A) x
-        ( homotopy-contraction A is-contr-A x))
-      ( homotopy-contraction A is-contr-A y)
+  concat A x (center-contraction A is-contr-A) y
+  ( rev A ( center-contraction A is-contr-A) x
+    ( homotopy-contraction A is-contr-A x))
+  ( homotopy-contraction A is-contr-A y)
 ```
 
 Notably, the properties of a type being contractible/a proposition/a set, or, of a map being an equivalence are actually properties in the sense that they are all propositions in the sense that we can construct terms of the following types:
@@ -874,12 +900,11 @@ $$\text{is-prop}\left(\text{is-equiv}(f)\right)$$
 
 That means, any two witnesses/proofs/pieces of evidence that any of these properties hold must be equal to each other to homotopy. A type can be contractible/a proposition/a set in essentially at most one way; there is no higher structure necessary.
 
-
 One can furthermore prove:
 
-* If a proposition is inhabited then it is a contractible.
-* A type is contractible if and only if it is equivalent to the unit type.
-* A type $A$ is a proposition if and only if $A \to \text{is-contr}(A)$; in other words if, whenever $A$ is inhabited it is contractible.
+- If a proposition is inhabited then it is a contractible.
+- A type is contractible if and only if it is equivalent to the unit type.
+- A type $A$ is a proposition if and only if $A \to \text{is-contr}(A)$; in other words if, whenever $A$ is inhabited it is contractible.
 
 For this, we need the notion of **preimage** or **fiber** of a map. If $f : A \to B$ is a map between types and $y : B$ a point then we call
 
@@ -922,13 +947,13 @@ This is defined as follows:
   ( p : f = g)
   : ( x : X) → (f x = g x)
   :=
-    ind-path
-      ( ( x : X) → A x)
-      ( f)
-      ( \ g' p' → (x : X) → (f x = g' x))
-      ( \ x → refl)
-      ( g)
-      ( p)
+  ind-path
+  ( ( x : X) → A x)
+  ( f)
+  ( \ g' p' → (x : X) → (f x = g' x))
+  ( \ x → refl)
+  ( g)
+  ( p)
 ```
 
 But this map need not be an equivalence in general! Thus, we will assume this as a principle:
@@ -937,11 +962,12 @@ But this map need not be an equivalence in general! Thus, we will assume this as
 #def FunExt
   : U
   :=
-    ( X : U)
+  ( X : U)
   → ( A : X → U)
   → ( f : (x : X) → A x)
   → ( g : (x : X) → A x)
-  → is-equiv (f = g) ((x : X) → f x = g x) (htpy-eq X A f g)
+  → is-equiv (f = g) ((x : X) → f x = g x)
+    ( htpy-eq X A f g)
 
 #assume funext : FunExt
 ```
@@ -950,16 +976,16 @@ But this map need not be an equivalence in general! Thus, we will assume this as
 
 Some suggested further reading:
 
-* Carlo Angiuli and Daniel Gratzer. *Principles of Dependent Type Theory*. Cambridge University Press, forthcoming. [https://carloangiuli.com/papers/type-theory-book.pdf](https://carloangiuli.com/papers/type-theory-book.pdf)
-* Steve Awodey. Type theory and homotopy. In Peter Dybjer, Sten Lindström, Erik Palmgren, and Göran Sundholm (eds.), *Epistemology versus Ontology: Essays on the Philosophy and Foundations of Mathematics in Honour of Per Martin-Löf*, Logic, Epistemology, and the Unity of Science 27, Springer, 2012, pp. 183–201. [arXiv:1010.1810](https://arxiv.org/abs/1010.1810)
-* Steve Awodey and Michael A. Warren. Homotopy theoretic models of identity types. *Mathematical Proceedings of the Cambridge Philosophical Society* **146** (2009), no. 1, 45–55. [arXiv:0709.0248](https://arxiv.org/abs/0709.0248)
-* Martin Hofmann and Thomas Streicher. The groupoid model refutes uniqueness of identity proofs. In *Proceedings of the Ninth Annual IEEE Symposium on Logic in Computer Science (LICS 1994)*, IEEE Computer Society Press, 1994, pp. 208–212.
-* Krzysztof Kapulkin and Peter LeFanu Lumsdaine. The simplicial model of Univalent Foundations (after Voevodsky). *Journal of the European Mathematical Society* **23** (2021), no. 6, 2071–2126. [arXiv:1211.2851](https://arxiv.org/abs/1211.2851)
-* Nikolai Kudasov, Violetta Sim, and Benedikt Ahrens. Rzk: a proof assistant for synthetic $\infty$-categories. Preprint, 2026. [arXiv:2607.12207](https://arxiv.org/abs/2607.12207)
-* Emily Riehl. *Homotopy Type Theory*. Lecture notes for Math 721, Johns Hopkins University, Fall 2021. [https://github.com/emilyriehl/721](https://github.com/emilyriehl/721)
-* Emily Riehl. On the $\infty$-topos semantics of homotopy type theory. Lecture notes, Logic and Higher Structures, CIRM–Luminy, 2022. [arXiv:2212.06937](https://arxiv.org/abs/2212.06937)
-* Egbert Rijke. *Introduction to Homotopy Type Theory*. Cambridge Studies in Advanced Mathematics. Cambridge University Press, 2025. Also [arXiv:2212.11082](https://arxiv.org/abs/2212.11082).
-* Michael Shulman. All $(\infty,1)$-toposes have strict univalent universes. Preprint, 2019. [arXiv:1904.07004](https://arxiv.org/abs/1904.07004)
-* Michael Shulman. Homotopy type theory: the logic of space. In Mathieu Anel and Gabriel Catren (eds.), *New Spaces in Mathematics: Formal and Conceptual Reflections*, Cambridge University Press, 2021, pp. 322–404. [arXiv:1703.03007](https://arxiv.org/abs/1703.03007)
-* Thomas Streicher. A model of type theory in simplicial sets: A brief introduction to Voevodsky's homotopy type theory. *Journal of Applied Logic* **12** (2014), no. 1, 45–49. [https://www2.mathematik.tu-darmstadt.de/~streicher/sstt.pdf](https://www2.mathematik.tu-darmstadt.de/~streicher/sstt.pdf)
-* The Univalent Foundations Program. *Homotopy Type Theory: Univalent Foundations of Mathematics*. Institute for Advanced Study, 2013. [https://homotopytypetheory.org/book/](https://homotopytypetheory.org/book/)
+- Carlo Angiuli and Daniel Gratzer. _Principles of Dependent Type Theory_. Cambridge University Press, forthcoming. [https://carloangiuli.com/papers/type-theory-book.pdf](https://carloangiuli.com/papers/type-theory-book.pdf)
+- Steve Awodey. Type theory and homotopy. In Peter Dybjer, Sten Lindström, Erik Palmgren, and Göran Sundholm (eds.), _Epistemology versus Ontology: Essays on the Philosophy and Foundations of Mathematics in Honour of Per Martin-Löf_, Logic, Epistemology, and the Unity of Science 27, Springer, 2012, pp. 183–201. [arXiv:1010.1810](https://arxiv.org/abs/1010.1810)
+- Steve Awodey and Michael A. Warren. Homotopy theoretic models of identity types. _Mathematical Proceedings of the Cambridge Philosophical Society_ **146** (2009), no. 1, 45–55. [arXiv:0709.0248](https://arxiv.org/abs/0709.0248)
+- Martin Hofmann and Thomas Streicher. The groupoid model refutes uniqueness of identity proofs. In _Proceedings of the Ninth Annual IEEE Symposium on Logic in Computer Science (LICS 1994)_, IEEE Computer Society Press, 1994, pp. 208–212.
+- Krzysztof Kapulkin and Peter LeFanu Lumsdaine. The simplicial model of Univalent Foundations (after Voevodsky). _Journal of the European Mathematical Society_ **23** (2021), no. 6, 2071–2126. [arXiv:1211.2851](https://arxiv.org/abs/1211.2851)
+- Nikolai Kudasov, Violetta Sim, and Benedikt Ahrens. Rzk: a proof assistant for synthetic $\infty$-categories. Preprint, 2026. [arXiv:2607.12207](https://arxiv.org/abs/2607.12207)
+- Emily Riehl. _Homotopy Type Theory_. Lecture notes for Math 721, Johns Hopkins University, Fall 2021. [https://github.com/emilyriehl/721](https://github.com/emilyriehl/721)
+- Emily Riehl. On the $\infty$-topos semantics of homotopy type theory. Lecture notes, Logic and Higher Structures, CIRM–Luminy, 2022. [arXiv:2212.06937](https://arxiv.org/abs/2212.06937)
+- Egbert Rijke. _Introduction to Homotopy Type Theory_. Cambridge Studies in Advanced Mathematics. Cambridge University Press, 2025. Also [arXiv:2212.11082](https://arxiv.org/abs/2212.11082).
+- Michael Shulman. All $(\infty,1)$-toposes have strict univalent universes. Preprint, 2019. [arXiv:1904.07004](https://arxiv.org/abs/1904.07004)
+- Michael Shulman. Homotopy type theory: the logic of space. In Mathieu Anel and Gabriel Catren (eds.), _New Spaces in Mathematics: Formal and Conceptual Reflections_, Cambridge University Press, 2021, pp. 322–404. [arXiv:1703.03007](https://arxiv.org/abs/1703.03007)
+- Thomas Streicher. A model of type theory in simplicial sets: A brief introduction to Voevodsky's homotopy type theory. _Journal of Applied Logic_ **12** (2014), no. 1, 45–49. [https://www2.mathematik.tu-darmstadt.de/~streicher/sstt.pdf](https://www2.mathematik.tu-darmstadt.de/~streicher/sstt.pdf)
+- The Univalent Foundations Program. _Homotopy Type Theory: Univalent Foundations of Mathematics_. Institute for Advanced Study, 2013. [https://homotopytypetheory.org/book/](https://homotopytypetheory.org/book/)
