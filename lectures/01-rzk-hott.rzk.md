@@ -535,7 +535,7 @@ In homotopy type theory, the notion of identity is **intensional**, meaning we w
 
 $$ \frac{\vdash A \quad \vdash x,y:A}{\vdash x =_A y}(\text{$=$-form})$$
 
-For a type $A$ and terms $x,y:A$ there is the identity type $x =_A y$ (it could be empty). We also call $$x =_A y$ a **path type** and its inhabitants **paths**.
+For a type $A$ and terms $x,y:A$ there is the identity type $x =_A y$ (it could be empty). We also call $x =_A y$ a **path type** and its inhabitants **paths**.
 
 **2. Introduction rule:**
 
