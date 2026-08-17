@@ -646,21 +646,23 @@
 <h1 id="synthetic-lecture-1-introduction-to-homotopy-type-theory">Synthetic Lecture 1: Introduction to homotopy type theory<a class="headerlink" href="#synthetic-lecture-1-introduction-to-homotopy-type-theory" title="Permanent link">&para;</a></h1>
 <p><a href="https://icerm.brown.edu/program/topical_workshop/tw-26-thc">ICERM Teaching Higher Category Theory with Computers, Aug 17 - 21, 2026</a></p>
 <p>This lecture series is a hands-on introduction to higher category theory in the proof assistant <a href="https://rzk-lang.github.io/">Rzk</a>. We will work <strong>synthetically</strong>, i.e., in a language where the underlying homotopical notions will be primitives. Our language will be based on <strong>homotopy type theory</strong>, namely an extension thereof that adds simplicial shapes to reason about <span class="arithmatex">\(\infty\)</span>-categories. The notation of the lectures will (largely) be in line with the architecture of the <a href="https://rzk-lang.github.io/sHoTT/">sHoTT library</a> and its <a href="https://rzk-lang.github.io/sHoTT/STYLEGUIDE/">code conventions</a>.</p>
-<p>We will do <a href="https://en.wikipedia.org/wiki/Literate_programming">literate programming</a> in <code>.rzk.md</code>-files. Since Rzk supports various languages, at the beginning of each file, we have to explicitly set the language mode of Rzk:
+<p>We will do <a href="https://en.wikipedia.org/wiki/Literate_programming">literate programming</a> in <code>.rzk.md</code>-files. Since Rzk supports various languages, at the beginning of each file, we have to explicitly set the language mode of Rzk:</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nd">#lang</span><span class="p"> </span><span class="s">rzk-1</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p>To typecheck the code in the lecture notes do the following:</p>
 <ol>
 <li>Clone the repository locally (e.g. through <code>gh repo clone jonweinb/syn-infty-cat</code>)</li>
 <li>On a terminal, <code>cd</code> into the downloaded repository.</li>
 <li>On the terminal run:
-<code>rzk typecheck --allow-holes lectures/*.rzk.md</code></li>
+   <code>rzk typecheck --allow-holes lectures/*.rzk.md</code></li>
 </ol>
-<p>Today's lecture is an introduction to (homotopy) type theory in Rzk. We will introduce:
-* dependent types
-* how to construct new types out of old ones using type formers
-* identity types
-* basic synthetic homotopy theory in type theory</p>
+<p>Today's lecture is an introduction to (homotopy) type theory in Rzk. We will introduce:</p>
+<ul>
+<li>dependent types</li>
+<li>how to construct new types out of old ones using type formers</li>
+<li>identity types</li>
+<li>basic synthetic homotopy theory in type theory</li>
+</ul>
 <h2 id="11-dependent-types">§1.1. Dependent types<a class="headerlink" href="#11-dependent-types" title="Permanent link">&para;</a></h2>
 <p>Type theory has three basic notions:</p>
 <ol>
@@ -691,7 +693,7 @@
 <div class="arithmatex">\[\Gamma \vdash a:A\]</div>
 <p>For intuition, remember how you would start a mathematical definition or proof with a clause like "Let <span class="arithmatex">\(n\)</span> be a natural number" or similar. You can think of the context <span class="arithmatex">\(\Gamma\)</span> as the declarations after the "let...".</p>
 <p>In the above example, <span class="arithmatex">\(n : \mathbb N \vdash \mathbb R^n\)</span> we can capture the family of zero vectors as</p>
-<div class="arithmatex">\[ n : \mathbb N \vdash \mathbf{0}_n :  \mathbb R^n. \]</div>
+<div class="arithmatex">\[ n : \mathbb N \vdash \mathbf{0}\_n : \mathbb R^n. \]</div>
 <p>If <span class="arithmatex">\(A\)</span> is a type with no dependency, we say then <span class="arithmatex">\(A\)</span> is a type in the <strong>empty context</strong>:</p>
 <div class="arithmatex">\[{}\vdash A \quad\text{or}\quad \cdot\vdash A\]</div>
 <p>E.g., the type naturals itself does not depend on any other type, so</p>
@@ -761,7 +763,7 @@
 <p>What have we done so far? We have given some definitions and let Rzk check that the typing is correct---and this is basically all we will be doing! We will see soon how we can encode proofs in that way.</p>
 <p>The <span class="arithmatex">\(\to\)</span>-operator assigning to two types <span class="arithmatex">\(A\)</span> and <span class="arithmatex">\(B\)</span> a new type <span class="arithmatex">\(A \to B\)</span> is an example of a <strong>type former</strong>, constructing a new type out of old ones.</p>
 <p>The contrast between building terms and destorying terms in type theory is analogous to constructors and destructors in programming.</p>
-<p>Type-theoretic reasoning is often presented in a  <strong>deductive systems</strong> using derivations often denoted in the format:</p>
+<p>Type-theoretic reasoning is often presented in a <strong>deductive systems</strong> using derivations often denoted in the format:</p>
 <div class="arithmatex">\[ \frac{\text{Hypotheses}}{\text{Conclusion}}\]</div>
 <p>This is not the notation in Rzk but it is standard in the literature, and it's convenient to introduce new type formers.</p>
 <p>The behavior of type formers such as <span class="arithmatex">\(\to\)</span> is specified using the following kinds of rules:</p>
@@ -821,15 +823,15 @@
 <ol>
 <li><strong>Formation rules:</strong></li>
 </ol>
-<div class="arithmatex">\[ \frac{\vdash A \quad x : A\vdash B(x)}{\vdash \prod_{x:A}B(x)}(\text{$\prod$-form})\]</div>
+<div class="arithmatex">\[ \frac{\vdash A \quad x : A\vdash B(x)}{\vdash \prod\_{x:A}B(x)}(\text{$\prod$-form})\]</div>
 <ol>
 <li><strong>Introduction rules:</strong></li>
 </ol>
-<div class="arithmatex">\[ \frac{\vdash A \quad x : A\vdash B(x) \quad x : A \vdash f(x) : B(x)}{\vdash \lambda x . f(x) :\prod_{x:A}B(x)}(\text{$\prod$-intro})\]</div>
+<div class="arithmatex">\[ \frac{\vdash A \quad x : A\vdash B(x) \quad x : A \vdash f(x) : B(x)}{\vdash \lambda x . f(x) :\prod\_{x:A}B(x)}(\text{$\prod$-intro})\]</div>
 <ol>
 <li><strong>Elimination rules:</strong></li>
 </ol>
-<div class="arithmatex">\[ \frac{\vdash A \quad x:A\vdash B(x) \quad \vdash f : \prod_{x:A}B(x) \quad \vdash a:A}{\vdash f(a) : B(a) }(\text{$\prod$-elim}) \]</div>
+<div class="arithmatex">\[ \frac{\vdash A \quad x:A\vdash B(x) \quad \vdash f : \prod\_{x:A}B(x) \quad \vdash a:A}{\vdash f(a) : B(a) }(\text{$\prod$-elim}) \]</div>
 <p>The <span class="arithmatex">\(\beta\)</span>- and <span class="arithmatex">\(\eta\)</span>-rules hold verbatim.</p>
 <p>Recall the example from differential geometry. A vector field <span class="arithmatex">\(X\)</span> on a manifold <span class="arithmatex">\(M\)</span> can be understood as a <strong>section</strong> of the tangent bundle <span class="arithmatex">\(p:TM \to M\)</span>.</p>
 <p>More generally, given a (topological/fiber/vector...) bundle <span class="arithmatex">\(p : E \to B\)</span>, we are interested in its sections, i.e., maps <span class="arithmatex">\(\sigma : B \to E\)</span> such that <span class="arithmatex">\(p \circ \sigma = \mathrm{id}_B\)</span>. The latter conditions means exactly that <span class="arithmatex">\(\sigma\)</span> behaves like a dependent function</p>
@@ -840,7 +842,7 @@
 <p>We can do something similar in type theory as well: a dependent type <span class="arithmatex">\(x :A \vdash B(x)\)</span> is essentially the same as a function <span class="arithmatex">\(B : A \to \mathcal U\)</span>, assigning to each <span class="arithmatex">\(x:A\)</span> the type <span class="arithmatex">\(B(x)\)</span>.</p>
 <p>In fact, this is how Rzk encodes dependent types in the first place: a dependent type <span class="arithmatex">\(x :A \vdash B(x)\)</span> corresponds to a function <code>B : A → U</code>.</p>
 <p>With this at hand, we can now code up the <span class="arithmatex">\(\prod\)</span>-elimination rule:</p>
-<div class="arithmatex">\[ \frac{\vdash A \quad x:A\vdash B(x) \quad \vdash f : \prod_{x:A}B(x) \quad \vdash a:A}{\vdash f(a) : B }(\text{$\prod$-elim}) \]</div>
+<div class="arithmatex">\[ \frac{\vdash A \quad x:A\vdash B(x) \quad \vdash f : \prod\_{x:A}B(x) \quad \vdash a:A}{\vdash f(a) : B }(\text{$\prod$-elim}) \]</div>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:dapply" id="define:dapply" style="visibility: visible; position: relative; color: inherit">dapply</a></span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="p">( </span>B <span class="p">:</span> A → <span class="kt">U</span>)
@@ -850,9 +852,9 @@
 </span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>  := f(a)
 </span></code></pre></div>
 <p><strong>Local vs. global style rules:</strong> In dependent type theory, any rule can be used in any context. For notational simplicity we are hence presenting all our rules in <strong>local</strong> style, leaving an arbitrary background context <span class="arithmatex">\(\Gamma\)</span> implicit. For instance, the by <span class="arithmatex">\(\prod\)</span>-formation rule</p>
-<div class="arithmatex">\[ \frac{\vdash A \quad x : A\vdash B(x)}{\vdash \prod_{x:A}B(x)}\]</div>
+<div class="arithmatex">\[ \frac{\vdash A \quad x : A\vdash B(x)}{\vdash \prod\_{x:A}B(x)}\]</div>
 <p>is really short for</p>
-<div class="arithmatex">\[ \frac{\Gamma \vdash A \quad \Gamma, x : A\vdash B(x)}{\Gamma \vdash \prod_{x:A}B(x)}\]</div>
+<div class="arithmatex">\[ \frac{\Gamma \vdash A \quad \Gamma, x : A\vdash B(x)}{\Gamma \vdash \prod\_{x:A}B(x)}\]</div>
 <p>where <span class="arithmatex">\(\Gamma\)</span> is an arbitrary context, i.e., a finite list of declarations</p>
 <div class="arithmatex">\[\Gamma \equiv [x_1 : A_1, x_2 : A_2(x_1), \ldots, x_n : A_n(x_1,\ldots, x_{n-1})].\]</div>
 <p>For <span class="arithmatex">\(\Gamma, x : A\)</span> the notation <span class="arithmatex">\(\Gamma,x:A\)</span> stands for the <strong>extended context</strong></p>
@@ -874,8 +876,8 @@
 <li><strong>Elimination rules:</strong></li>
 </ol>
 <div class="arithmatex">\[\frac{\vdash p : A \times B}{\vdash \mathrm{first}(p) : A }(\text{$\times$-elim${}_1$})\]</div>
-<div class="arithmatex">\[\frac{\vdash p : A \times B}{\vdash \mathrm{second}(p) : A }(\text{$\times$-elim${}_2$})
-\]</div>
+<p>$<span class="arithmatex">\(\frac{\vdash p : A \times B}{\vdash \mathrm{second}(p) : A }(\text{\)</span>\times<span class="arithmatex">\(-elim\)</span>{}_2$})</p>
+<p>$$</p>
 <ol>
 <li><strong>Computation rules</strong></li>
 </ol>
@@ -950,7 +952,7 @@
 </span></code></pre></div>
 <p>Interestingly, we can now prove a version of the axiom of choice: let <span class="arithmatex">\(A\)</span> and <span class="arithmatex">\(B\)</span> be types and <span class="arithmatex">\(R : A \to B \to \mathcal U\)</span> a "relation". Assume that for all <span class="arithmatex">\(x : A\)</span> there is a <span class="arithmatex">\(y : B\)</span> such that <span class="arithmatex">\(R x y\)</span> holds. Then there should exist a "choice function" <span class="arithmatex">\(f : A \to B\)</span> such that for all <span class="arithmatex">\(x:A\)</span> we have <span class="arithmatex">\(Rx (fx)\)</span>.</p>
 <p>In total, what we would like is a term as follows:</p>
-<div class="arithmatex">\[ \mathrm{ac}_{A,B,R} : \left( \prod_{x:A} \sum_{y:B} Rxy\right) \to \left( \sum_{f : A \to B} \prod_{x:A} R x (fx)) \right) \]</div>
+<div class="arithmatex">\[ \mathrm{ac}_{A,B,R} : \left( \prod_{x:A} \sum*{y:B} Rxy\right) \to \left( \sum*{f : A \to B} \prod\_{x:A} R x (fx)) \right) \]</div>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:ac" id="define:ac" style="visibility: visible; position: relative; color: inherit">ac</a></span> <span class="p">(</span>A B <span class="p">:</span> <span class="kt">U</span>) <span class="p">(</span>R <span class="p">:</span> A → B → <span class="kt">U</span>) <span class="p">(</span>g <span class="p">:</span> <span class="p">(</span>x <span class="p">:</span> A) → <span class="kt">Σ</span> <span class="p">(</span>y <span class="p">:</span> B) , R x y)
 </span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>  : <span class="kt">Σ</span> <span class="p">( </span>f <span class="p">:</span> A → B) , <span class="p">(</span>x <span class="p">:</span> A) → R x (f x)
 </span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>  := <span class="bp">?</span>
@@ -1028,13 +1030,14 @@
 <h2 id="16-identity-types">§1.6. Identity types<a class="headerlink" href="#16-identity-types" title="Permanent link">&para;</a></h2>
 <p>In homotopy type theory, the notion of identity is <strong>intensional</strong>, meaning we would like to keep track of <em>how</em> and not just <em>if</em> two terms of a type are equal. Homotopy type theory supports identity types due to Martin-Löf which are defined as follows:</p>
 <p><strong>1. Formation rule:</strong></p>
-<div class="arithmatex">\[ \frac{\vdash A \quad \vdash x,y:A}{\vdash x =_A y}(\text{$=$-form})\]</div>
+<div class="arithmatex">\[ \frac{\vdash A \quad \vdash x,y:A}{\vdash x =\_A y}(\text{$=$-form})\]</div>
 <p>For a type <span class="arithmatex">\(A\)</span> and terms <span class="arithmatex">\(x,y:A\)</span> there is the identity type <span class="arithmatex">\(x =_A y\)</span> (it could be empty). We also call <span class="arithmatex">\(x =_A y\)</span> a <strong>path type</strong> and its inhabitants <strong>paths</strong>.</p>
 <p><strong>2. Introduction rule:</strong></p>
-<div class="arithmatex">\[ \frac{\vdash A \quad \vdash x:A}{\vdash \mathtt{refl}_x : x =_A x}(\text{$=$-intro})\]</div>
+<div class="arithmatex">\[ \frac{\vdash A \quad \vdash x:A}{\vdash \mathtt{refl}\_x : x =\_A x}(\text{$=$-intro})\]</div>
 <p>Every term is canonically identical to itself.</p>
 <p><strong>3. Elimination rule:</strong></p>
-<div class="arithmatex">\[ \frac{\vdash A \quad \vdash x:A
+<div class="arithmatex">\[
+\frac{\vdash A \quad \vdash x:A
 \quad \vdash C : \prod_{y : A} (x = y) \to \mathcal U \quad \vdash d : C(x,\mathtt{refl}_x)}{y:A , p : (x=_Ay)\vdash \text{ind-path}_{x,d}(y,p) : C(y,p)}(\text{$=$-elim})\]</div>
 <p>This rule might make you wonder. It is a strong principle that says: given a family <span class="arithmatex">\(C : \prod_{y : A} (x = y) \to \mathcal U\)</span>, we can get a section of <span class="arithmatex">\(C\)</span> from just a single term of the fiber <span class="arithmatex">\(C(x,\mathtt{refl}_x)\)</span>.</p>
 <p><strong>3. Computation rule:</strong></p>
@@ -1080,14 +1083,14 @@
 </span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>    <span class="p">( </span>y <span class="p">:</span> A)
 </span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>    <span class="p">( </span>p <span class="p">:</span> x = y)
 </span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>  : y = x
-</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>  := ind-path A x (<span class="p">\ </span>y → <span class="p">\ </span>p → (y = x)) <span class="s">refl</span> y p
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>  := ind-path A x (<span class="p">\ </span>y' → <span class="p">\ </span>p' → (y' = x)) <span class="s">refl</span> y p
 </span></code></pre></div></p>
 </li>
 <li>
 <p><strong>Transport:</strong>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:transport" id="define:transport" style="visibility: visible; position: relative; color: inherit">transport</a></span> <span class="p">(</span>A <span class="p">:</span> <span class="kt">U</span>) <span class="p">(</span>B <span class="p">:</span> A → <span class="kt">U</span>) <span class="p">(</span>x y <span class="p">:</span> A) <span class="p">(</span>p <span class="p">:</span> x = y) <span class="p">(</span>b <span class="p">:</span> B x)
 </span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>  : B y
-</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>  := ind-path A x (<span class="p">\ </span>y → <span class="p">\ </span>p → B y) b y p
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>  := ind-path A x (<span class="p">\ </span>y' → <span class="p">\ </span>p' → B y') b y p
 </span></code></pre></div></p>
 </li>
 </ul>
@@ -1103,7 +1106,7 @@
 <p>Again, we construct such a term by path induction:</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:right-unit" id="define:right-unit" style="visibility: visible; position: relative; color: inherit">right-unit</a></span> <span class="p">(</span>A <span class="p">:</span> <span class="kt">U</span>) <span class="p">(</span>x y <span class="p">:</span> A) <span class="p">(</span>p <span class="p">:</span> x = y)
 </span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>  : concat A x y y p <span class="s">refl</span> = p
-</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>  := (ind-path A x (<span class="p">\ </span>y → <span class="p">\ </span>p → concat A x y y p <span class="s">refl</span> = p) <span class="s">refl</span> y p)
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>  := (ind-path A x (<span class="p">\ </span>y' → <span class="p">\ </span>p' → concat A x y' y' p' <span class="s">refl</span> = p') <span class="s">refl</span> y p)
 </span></code></pre></div>
 <p>Similarly, one can prove the left unit law as well as associativity (see the exercises/Yoneda game):</p>
 <div class="arithmatex">\[ \text{concat-assoc} : \prod_{x,y,z,w : A} \prod_{p : (x=y)} \prod_{q : (y = z)} \prod_{r : (z = w)} \mathrm{concat}_{x,z,w}(\mathrm{concat}_{x,y,z}(p,q), r) = \mathrm{concat}_{x,y,w}(p,\mathrm{concat}_{y,z,w}(q,r))\]</div>
@@ -1235,9 +1238,10 @@
 </span></code></pre></div>
 <p>Now , a map <span class="arithmatex">\(f : A \to B\)</span> is an <strong>equivalence</strong> if it comes equipped with a left inverse map (called a <strong>retraction</strong>) and with a right inverse map (called a <strong>section</strong>). Accordingly, we first define the following type witnesses that a given <span class="arithmatex">\(f : A \to B\)</span> is an equivalence:</p>
 <div class="arithmatex">\[ \text{is-equiv}_{A,B}(f) :\equiv \sum_{r : B \to A} (r \circ f \sim \mathrm{id}_A) \times
-(f \circ s \sim \mathrm{id}_A)\]</div>
+(f \circ s \sim \mathrm{id}_A)
+\]</div>
 <p>Then, the type of equivalences from <span class="arithmatex">\(A\)</span> to <span class="arithmatex">\(B\)</span> is any map <span class="arithmatex">\(f : A \to B\)</span> together with a proof that <span class="arithmatex">\(f\)</span> is an equivalence:</p>
-<div class="arithmatex">\[ \mathrm{Equiv}(A,B) :\equiv (A \simeq B) :\equiv \sum_{f : A \to B} \text{is-equiv}_{A,B}(f) \]</div>
+<div class="arithmatex">\[ \mathrm{Equiv}(A,B) :\equiv (A \simeq B) :\equiv \sum*{f : A \to B} \text{is-equiv}*{A,B}(f) \]</div>
 <p>In Rzk, these definitions are given as follows:</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:is-equiv" id="define:is-equiv" style="visibility: visible; position: relative; color: inherit">is-equiv</a></span>
 </span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="p">( </span>A B <span class="p">:</span> <span class="kt">U</span>)
@@ -1273,17 +1277,17 @@
 <ol>
 <li>A type <span class="arithmatex">\(A\)</span> is <strong>contractible</strong> it comes with a homotopically unique term:</li>
 </ol>
-<div class="arithmatex">\[ \text{is-contr}(A) :\equiv \sum_{c : A} \prod_{x : A} (c = x) \]</div>
+<div class="arithmatex">\[ \text{is-contr}(A) :\equiv \sum*{c : A} \prod*{x : A} (c = x) \]</div>
 <ol>
 <li>A type <span class="arithmatex">\(A\)</span> is a <strong>(mere) proposition</strong> if any two terms in it are equal:</li>
 </ol>
-<div class="arithmatex">\[ \text{is-prop}(A) :\equiv \prod_{x, y : A} (x = y) \]</div>
+<div class="arithmatex">\[ \text{is-prop}(A) :\equiv \prod\_{x, y : A} (x = y) \]</div>
 <ol>
 <li>A type <span class="arithmatex">\(A\)</span> is a <strong>set</strong> if any two proofs of an equality are equal:</li>
 </ol>
-<div class="arithmatex">\[ \text{is-set}(A) :\equiv \prod_{x, y : A} \text{is-prop}(x = y) \]</div>
+<div class="arithmatex">\[ \text{is-set}(A) :\equiv \prod\_{x, y : A} \text{is-prop}(x = y) \]</div>
 <p>In Rzk, these definitions read as follows:</p>
-<p><div class="language-rzk highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:is-contr" id="define:is-contr" style="visibility: visible; position: relative; color: inherit">is-contr</a></span>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:is-contr" id="define:is-contr" style="visibility: visible; position: relative; color: inherit">is-contr</a></span>
 </span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>    <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
 </span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>  : <span class="kt">U</span>
 </span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>  := <span class="kt">Σ</span> <span class="p">(</span>c <span class="p">:</span> A) , <span class="p">(</span>x <span class="p">:</span> A) → c = x
@@ -1298,8 +1302,8 @@
 </span><span id="__span-22-13"><a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a>  : <span class="kt">U</span>
 </span><span id="__span-22-14"><a id="__codelineno-22-14" name="__codelineno-22-14" href="#__codelineno-22-14"></a>  := <span class="p">(</span>x y <span class="p">:</span> A) → is-prop (x = y)
 </span></code></pre></div>
-We also say that contractible types are of <strong>homotopy level (h-level)</strong> <span class="arithmatex">\(-2\)</span>, or that they are <strong><span class="arithmatex">\((-2)\)</span>-types</strong>. For <span class="arithmatex">\(n \geq -1\)</span>, we say that a type <span class="arithmatex">\(A\)</span> has <strong>h-level</strong> <span class="arithmatex">\(n\)</span> or is an <strong><span class="arithmatex">\(n\)</span>-type</strong> if for all <span class="arithmatex">\(x,y:A\)</span> the identity type <span class="arithmatex">\((x = y)\)</span> is an <span class="arithmatex">\((n-1)\)</span>-type:</p>
-<div class="arithmatex">\[ \text{is-$n$-type}(A) :\equiv \prod_{x,y:A} \text{is-$(n-1)$-type}\left((x = y)\right) \]</div>
+<p>We also say that contractible types are of <strong>homotopy level (h-level)</strong> <span class="arithmatex">\(-2\)</span>, or that they are <strong><span class="arithmatex">\((-2)\)</span>-types</strong>. For <span class="arithmatex">\(n \geq -1\)</span>, we say that a type <span class="arithmatex">\(A\)</span> has <strong>h-level</strong> <span class="arithmatex">\(n\)</span> or is an <strong><span class="arithmatex">\(n\)</span>-type</strong> if for all <span class="arithmatex">\(x,y:A\)</span> the identity type <span class="arithmatex">\((x = y)\)</span> is an <span class="arithmatex">\((n-1)\)</span>-type:</p>
+<div class="arithmatex">\[ \text{is-$n$-type}(A) :\equiv \prod\_{x,y:A} \text{is-$(n-1)$-type}\left((x = y)\right) \]</div>
 <p>One can show that the <span class="arithmatex">\((-1)\)</span>-types are exactly the propositions, and the <span class="arithmatex">\(0\)</span>-types are exactly the sets.</p>
 <p>For <span class="arithmatex">\(n \geq 1\)</span>, the <span class="arithmatex">\(n\)</span>-types correspond to <span class="arithmatex">\(n\)</span>-groupoids.</p>
 <p>Types that are not of h-level <span class="arithmatex">\(n\)</span> for any finite <span class="arithmatex">\(n\)</span> correspond to full homotopy types <em>aka</em> <span class="arithmatex">\(\infty\)</span>-groupoids.</p>
@@ -1313,10 +1317,12 @@ We also say that contractible types are of <strong>homotopy level (h-level)</str
 </span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>  := <span class="bp">?</span>
 </span></code></pre></div>
 <p>Every contractible type is a proposition. To prove this we have to produce a function:</p>
-<div class="arithmatex">\[ \prod_{A : \mathcal U} \text{is-contr}(A)\to \text{is-prop}(A) \]</div>
-<p>Let <span class="arithmatex">\(A : \mathcal U\)</span> and <span class="arithmatex">\(c : \text{is-contr}(A)\)</span>. Then <span class="arithmatex">\(c\)</span> consists of:
-* a <strong>center of contraction</strong> <span class="arithmatex">\(\mathrm{first}(c): A\)</span>
-* a <strong>contracting homotopy</strong> <span class="arithmatex">\(\mathrm{second}(c) : \prod_{x : A} (c = x)\)</span></p>
+<div class="arithmatex">\[ \prod\_{A : \mathcal U} \text{is-contr}(A)\to \text{is-prop}(A) \]</div>
+<p>Let <span class="arithmatex">\(A : \mathcal U\)</span> and <span class="arithmatex">\(c : \text{is-contr}(A)\)</span>. Then <span class="arithmatex">\(c\)</span> consists of:</p>
+<ul>
+<li>a <strong>center of contraction</strong> <span class="arithmatex">\(\mathrm{first}(c): A\)</span></li>
+<li>a <strong>contracting homotopy</strong> <span class="arithmatex">\(\mathrm{second}(c) : \prod_{x : A} (c = x)\)</span></li>
+</ul>
 <p>We can introduce shortcuts for these:</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:center-contraction" id="define:center-contraction" style="visibility: visible; position: relative; color: inherit">center-contraction</a></span>
 </span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
@@ -1356,7 +1362,7 @@ We also say that contractible types are of <strong>homotopy level (h-level)</str
 <li>A type <span class="arithmatex">\(A\)</span> is a proposition if and only if <span class="arithmatex">\(A \to \text{is-contr}(A)\)</span>; in other words if, whenever <span class="arithmatex">\(A\)</span> is inhabited it is contractible.</li>
 </ul>
 <p>For this, we need the notion of <strong>preimage</strong> or <strong>fiber</strong> of a map. If <span class="arithmatex">\(f : A \to B\)</span> is a map between types and <span class="arithmatex">\(y : B\)</span> a point then we call</p>
-<div class="arithmatex">\[ \mathrm{preimage}_{A,B}(f,y) :\equiv \mathrm{fib}_{A,B}(f,y) f^{-1}(y) :\equiv \sum_{x : A} f(x) =_B y \]</div>
+<div class="arithmatex">\[ \mathrm{preimage}_{A,B}(f,y) :\equiv \mathrm{fib}_{A,B}(f,y) f^{-1}(y) :\equiv \sum\_{x : A} f(x) =\_B y \]</div>
 <p>the <strong>preimage</strong> or <strong>fiber</strong> of <span class="arithmatex">\(f\)</span> at <span class="arithmatex">\(y\)</span>. Its terms are pairs <span class="arithmatex">\((x,p)\)</span> where <span class="arithmatex">\(x : A\)</span> and <span class="arithmatex">\(p : f(x) =_B y\)</span> a path from <span class="arithmatex">\(f(x)\)</span> to <span class="arithmatex">\(y\)</span>. This is exactly the synthetic version of the notion of homotopy fiber.</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:fib" id="define:fib" style="visibility: visible; position: relative; color: inherit">fib</a></span>
 </span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>  <span class="p">( </span>A B <span class="p">:</span> <span class="kt">U</span>)
@@ -1370,7 +1376,7 @@ We also say that contractible types are of <strong>homotopy level (h-level)</str
 <h2 id="110-function-extensionality">§1.10. Function extensionality<a class="headerlink" href="#110-function-extensionality" title="Permanent link">&para;</a></h2>
 <p>When are two functions to be considered equal, as terms of a function type? By path induction, equality implies pointwise equality.</p>
 <p>Let <span class="arithmatex">\(f,g : X \to A\)</span> be functions. Then, we get a map</p>
-<div class="arithmatex">\[ (f =_{X \to A} g) \to \left( \prod_{x:X} f(x) =_A g(x) \right), \]</div>
+<div class="arithmatex">\[ (f =_{X \to A} g) \to \left( \prod_{x:X} f(x) =\_A g(x) \right), \]</div>
 <p>or, more generally, if <span class="arithmatex">\(A : X \to \mathcal U\)</span> is a type family, and <span class="arithmatex">\(f,g : \prod_{x:X} A(x)\)</span> are sections:</p>
 <div class="arithmatex">\[(f =_{\prod_{x:X} A(x)} g) \to \left( \prod_{x:X} f(x) =_{A(x)} g(x) \right) \]</div>
 <p>This is defined as follows:</p>
