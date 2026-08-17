@@ -1,0 +1,62 @@
+site_name: Synthetic ∞-category theory
+site_url: https://jonweinb.github.io/syn-infty-cat/
+repo_url: https://github.com/jonweinb/syn-infty-cat
+repo_name: jonweinb/syn-infty-cat
+edit_uri: edit/main/lectures
+
+docs_dir: lectures
+site_dir: site
+
+exclude_docs: |
+  00-prelude.rzk.md
+
+nav:
+  - Home: index.md
+  - Lecture 1 — Intro to HoTT: 01-rzk-hott.rzk.md
+
+theme:
+  name: material
+  icon:
+    repo: fontawesome/brands/github
+  features:
+    - content.code.copy
+    - content.action.edit
+    - navigation.sections
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+markdown_extensions:
+  - admonition
+  - footnotes
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+
+extra_javascript:
+  - javascript/mathjax.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+plugins:
+  - search
+  - rzk:
+      render_svg: false
+      anchor_definitions: true

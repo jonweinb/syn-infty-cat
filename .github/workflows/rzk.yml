@@ -1,0 +1,23 @@
+name: Typecheck with Rzk
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rzk
+        uses: rzk-lang/rzk-action@v1
+        with:
+          rzk-version: latest
+          typecheck: false
+
+      - name: Typecheck (allow holes)
+        run: rzk typecheck --allow-holes

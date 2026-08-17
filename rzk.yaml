@@ -1,0 +1,3 @@
+include:
+  - lectures/00-prelude.rzk.md
+  - lectures/01-rzk-hott.rzk.md
