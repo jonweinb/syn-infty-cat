@@ -676,7 +676,7 @@ We will not go into details about these models but outline below how this presen
 | $\sum_{x:A} B(x)$          | `Σ (x : A) , B x`                       | $\exists x, B(x)$    | disjoint union                    | total space         |
 | $x : A \vdash b(x) : B(x)$ | `b : (x : A) → B(x)`                    | parametrized witness | family of elements                | section             |
 | $p : x=_A y$               | `p : x =_{A} y`                         | equality witness     | $x = y$                           | path                |
-| $\sum_{x,y:A} x=_A y$      | `Σ (x y : A) , Σ (y : A) , x = _{A}  y` | equality relation    | diagonal $\{(a,a) \; \| \; a:A\}$ | path space          |
+| $\sum_{x,y:A} x=_A y$      | `Σ (x y : A) , Σ (y : A) , x = _{A}  y` | equality relation    | diagonal $\{(a,a) \; | \; a:A\}$ | path space          |
 
 ## §1.7. Equivalences
 
