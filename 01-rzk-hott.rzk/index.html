@@ -693,7 +693,7 @@
 <div class="arithmatex">\[\Gamma \vdash a:A\]</div>
 <p>For intuition, remember how you would start a mathematical definition or proof with a clause like "Let <span class="arithmatex">\(n\)</span> be a natural number" or similar. You can think of the context <span class="arithmatex">\(\Gamma\)</span> as the declarations after the "let...".</p>
 <p>In the above example, <span class="arithmatex">\(n : \mathbb N \vdash \mathbb R^n\)</span> we can capture the family of zero vectors as</p>
-<div class="arithmatex">\[ n : \mathbb N \vdash \mathbf{0}\_n : \mathbb R^n. \]</div>
+<div class="arithmatex">\[ n : \mathbb N \vdash \mathbf{0}_n : \mathbb R^n. \]</div>
 <p>If <span class="arithmatex">\(A\)</span> is a type with no dependency, we say then <span class="arithmatex">\(A\)</span> is a type in the <strong>empty context</strong>:</p>
 <div class="arithmatex">\[{}\vdash A \quad\text{or}\quad \cdot\vdash A\]</div>
 <p>E.g., the type naturals itself does not depend on any other type, so</p>
@@ -1047,7 +1047,7 @@
 <div class="arithmatex">\[ \frac{\vdash A \quad \vdash x,y:A}{\vdash x =_A y}(\text{$=$-form})\]</div>
 <p>For a type <span class="arithmatex">\(A\)</span> and terms <span class="arithmatex">\(x,y:A\)</span> there is the identity type <span class="arithmatex">\(x =_A y\)</span> (it could be empty). We also call <span class="arithmatex">\(x =_A y\)</span> a <strong>path type</strong> and its inhabitants <strong>paths</strong>.</p>
 <p><strong>2. Introduction rule:</strong></p>
-<div class="arithmatex">\[ \frac{\vdash A \quad \vdash x:A}{\vdash \mathtt{refl}\_x : x =_A x}(\text{$=$-intro})\]</div>
+<div class="arithmatex">\[ \frac{\vdash A \quad \vdash x:A}{\vdash \mathtt{refl}_x : x =_A x}(\text{$=$-intro})\]</div>
 <p>Every term is canonically identical to itself.</p>
 <p><strong>3. Elimination rule:</strong></p>
 <div class="arithmatex">\[
