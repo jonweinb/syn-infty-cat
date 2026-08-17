@@ -11,6 +11,14 @@ We will do [literate programming](https://en.wikipedia.org/wiki/Literate_program
 
 ```
 
+To typecheck the code in the lecture notes do the following:
+
+1. Clone the repository locally (e.g. through `gh repo clone jonweinb/syn-infty-cat`)
+2. On a terminal, `cd` into the downloaded repository.
+3. On the terminal run:
+`rzk typecheck --allow-holes lectures/*.rzk.md`
+
+
 Today's lecture is an introduction to (homotopy) type theory in Rzk. We will introduce:
 * dependent types
 * how to construct new types out of old ones using type formers
