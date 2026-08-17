@@ -874,7 +874,9 @@ One can furthermore prove:
 * A type $A$ is a proposition if and only if $A \to \text{is-contr}(A)$; in other words if, whenever $A$ is inhabited it is contractible.
 
 For this, we need the notion of **preimage** or **fiber** of a map. If $f : A \to B$ is a map between types and $y : B$ a point then we call
+
 $$  \mathrm{preimage}_{A,B}(f,y) :\equiv \mathrm{fib}_{A,B}(f,y) f^{-1}(y) :\equiv \sum_{x : A} f(x) =_B y$$
+
 the **preimage** or **fiber** of $f$ at $y$. Its terms are pairs $(x,p)$ where $x : A$ and $p : f(x) =_B y$ a path from $f(x)$ to $y$. This is exactly the synthetic version of the notion of homotopy fiber.
 
 ```rzk
@@ -889,7 +891,6 @@ the **preimage** or **fiber** of $f$ at $y$. Its terms are pairs $(x,p)$ where $
 With some work one can then prove that a map $f : A \to B$ is an equivalence if and only if all of its fibers are contractible:
 
 $$\text{is-equiv}(f) \simeq \prod_{y : B} \text{is-contr}(f^{-1}(y))$$
-
 
 ## §1.9. Function extensionality
 
