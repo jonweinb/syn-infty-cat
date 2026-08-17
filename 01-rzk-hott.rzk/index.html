@@ -649,6 +649,13 @@
 <p>We will do <a href="https://en.wikipedia.org/wiki/Literate_programming">literate programming</a> in <code>.rzk.md</code>-files. Since Rzk supports various languages, at the beginning of each file, we have to explicitly set the language mode of Rzk:
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nd">#lang</span><span class="p"> </span><span class="s">rzk-1</span>
 </span></code></pre></div></p>
+<p>To typecheck the code in the lecture notes do the following:</p>
+<ol>
+<li>Clone the repository locally (e.g. through <code>gh repo clone jonweinb/syn-infty-cat</code>)</li>
+<li>On a terminal, <code>cd</code> into the downloaded repository.</li>
+<li>On the terminal run:
+<code>rzk typecheck --allow-holes lectures/*.rzk.md</code></li>
+</ol>
 <p>Today's lecture is an introduction to (homotopy) type theory in Rzk. We will introduce:
 * dependent types
 * how to construct new types out of old ones using type formers
