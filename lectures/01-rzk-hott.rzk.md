@@ -285,19 +285,19 @@ Crucially, $X$ naturally appears here as a "function with varying codomain." To 
 
 Just as an ordinary function type captures ordinary functions $A \to B$, a dependent function type should capture **dependent functions** $(x : A ) \to B(x)$.
 
-To make this rigoros, let $A$ be a type and $x : A \vdash B(x)$ be a dependent type. Then the **dependent function type** $(x:A) \to B(x)$ or $\prod_{x:A} B(x)$ is defined by the following rules:
+To make this rigorous, let $A$ be a type and $x : A \vdash B(x)$ be a dependent type. Then the **dependent function type** $(x:A) \to B(x)$ or $\prod_{x:A} B(x)$ is defined by the following rules:
 
 1. **Formation rules:**
 
-$$ \frac{\vdash A \quad x : A\vdash B(x)}{\vdash \prod\_{x:A}B(x)}(\text{$\prod$-form})$$
+$$ \frac{\vdash A \quad x : A\vdash B(x)}{\vdash \prod_{x:A}B(x)}(\text{$\prod$-form})$$
 
 2. **Introduction rules:**
 
-$$ \frac{\vdash A \quad x : A\vdash B(x) \quad x : A \vdash f(x) : B(x)}{\vdash \lambda x . f(x) :\prod\_{x:A}B(x)}(\text{$\prod$-intro})$$
+$$ \frac{\vdash A \quad x : A\vdash B(x) \quad x : A \vdash f(x) : B(x)}{\vdash \lambda x . f(x) :\prod_{x:A}B(x)}(\text{$\prod$-intro})$$
 
 3. **Elimination rules:**
 
-$$ \frac{\vdash A \quad x:A\vdash B(x) \quad \vdash f : \prod\_{x:A}B(x) \quad \vdash a:A}{\vdash f(a) : B(a) }(\text{$\prod$-elim}) $$
+$$ \frac{\vdash A \quad x:A\vdash B(x) \quad \vdash f : \prod_{x:A}B(x) \quad \vdash a:A}{\vdash f(a) : B(a) }(\text{$\prod$-elim}) $$
 
 The $\beta$- and $\eta$-rules hold verbatim.
 
@@ -319,7 +319,7 @@ In fact, this is how Rzk encodes dependent types in the first place: a dependent
 
 With this at hand, we can now code up the $\prod$-elimination rule:
 
-$$ \frac{\vdash A \quad x:A\vdash B(x) \quad \vdash f : \prod\_{x:A}B(x) \quad \vdash a:A}{\vdash f(a) : B }(\text{$\prod$-elim}) $$
+$$ \frac{\vdash A \quad x:A\vdash B(x) \quad \vdash f : \prod_{x:A}B(x) \quad \vdash a:A}{\vdash f(a) : B }(\text{$\prod$-elim}) $$
 
 ```rzk
 #def dapply
@@ -333,11 +333,11 @@ $$ \frac{\vdash A \quad x:A\vdash B(x) \quad \vdash f : \prod\_{x:A}B(x) \quad \
 
 **Local vs. global style rules:** In dependent type theory, any rule can be used in any context. For notational simplicity we are hence presenting all our rules in **local** style, leaving an arbitrary background context $\Gamma$ implicit. For instance, the by $\prod$-formation rule
 
-$$ \frac{\vdash A \quad x : A\vdash B(x)}{\vdash \prod\_{x:A}B(x)}$$
+$$ \frac{\vdash A \quad x : A\vdash B(x)}{\vdash \prod_{x:A}B(x)}$$
 
 is really short for
 
-$$ \frac{\Gamma \vdash A \quad \Gamma, x : A\vdash B(x)}{\Gamma \vdash \prod\_{x:A}B(x)}$$
+$$ \frac{\Gamma \vdash A \quad \Gamma, x : A\vdash B(x)}{\Gamma \vdash \prod_{x:A}B(x)}$$
 
 where $\Gamma$ is an arbitrary context, i.e., a finite list of declarations
 
@@ -487,7 +487,7 @@ Interestingly, we can now prove a version of the axiom of choice: let $A$ and $B
 
 In total, what we would like is a term as follows:
 
-$$ \mathrm{ac}_{A,B,R} : \left( \prod_{x:A} \sum*{y:B} Rxy\right) \to \left( \sum*{f : A \to B} \prod\_{x:A} R x (fx)) \right) $$
+$$ \mathrm{ac}_{A,B,R} : \left( \prod_{x:A} \sum_{y:B} Rxy\right) \to \left( \sum_{f : A \to B} \prod_{x:A} R x (fx)) \right) $$
 
 ```rzk
 #def ac
@@ -543,13 +543,13 @@ In homotopy type theory, the notion of identity is **intensional**, meaning we w
 
 **1. Formation rule:**
 
-$$ \frac{\vdash A \quad \vdash x,y:A}{\vdash x =\_A y}(\text{$=$-form})$$
+$$ \frac{\vdash A \quad \vdash x,y:A}{\vdash x =_A y}(\text{$=$-form})$$
 
 For a type $A$ and terms $x,y:A$ there is the identity type $x =_A y$ (it could be empty). We also call $x =_A y$ a **path type** and its inhabitants **paths**.
 
 **2. Introduction rule:**
 
-$$ \frac{\vdash A \quad \vdash x:A}{\vdash \mathtt{refl}\_x : x =\_A x}(\text{$=$-intro})$$
+$$ \frac{\vdash A \quad \vdash x:A}{\vdash \mathtt{refl}\_x : x =_A x}(\text{$=$-intro})$$
 
 Every term is canonically identical to itself.
 
@@ -744,7 +744,7 @@ $$
 
 Then, the type of equivalences from $A$ to $B$ is any map $f : A \to B$ together with a proof that $f$ is an equivalence:
 
-$$ \mathrm{Equiv}(A,B) :\equiv (A \simeq B) :\equiv \sum*{f : A \to B} \text{is-equiv}*{A,B}(f) $$
+$$ \mathrm{Equiv}(A,B) :\equiv (A \simeq B) :\equiv \sum_{f : A \to B} \text{is-equiv}_{A,B}(f) $$
 
 In Rzk, these definitions are given as follows:
 
@@ -791,15 +791,15 @@ We start with the lowest levels.
 
 1. A type $A$ is **contractible** it comes with a homotopically unique term:
 
-$$ \text{is-contr}(A) :\equiv \sum*{c : A} \prod*{x : A} (c = x) $$
+$$ \text{is-contr}(A) :\equiv \sum_{c : A} \prod_{x : A} (c = x) $$
 
 2. A type $A$ is a **(mere) proposition** if any two terms in it are equal:
 
-$$ \text{is-prop}(A) :\equiv \prod\_{x, y : A} (x = y) $$
+$$ \text{is-prop}(A) :\equiv \prod_{x, y : A} (x = y) $$
 
 3. A type $A$ is a **set** if any two proofs of an equality are equal:
 
-$$ \text{is-set}(A) :\equiv \prod\_{x, y : A} \text{is-prop}(x = y) $$
+$$ \text{is-set}(A) :\equiv \prod_{x, y : A} \text{is-prop}(x = y) $$
 
 In Rzk, these definitions read as follows:
 
@@ -822,7 +822,7 @@ In Rzk, these definitions read as follows:
 
 We also say that contractible types are of **homotopy level (h-level)** $-2$, or that they are **$(-2)$-types**. For $n \geq -1$, we say that a type $A$ has **h-level** $n$ or is an **$n$-type** if for all $x,y:A$ the identity type $(x = y)$ is an $(n-1)$-type:
 
-$$ \text{is-$n$-type}(A) :\equiv \prod\_{x,y:A}~\text{is-$(n-1)$-type}\left((x = y)\right) $$
+$$ \text{is-$n$-type}(A) :\equiv \prod_{x,y:A}~\text{is-$(n-1)$-type}\left((x = y)\right) $$
 
 One can show that the $(-1)$-types are exactly the propositions, and the $0$-types are exactly the sets.
 
@@ -848,7 +848,7 @@ In Rzk, any two inhabitants of the unit type are _judgmentally_ equal, hence the
 
 Every contractible type is a proposition. To prove this we have to produce a function:
 
-$$ \prod\_{A : \mathcal U} \text{is-contr}(A)\to \text{is-prop}(A) $$
+$$ \prod_{A : \mathcal U} \text{is-contr}(A)\to \text{is-prop}(A) $$
 
 Let $A : \mathcal U$ and $c : \text{is-contr}(A)$. Then $c$ consists of:
 
@@ -908,7 +908,7 @@ One can furthermore prove:
 
 For this, we need the notion of **preimage** or **fiber** of a map. If $f : A \to B$ is a map between types and $y : B$ a point then we call
 
-$$ \mathrm{preimage}_{A,B}(f,y) :\equiv \mathrm{fib}_{A,B}(f,y) f^{-1}(y) :\equiv \sum\_{x : A} f(x) =\_B y $$
+$$ \mathrm{preimage}_{A,B}(f,y) :\equiv \mathrm{fib}_{A,B}(f,y) f^{-1}(y) :\equiv \sum_{x : A} f(x) =_B y $$
 
 the **preimage** or **fiber** of $f$ at $y$. Its terms are pairs $(x,p)$ where $x : A$ and $p : f(x) =_B y$ a path from $f(x)$ to $y$. This is exactly the synthetic version of the notion of homotopy fiber.
 
@@ -931,7 +931,7 @@ When are two functions to be considered equal, as terms of a function type? By p
 
 Let $f,g : X \to A$ be functions. Then, we get a map
 
-$$ (f =_{X \to A} g) \to \left( \prod_{x:X} f(x) =\_A g(x) \right), $$
+$$ (f =_{X \to A} g) \to \left( \prod_{x:X} f(x) =_A g(x) \right), $$
 
 or, more generally, if $A : X \to \mathcal U$ is a type family, and $f,g : \prod_{x:X} A(x)$ are sections:
 
