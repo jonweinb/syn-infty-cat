@@ -747,18 +747,18 @@
 <p>Conversely, can we also <strong>destroy</strong> function terms? E.g., given a function <span class="arithmatex">\(f : A \to B\)</span> can we get a type of one of the original terms? Indeed, assuming we also have <span class="arithmatex">\(a : A\)</span> we get back a term in <span class="arithmatex">\(B\)</span> just by applying <span class="arithmatex">\(f\)</span> to <span class="arithmatex">\(a\)</span>, denoted by <span class="arithmatex">\(f(a) : B\)</span>.</p>
 <p>In Rzk, this reads as follows:</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:apply" id="define:apply" style="visibility: visible; position: relative; color: inherit">apply</a></span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="p">( </span>A B <span class="p">:</span> <span class="kt">U</span>)
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="p">( </span>f <span class="p">:</span> A → B)
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="p">( </span>a <span class="p">:</span> A)
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  <span class="p">( </span>A B <span class="p">:</span> <span class="kt">U</span>)
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  <span class="p">( </span>f <span class="p">:</span> A → B)
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>  <span class="p">( </span>a <span class="p">:</span> A)
 </span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>  : B
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>  := (f a)
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>  := f a
 </span></code></pre></div>
 <p>Let us try to use this to define the composite of two functions: given types <span class="arithmatex">\(A, B, C\)</span> and functions <span class="arithmatex">\(f : A \to B\)</span> and <span class="arithmatex">\(g : B \to C\)</span> we want to express the <strong>composite function</strong> <span class="arithmatex">\(g \circ f : A \to C\)</span>. Can you do it in Rzk using <code>\</code>?</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:compose" id="define:compose" style="visibility: visible; position: relative; color: inherit">compose</a></span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="p">( </span>A B C <span class="p">:</span> <span class="kt">U</span>)
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="p">( </span>g <span class="p">:</span> B → C) <span class="p">(</span>f <span class="p">:</span> A → B)
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  <span class="p">( </span>A B C <span class="p">:</span> <span class="kt">U</span>)
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>  <span class="p">( </span>g <span class="p">:</span> B → C) <span class="p">(</span>f <span class="p">:</span> A → B)
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  : A → C
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>  := <span class="p">\ </span>a -&gt; (g (f a))
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>  := <span class="bp">?</span>
 </span></code></pre></div>
 <p>What have we done so far? We have given some definitions and let Rzk check that the typing is correct---and this is basically all we will be doing! We will see soon how we can encode proofs in that way.</p>
 <p>The <span class="arithmatex">\(\to\)</span>-operator assigning to two types <span class="arithmatex">\(A\)</span> and <span class="arithmatex">\(B\)</span> a new type <span class="arithmatex">\(A \to B\)</span> is an example of a <strong>type former</strong>, constructing a new type out of old ones.</p>
@@ -844,12 +844,12 @@
 <p>With this at hand, we can now code up the <span class="arithmatex">\(\prod\)</span>-elimination rule:</p>
 <div class="arithmatex">\[ \frac{\vdash A \quad x:A\vdash B(x) \quad \vdash f : \prod\_{x:A}B(x) \quad \vdash a:A}{\vdash f(a) : B }(\text{$\prod$-elim}) \]</div>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:dapply" id="define:dapply" style="visibility: visible; position: relative; color: inherit">dapply</a></span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="p">( </span>B <span class="p">:</span> A → <span class="kt">U</span>)
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="p">( </span>f <span class="p">:</span> <span class="p">(</span>x <span class="p">:</span> A) → B x)
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="p">( </span>a <span class="p">:</span> A)
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>  <span class="p">( </span>B <span class="p">:</span> A → <span class="kt">U</span>)
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>  <span class="p">( </span>f <span class="p">:</span> <span class="p">(</span>x <span class="p">:</span> A) → B x)
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>  <span class="p">( </span>a <span class="p">:</span> A)
 </span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>  : B a
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>  := f(a)
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>  := f a
 </span></code></pre></div>
 <p><strong>Local vs. global style rules:</strong> In dependent type theory, any rule can be used in any context. For notational simplicity we are hence presenting all our rules in <strong>local</strong> style, leaving an arbitrary background context <span class="arithmatex">\(\Gamma\)</span> implicit. For instance, the by <span class="arithmatex">\(\prod\)</span>-formation rule</p>
 <div class="arithmatex">\[ \frac{\vdash A \quad x : A\vdash B(x)}{\vdash \prod\_{x:A}B(x)}\]</div>
@@ -888,9 +888,9 @@
 <p>In Rzk, we write <code>product A B</code> for <span class="arithmatex">\(A \times B\)</span>.</p>
 <p>Introduction is implemented using the parenthesis primitive <code>( , )</code>:</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:pair" id="define:pair" style="visibility: visible; position: relative; color: inherit">pair</a></span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="p">( </span>A B <span class="p">:</span> <span class="kt">U</span>)
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="p">( </span>a <span class="p">:</span> A)
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="p">( </span>b <span class="p">:</span> B)
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>  <span class="p">( </span>A B <span class="p">:</span> <span class="kt">U</span>)
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>  <span class="p">( </span>a <span class="p">:</span> A)
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>  <span class="p">( </span>b <span class="p">:</span> B)
 </span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>  : prod A B
 </span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>  := <span class="bp">?</span>
 </span></code></pre></div>
@@ -935,27 +935,40 @@
 </ol>
 <p>A proper systematic treatment of variables in type theory requires extra care and is beyond the scope of our lecture.</p>
 <p>In analogy to the notion of the total space <span class="arithmatex">\(E\)</span> of a bundle <span class="arithmatex">\(p : E \to B\)</span>, given a family <span class="arithmatex">\(B : A \to \mathcal U\)</span>, we call the type <span class="arithmatex">\(\sum_{x:A} B(x)\)</span> the <strong>total type</strong> of the family <span class="arithmatex">\(B\)</span>:</p>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:total-type" id="define:total-type" style="visibility: visible; position: relative; color: inherit">total-type</a></span> <span class="p">(</span>A <span class="p">:</span> <span class="kt">U</span>) <span class="p">(</span>B <span class="p">:</span> A → <span class="kt">U</span>)
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>  : <span class="kt">U</span>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>  := <span class="kt">Σ</span> <span class="p">(</span>a <span class="p">:</span> A) , B a
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:total-type" id="define:total-type" style="visibility: visible; position: relative; color: inherit">total-type</a></span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>  <span class="p">( </span>B <span class="p">:</span> A → <span class="kt">U</span>)
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>  : <span class="kt">U</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>  := <span class="kt">Σ</span> <span class="p">(</span>a <span class="p">:</span> A) , B a
 </span></code></pre></div>
 <p>To produce a term out of the total type <span class="arithmatex">\(\sum_{x:A} B(x)\)</span> into any type <span class="arithmatex">\(C\)</span> it suffices to have a dependent function <span class="arithmatex">\(f : \prod_{a:A} B(a) \to C\)</span>. This is called the <strong>recursion principle for <span class="arithmatex">\(\sum\)</span>-types</strong>:</p>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:rec-Sigma" id="define:rec-Sigma" style="visibility: visible; position: relative; color: inherit">rec-Sigma</a></span> <span class="p">(</span>A <span class="p">:</span> <span class="kt">U</span>) <span class="p">(</span>B <span class="p">:</span> A → <span class="kt">U</span>) <span class="p">(</span>C <span class="p">:</span> <span class="kt">U</span>) <span class="p">(</span>f <span class="p">:</span> <span class="p">(</span>a <span class="p">:</span> A) → B a → C)
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>  : total-type A B → C
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>  := <span class="bp">?</span>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:rec-Sigma" id="define:rec-Sigma" style="visibility: visible; position: relative; color: inherit">rec-Sigma</a></span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>  <span class="p">( </span>B <span class="p">:</span> A → <span class="kt">U</span>)
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>  <span class="p">( </span>C <span class="p">:</span> <span class="kt">U</span>)
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>  <span class="p">( </span>f <span class="p">:</span> <span class="p">(</span>a <span class="p">:</span> A) → B a → C)
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>  : total-type A B → C
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>  := <span class="bp">?</span>
 </span></code></pre></div>
 <p>Note that we have <span class="arithmatex">\(\lambda\)</span>-abstracted over a term in constructor-form <code>(a , b)</code> rather than an anonymous term <code>p</code> in <code>Σ (a : A) , B a</code>. This useful technique supported by Rzk is called <strong>pattern-matching</strong>, making many proofs easier to write and read.</p>
 <p>Similarly, we also can prove the <strong>induction principle for <span class="arithmatex">\(\sum\)</span>-types</strong> where <span class="arithmatex">\(C\)</span> is not a constant type but a family over <span class="arithmatex">\(\sum_{x:A} B(x)\)</span>:</p>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:ind-Sigma" id="define:ind-Sigma" style="visibility: visible; position: relative; color: inherit">ind-Sigma</a></span> <span class="p">(</span>A <span class="p">:</span> <span class="kt">U</span>) <span class="p">(</span>B <span class="p">:</span> A → <span class="kt">U</span>) <span class="p">(</span>C <span class="p">:</span> (total-type A B) → <span class="kt">U</span>) <span class="p">(</span>f <span class="p">:</span> <span class="p">(</span>a <span class="p">:</span> A) → <span class="p">(</span>b <span class="p">:</span> B a) → C (a , b))
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>  : <span class="p">( </span>z <span class="p">:</span> total-type A B) → C z
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>  := <span class="bp">?</span>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:ind-Sigma" id="define:ind-Sigma" style="visibility: visible; position: relative; color: inherit">ind-Sigma</a></span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>  <span class="p">( </span>B <span class="p">:</span> A → <span class="kt">U</span>)
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>  <span class="p">( </span>C <span class="p">:</span> (total-type A B) → <span class="kt">U</span>)
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>  <span class="p">( </span>f <span class="p">:</span> <span class="p">(</span>a <span class="p">:</span> A) → <span class="p">(</span>b <span class="p">:</span> B a) → C (a , b))
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>  : <span class="p">( </span>z <span class="p">:</span> total-type A B) → C z
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>  := <span class="bp">?</span>
 </span></code></pre></div>
 <p>Interestingly, we can now prove a version of the axiom of choice: let <span class="arithmatex">\(A\)</span> and <span class="arithmatex">\(B\)</span> be types and <span class="arithmatex">\(R : A \to B \to \mathcal U\)</span> a "relation". Assume that for all <span class="arithmatex">\(x : A\)</span> there is a <span class="arithmatex">\(y : B\)</span> such that <span class="arithmatex">\(R x y\)</span> holds. Then there should exist a "choice function" <span class="arithmatex">\(f : A \to B\)</span> such that for all <span class="arithmatex">\(x:A\)</span> we have <span class="arithmatex">\(Rx (fx)\)</span>.</p>
 <p>In total, what we would like is a term as follows:</p>
 <div class="arithmatex">\[ \mathrm{ac}_{A,B,R} : \left( \prod_{x:A} \sum*{y:B} Rxy\right) \to \left( \sum*{f : A \to B} \prod\_{x:A} R x (fx)) \right) \]</div>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:ac" id="define:ac" style="visibility: visible; position: relative; color: inherit">ac</a></span> <span class="p">(</span>A B <span class="p">:</span> <span class="kt">U</span>) <span class="p">(</span>R <span class="p">:</span> A → B → <span class="kt">U</span>) <span class="p">(</span>g <span class="p">:</span> <span class="p">(</span>x <span class="p">:</span> A) → <span class="kt">Σ</span> <span class="p">(</span>y <span class="p">:</span> B) , R x y)
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>  : <span class="kt">Σ</span> <span class="p">( </span>f <span class="p">:</span> A → B) , <span class="p">(</span>x <span class="p">:</span> A) → R x (f x)
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>  := <span class="bp">?</span>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:ac" id="define:ac" style="visibility: visible; position: relative; color: inherit">ac</a></span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>  <span class="p">( </span>A B <span class="p">:</span> <span class="kt">U</span>)
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>  <span class="p">( </span>R <span class="p">:</span> A → B → <span class="kt">U</span>)
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>  <span class="p">( </span>g <span class="p">:</span> <span class="p">(</span>x <span class="p">:</span> A) → <span class="kt">Σ</span> <span class="p">(</span>y <span class="p">:</span> B) , R x y)
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>  : <span class="kt">Σ</span> <span class="p">( </span>f <span class="p">:</span> A → B) , <span class="p">(</span>x <span class="p">:</span> A) → R x (f x)
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>  := <span class="bp">?</span>
 </span></code></pre></div>
 <h2 id="15-propositions-as-types">§1.5. Propositions as types<a class="headerlink" href="#15-propositions-as-types" title="Permanent link">&para;</a></h2>
 <p>As suggested by the above axiom of choice, a fruitful way to think about types is as logical propositions, and type formers as logical connectives.</p>
@@ -1023,9 +1036,10 @@
 <p>Translating this via the Curry--Howard correspondence means we have to give a function:</p>
 <div class="arithmatex">\[\text{modus-ponens}_{A,B} : \left(A \times (A \to B)\right) \to B\]</div>
 <p>Can you solve the following goal in Rzk?</p>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:modus-ponens" id="define:modus-ponens" style="visibility: visible; position: relative; color: inherit">modus-ponens</a></span> <span class="p">(</span>A B <span class="p">:</span> <span class="kt">U</span>)
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>  : prod A (A → B) → B
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>  := <span class="bp">?</span>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:modus-ponens" id="define:modus-ponens" style="visibility: visible; position: relative; color: inherit">modus-ponens</a></span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>  <span class="p">( </span>A B <span class="p">:</span> <span class="kt">U</span>)
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>  : prod A (A → B) → B
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>  := <span class="bp">?</span>
 </span></code></pre></div>
 <h2 id="16-identity-types">§1.6. Identity types<a class="headerlink" href="#16-identity-types" title="Permanent link">&para;</a></h2>
 <p>In homotopy type theory, the notion of identity is <strong>intensional</strong>, meaning we would like to keep track of <em>how</em> and not just <em>if</em> two terms of a type are equal. Homotopy type theory supports identity types due to Martin-Löf which are defined as follows:</p>
@@ -1046,8 +1060,8 @@
 <p>Both the constructor and eliminator are primitives in Rzk. We can state the corresponding rules using wrappers.</p>
 <p>Namely, the introduction rule can be stated as:</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:intro-path" id="define:intro-path" style="visibility: visible; position: relative; color: inherit">intro-path</a></span>
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>     <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>     <span class="p">( </span>x <span class="p">:</span> A)
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>  <span class="p">( </span>x <span class="p">:</span> A)
 </span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>  : ( x =_{A} x)
 </span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>  := <span class="bp">?</span>
 </span></code></pre></div>
@@ -1078,19 +1092,24 @@
 <li>
 <p><strong>Symmetry:</strong>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:rev" id="define:rev" style="visibility: visible; position: relative; color: inherit">rev</a></span>
-</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>    <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
-</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>    <span class="p">( </span>x <span class="p">:</span> A)
-</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>    <span class="p">( </span>y <span class="p">:</span> A)
-</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>    <span class="p">( </span>p <span class="p">:</span> x = y)
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>  <span class="p">( </span>x <span class="p">:</span> A)
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>  <span class="p">( </span>y <span class="p">:</span> A)
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>  <span class="p">( </span>p <span class="p">:</span> x = y)
 </span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>  : y = x
 </span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>  := ind-path A x (<span class="p">\ </span>y' → <span class="p">\ </span>p' → (y' = x)) <span class="s">refl</span> y p
 </span></code></pre></div></p>
 </li>
 <li>
 <p><strong>Transport:</strong>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:transport" id="define:transport" style="visibility: visible; position: relative; color: inherit">transport</a></span> <span class="p">(</span>A <span class="p">:</span> <span class="kt">U</span>) <span class="p">(</span>B <span class="p">:</span> A → <span class="kt">U</span>) <span class="p">(</span>x y <span class="p">:</span> A) <span class="p">(</span>p <span class="p">:</span> x = y) <span class="p">(</span>b <span class="p">:</span> B x)
-</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>  : B y
-</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>  := ind-path A x (<span class="p">\ </span>y' → <span class="p">\ </span>p' → B y') b y p
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:transport" id="define:transport" style="visibility: visible; position: relative; color: inherit">transport</a></span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>  <span class="p">( </span>B <span class="p">:</span> A → <span class="kt">U</span>)
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>  <span class="p">( </span>x y <span class="p">:</span> A)
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>  <span class="p">( </span>p <span class="p">:</span> x = y)
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>  <span class="p">( </span>b <span class="p">:</span> B x)
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>  : B y
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>  := ind-path A x (<span class="p">\ </span>y' → <span class="p">\ </span>p' → B y') b y p
 </span></code></pre></div></p>
 </li>
 </ul>
@@ -1101,12 +1120,20 @@
 <div class="arithmatex">\[\mathrm{concat}_{x,y,y}(p,\mathtt{refl}_y) = p\]</div>
 <p>But this is not just an equation; it's a type itself! So saying that this law holds means to construct a term:</p>
 <div class="arithmatex">\[\text{right-unit}_{x,y,p} : \mathrm{concat}_{x,y,y}(p,\mathtt{refl}_y) = p\]</div>
-<p>More explicitly, this term is exhbited as a higher "path between paths:"</p>
+<p>More explicitly, this term is exhibited as a higher "path between paths:"</p>
 <div class="arithmatex">\[\text{right-unit}_{x,y,p} : \mathrm{concat}_{x,y,y}(p,\mathtt{refl}_y) =_{(x=_Ay)} p\]</div>
 <p>Again, we construct such a term by path induction:</p>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:right-unit" id="define:right-unit" style="visibility: visible; position: relative; color: inherit">right-unit</a></span> <span class="p">(</span>A <span class="p">:</span> <span class="kt">U</span>) <span class="p">(</span>x y <span class="p">:</span> A) <span class="p">(</span>p <span class="p">:</span> x = y)
-</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>  : concat A x y y p <span class="s">refl</span> = p
-</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>  := (ind-path A x (<span class="p">\ </span>y' → <span class="p">\ </span>p' → concat A x y' y' p' <span class="s">refl</span> = p') <span class="s">refl</span> y p)
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:right-unit" id="define:right-unit" style="visibility: visible; position: relative; color: inherit">right-unit</a></span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>  <span class="p">( </span>x y <span class="p">:</span> A)
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>  <span class="p">( </span>p <span class="p">:</span> x = y)
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>  : concat A x y y p <span class="s">refl</span> = p
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>  :=
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>  ind-path A x
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>  (<span class="p">\ </span>y' → <span class="p">\ </span>p' → concat A x y' y' p' <span class="s">refl</span> = p')
+</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>  ( <span class="s">refl</span>)
+</span><span id="__span-18-10"><a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>  ( y)
+</span><span id="__span-18-11"><a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a>  ( p)
 </span></code></pre></div>
 <p>Similarly, one can prove the left unit law as well as associativity (see the exercises/Yoneda game):</p>
 <div class="arithmatex">\[ \text{concat-assoc} : \prod_{x,y,z,w : A} \prod_{p : (x=y)} \prod_{q : (y = z)} \prod_{r : (z = w)} \mathrm{concat}_{x,z,w}(\mathrm{concat}_{x,y,z}(p,q), r) = \mathrm{concat}_{x,y,w}(p,\mathrm{concat}_{y,z,w}(q,r))\]</div>
@@ -1216,7 +1243,7 @@
 </tr>
 </tbody>
 </table>
-<p><strong>NB:</strong> "Space" her can mean e.g. Kan complex, a notion of <span class="arithmatex">\(\infty\)</span>-groupoids in simplicial sets (cf. Nima's lecture). Accordingly, fibrations are then Kan fibrations.</p>
+<p><strong>NB:</strong> "Space" here can mean e.g. Kan complex, a notion of <span class="arithmatex">\(\infty\)</span>-groupoids in simplicial sets (cf. Nima's lecture). Accordingly, fibrations are then Kan fibrations.</p>
 <h2 id="18-equivalences">§1.8. Equivalences<a class="headerlink" href="#18-equivalences" title="Permanent link">&para;</a></h2>
 <p>Given that types can be modeled as homotopy types we should be able to capture a notion of <strong>equivalence</strong> of types, corresponding to homotopy equivalence in the model.</p>
 <p>As a first notion, we want to introduce <strong>logical equivalence</strong> of a type. We say <span class="arithmatex">\(A\)</span> and <span class="arithmatex">\(B\)</span> are logically equivalent if each admits functions to the other one:</p>
@@ -1244,31 +1271,35 @@
 <div class="arithmatex">\[ \mathrm{Equiv}(A,B) :\equiv (A \simeq B) :\equiv \sum*{f : A \to B} \text{is-equiv}*{A,B}(f) \]</div>
 <p>In Rzk, these definitions are given as follows:</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:is-equiv" id="define:is-equiv" style="visibility: visible; position: relative; color: inherit">is-equiv</a></span>
-</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="p">( </span>A B <span class="p">:</span> <span class="kt">U</span>)
-</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="p">( </span>f <span class="p">:</span> A → B)
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>  <span class="p">( </span>A B <span class="p">:</span> <span class="kt">U</span>)
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>  <span class="p">( </span>f <span class="p">:</span> A → B)
 </span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>  : <span class="kt">U</span>
-</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>  := prod
-</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>    <span class="p">( </span>Σ ( r <span class="p">:</span> B → A) , homotopy A A (<span class="p">\ </span>a → r (f a)) (id A))
-</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>    <span class="p">( </span>Σ ( s <span class="p">:</span> B → A) , homotopy B B (<span class="p">\ </span>b → f (s b)) (id B))
-</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>
-</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Equiv" id="define:Equiv" style="visibility: visible; position: relative; color: inherit">Equiv</a></span>
-</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>    <span class="p">( </span>A B <span class="p">:</span> <span class="kt">U</span>)
-</span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>  : <span class="kt">U</span>
-</span><span id="__span-21-12"><a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a>  := <span class="kt">Σ</span> <span class="p">(</span>f <span class="p">:</span> A → B) , (is-equiv A B f)
-</span><span id="__span-21-13"><a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a>
-</span><span id="__span-21-14"><a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:has-section-is-equiv" id="define:has-section-is-equiv" style="visibility: visible; position: relative; color: inherit">has-section-is-equiv</a></span>
-</span><span id="__span-21-15"><a id="__codelineno-21-15" name="__codelineno-21-15" href="#__codelineno-21-15"></a>  <span class="p">( </span>A B <span class="p">:</span> <span class="kt">U</span>)
-</span><span id="__span-21-16"><a id="__codelineno-21-16" name="__codelineno-21-16" href="#__codelineno-21-16"></a>  <span class="p">( </span>f <span class="p">:</span> A → B)
-</span><span id="__span-21-17"><a id="__codelineno-21-17" name="__codelineno-21-17" href="#__codelineno-21-17"></a>  <span class="p">( </span>is-equiv-f <span class="p">:</span> is-equiv A B f)
-</span><span id="__span-21-18"><a id="__codelineno-21-18" name="__codelineno-21-18" href="#__codelineno-21-18"></a>  : <span class="kt">Σ</span> <span class="p">( </span>s <span class="p">:</span> B → A) , homotopy B B (<span class="p">\ </span>b → f (s b)) (id B)
-</span><span id="__span-21-19"><a id="__codelineno-21-19" name="__codelineno-21-19" href="#__codelineno-21-19"></a>  := <span class="s">second</span> is-equiv-f
-</span><span id="__span-21-20"><a id="__codelineno-21-20" name="__codelineno-21-20" href="#__codelineno-21-20"></a>
-</span><span id="__span-21-21"><a id="__codelineno-21-21" name="__codelineno-21-21" href="#__codelineno-21-21"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:section-is-equiv" id="define:section-is-equiv" style="visibility: visible; position: relative; color: inherit">section-is-equiv</a></span>
-</span><span id="__span-21-22"><a id="__codelineno-21-22" name="__codelineno-21-22" href="#__codelineno-21-22"></a>  <span class="p">( </span>A B <span class="p">:</span> <span class="kt">U</span>)
-</span><span id="__span-21-23"><a id="__codelineno-21-23" name="__codelineno-21-23" href="#__codelineno-21-23"></a>  <span class="p">( </span>f <span class="p">:</span> A → B)
-</span><span id="__span-21-24"><a id="__codelineno-21-24" name="__codelineno-21-24" href="#__codelineno-21-24"></a>  <span class="p">( </span>is-equiv-f <span class="p">:</span> is-equiv A B f)
-</span><span id="__span-21-25"><a id="__codelineno-21-25" name="__codelineno-21-25" href="#__codelineno-21-25"></a>  : B → A
-</span><span id="__span-21-26"><a id="__codelineno-21-26" name="__codelineno-21-26" href="#__codelineno-21-26"></a>  := <span class="s">first</span> (has-section-is-equiv A B f is-equiv-f)
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>  :=
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>  prod
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>  <span class="p">( </span>Σ ( r <span class="p">:</span> B → A)
+</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>    , homotopy A A (<span class="p">\ </span>a → r (f a)) (id A))
+</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>  <span class="p">( </span>Σ ( s <span class="p">:</span> B → A)
+</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>    , homotopy B B (<span class="p">\ </span>b → f (s b)) (id B))
+</span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>
+</span><span id="__span-21-12"><a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Equiv" id="define:Equiv" style="visibility: visible; position: relative; color: inherit">Equiv</a></span>
+</span><span id="__span-21-13"><a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a>  <span class="p">( </span>A B <span class="p">:</span> <span class="kt">U</span>)
+</span><span id="__span-21-14"><a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a>  : <span class="kt">U</span>
+</span><span id="__span-21-15"><a id="__codelineno-21-15" name="__codelineno-21-15" href="#__codelineno-21-15"></a>  := <span class="kt">Σ</span> <span class="p">(</span>f <span class="p">:</span> A → B) , (is-equiv A B f)
+</span><span id="__span-21-16"><a id="__codelineno-21-16" name="__codelineno-21-16" href="#__codelineno-21-16"></a>
+</span><span id="__span-21-17"><a id="__codelineno-21-17" name="__codelineno-21-17" href="#__codelineno-21-17"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:has-section-is-equiv" id="define:has-section-is-equiv" style="visibility: visible; position: relative; color: inherit">has-section-is-equiv</a></span>
+</span><span id="__span-21-18"><a id="__codelineno-21-18" name="__codelineno-21-18" href="#__codelineno-21-18"></a>  <span class="p">( </span>A B <span class="p">:</span> <span class="kt">U</span>)
+</span><span id="__span-21-19"><a id="__codelineno-21-19" name="__codelineno-21-19" href="#__codelineno-21-19"></a>  <span class="p">( </span>f <span class="p">:</span> A → B)
+</span><span id="__span-21-20"><a id="__codelineno-21-20" name="__codelineno-21-20" href="#__codelineno-21-20"></a>  <span class="p">( </span>is-equiv-f <span class="p">:</span> is-equiv A B f)
+</span><span id="__span-21-21"><a id="__codelineno-21-21" name="__codelineno-21-21" href="#__codelineno-21-21"></a>  : <span class="kt">Σ</span> <span class="p">( </span>s <span class="p">:</span> B → A)
+</span><span id="__span-21-22"><a id="__codelineno-21-22" name="__codelineno-21-22" href="#__codelineno-21-22"></a>    , homotopy B B (<span class="p">\ </span>b → f (s b)) (id B)
+</span><span id="__span-21-23"><a id="__codelineno-21-23" name="__codelineno-21-23" href="#__codelineno-21-23"></a>  := <span class="s">second</span> is-equiv-f
+</span><span id="__span-21-24"><a id="__codelineno-21-24" name="__codelineno-21-24" href="#__codelineno-21-24"></a>
+</span><span id="__span-21-25"><a id="__codelineno-21-25" name="__codelineno-21-25" href="#__codelineno-21-25"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:section-is-equiv" id="define:section-is-equiv" style="visibility: visible; position: relative; color: inherit">section-is-equiv</a></span>
+</span><span id="__span-21-26"><a id="__codelineno-21-26" name="__codelineno-21-26" href="#__codelineno-21-26"></a>  <span class="p">( </span>A B <span class="p">:</span> <span class="kt">U</span>)
+</span><span id="__span-21-27"><a id="__codelineno-21-27" name="__codelineno-21-27" href="#__codelineno-21-27"></a>  <span class="p">( </span>f <span class="p">:</span> A → B)
+</span><span id="__span-21-28"><a id="__codelineno-21-28" name="__codelineno-21-28" href="#__codelineno-21-28"></a>  <span class="p">( </span>is-equiv-f <span class="p">:</span> is-equiv A B f)
+</span><span id="__span-21-29"><a id="__codelineno-21-29" name="__codelineno-21-29" href="#__codelineno-21-29"></a>  : B → A
+</span><span id="__span-21-30"><a id="__codelineno-21-30" name="__codelineno-21-30" href="#__codelineno-21-30"></a>  := <span class="s">first</span> (has-section-is-equiv A B f is-equiv-f)
 </span></code></pre></div>
 <p>One can prove that being an equivalent is an equivalence relation on the universe of all types. In particular, every equivalence <span class="arithmatex">\(A \to B\)</span> gives rise to a map <span class="arithmatex">\(B \to A\)</span> which is an equivalence itself.</p>
 <h2 id="19-contractibility-propositions-and-sets">§1.9. Contractibility, propositions, and sets<a class="headerlink" href="#19-contractibility-propositions-and-sets" title="Permanent link">&para;</a></h2>
@@ -1288,22 +1319,22 @@
 <div class="arithmatex">\[ \text{is-set}(A) :\equiv \prod\_{x, y : A} \text{is-prop}(x = y) \]</div>
 <p>In Rzk, these definitions read as follows:</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:is-contr" id="define:is-contr" style="visibility: visible; position: relative; color: inherit">is-contr</a></span>
-</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>    <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
 </span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>  : <span class="kt">U</span>
 </span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>  := <span class="kt">Σ</span> <span class="p">(</span>c <span class="p">:</span> A) , <span class="p">(</span>x <span class="p">:</span> A) → c = x
 </span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>
 </span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:is-prop" id="define:is-prop" style="visibility: visible; position: relative; color: inherit">is-prop</a></span>
-</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>     <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
 </span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>  : <span class="kt">U</span>
 </span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>  := <span class="p">(</span>x y <span class="p">:</span> A) → x = y
 </span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>
 </span><span id="__span-22-11"><a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:is-set" id="define:is-set" style="visibility: visible; position: relative; color: inherit">is-set</a></span>
-</span><span id="__span-22-12"><a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a>    <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
+</span><span id="__span-22-12"><a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
 </span><span id="__span-22-13"><a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a>  : <span class="kt">U</span>
 </span><span id="__span-22-14"><a id="__codelineno-22-14" name="__codelineno-22-14" href="#__codelineno-22-14"></a>  := <span class="p">(</span>x y <span class="p">:</span> A) → is-prop (x = y)
 </span></code></pre></div>
 <p>We also say that contractible types are of <strong>homotopy level (h-level)</strong> <span class="arithmatex">\(-2\)</span>, or that they are <strong><span class="arithmatex">\((-2)\)</span>-types</strong>. For <span class="arithmatex">\(n \geq -1\)</span>, we say that a type <span class="arithmatex">\(A\)</span> has <strong>h-level</strong> <span class="arithmatex">\(n\)</span> or is an <strong><span class="arithmatex">\(n\)</span>-type</strong> if for all <span class="arithmatex">\(x,y:A\)</span> the identity type <span class="arithmatex">\((x = y)\)</span> is an <span class="arithmatex">\((n-1)\)</span>-type:</p>
-<div class="arithmatex">\[ \text{is-$n$-type}(A) :\equiv \prod\_{x,y:A} \text{is-$(n-1)$-type}\left((x = y)\right) \]</div>
+<div class="arithmatex">\[ \text{is-$n$-type}(A) :\equiv \prod\_{x,y:A}~\text{is-$(n-1)$-type}\left((x = y)\right) \]</div>
 <p>One can show that the <span class="arithmatex">\((-1)\)</span>-types are exactly the propositions, and the <span class="arithmatex">\(0\)</span>-types are exactly the sets.</p>
 <p>For <span class="arithmatex">\(n \geq 1\)</span>, the <span class="arithmatex">\(n\)</span>-types correspond to <span class="arithmatex">\(n\)</span>-groupoids.</p>
 <p>Types that are not of h-level <span class="arithmatex">\(n\)</span> for any finite <span class="arithmatex">\(n\)</span> correspond to full homotopy types <em>aka</em> <span class="arithmatex">\(\infty\)</span>-groupoids.</p>
@@ -1331,8 +1362,8 @@
 </span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>  := <span class="s">first</span> is-contr-A
 </span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>
 </span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:homotopy-contraction" id="define:homotopy-contraction" style="visibility: visible; position: relative; color: inherit">homotopy-contraction</a></span>
-</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a><span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
-</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a><span class="p">( </span>is-contr-A <span class="p">:</span> is-contr A)
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>  <span class="p">( </span>is-contr-A <span class="p">:</span> is-contr A)
 </span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a>  : <span class="p">( </span>z <span class="p">:</span> A) → (center-contraction A is-contr-A) = z
 </span><span id="__span-24-11"><a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a>  := <span class="s">second</span> is-contr-A
 </span></code></pre></div>
@@ -1344,10 +1375,10 @@
 </span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>  <span class="p">( </span>x y <span class="p">:</span> A)
 </span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>  : x = y
 </span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>  :=
-</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>    concat A x (center-contraction A is-contr-A) y
-</span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a>      ( rev A (center-contraction A is-contr-A) x
-</span><span id="__span-25-9"><a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a>        ( homotopy-contraction A is-contr-A x))
-</span><span id="__span-25-10"><a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a>      ( homotopy-contraction A is-contr-A y)
+</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>  concat A x (center-contraction A is-contr-A) y
+</span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a>  ( rev A ( center-contraction A is-contr-A) x
+</span><span id="__span-25-9"><a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a>    ( homotopy-contraction A is-contr-A x))
+</span><span id="__span-25-10"><a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a>  ( homotopy-contraction A is-contr-A y)
 </span></code></pre></div>
 <p>Notably, the properties of a type being contractible/a proposition/a set, or, of a map being an equivalence are actually properties in the sense that they are all propositions in the sense that we can construct terms of the following types:</p>
 <div class="arithmatex">\[\text{is-prop}\left(\text{is-contr}(A)\right)\]</div>
@@ -1387,25 +1418,26 @@
 </span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>  <span class="p">( </span>p <span class="p">:</span> f = g)
 </span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a>  : <span class="p">( </span>x <span class="p">:</span> X) → (f x = g x)
 </span><span id="__span-27-7"><a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a>  :=
-</span><span id="__span-27-8"><a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a>    ind-path
-</span><span id="__span-27-9"><a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a>      <span class="p">( </span>( x <span class="p">:</span> X) → A x)
-</span><span id="__span-27-10"><a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a>      ( f)
-</span><span id="__span-27-11"><a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a>      <span class="p">( </span>\ g' p' → (x <span class="p">:</span> X) → (f x = g' x))
-</span><span id="__span-27-12"><a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a>      ( <span class="p">\ </span>x → <span class="s">refl</span>)
-</span><span id="__span-27-13"><a id="__codelineno-27-13" name="__codelineno-27-13" href="#__codelineno-27-13"></a>      ( g)
-</span><span id="__span-27-14"><a id="__codelineno-27-14" name="__codelineno-27-14" href="#__codelineno-27-14"></a>      ( p)
+</span><span id="__span-27-8"><a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a>  ind-path
+</span><span id="__span-27-9"><a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a>  <span class="p">( </span>( x <span class="p">:</span> X) → A x)
+</span><span id="__span-27-10"><a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a>  ( f)
+</span><span id="__span-27-11"><a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a>  <span class="p">( </span>\ g' p' → (x <span class="p">:</span> X) → (f x = g' x))
+</span><span id="__span-27-12"><a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a>  ( <span class="p">\ </span>x → <span class="s">refl</span>)
+</span><span id="__span-27-13"><a id="__codelineno-27-13" name="__codelineno-27-13" href="#__codelineno-27-13"></a>  ( g)
+</span><span id="__span-27-14"><a id="__codelineno-27-14" name="__codelineno-27-14" href="#__codelineno-27-14"></a>  ( p)
 </span></code></pre></div>
 <p>But this map need not be an equivalence in general! Thus, we will assume this as a principle:</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:FunExt" id="define:FunExt" style="visibility: visible; position: relative; color: inherit">FunExt</a></span>
 </span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>  : <span class="kt">U</span>
 </span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>  :=
-</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>    <span class="p">( </span>X <span class="p">:</span> <span class="kt">U</span>)
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>  <span class="p">( </span>X <span class="p">:</span> <span class="kt">U</span>)
 </span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>  → <span class="p">( </span>A <span class="p">:</span> X → <span class="kt">U</span>)
 </span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>  → <span class="p">( </span>f <span class="p">:</span> <span class="p">(</span>x <span class="p">:</span> X) → A x)
 </span><span id="__span-28-7"><a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>  → <span class="p">( </span>g <span class="p">:</span> <span class="p">(</span>x <span class="p">:</span> X) → A x)
-</span><span id="__span-28-8"><a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>  → is-equiv (f = g) <span class="p">(</span>(x <span class="p">:</span> X) → f x = g x) (htpy-eq X A f g)
-</span><span id="__span-28-9"><a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>
-</span><span id="__span-28-10"><a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a><span class="kr">#assume</span><span class="p"> </span>funext : FunExt
+</span><span id="__span-28-8"><a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>  → is-equiv (f = g) <span class="p">(</span>(x <span class="p">:</span> X) → f x = g x)
+</span><span id="__span-28-9"><a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>    ( htpy-eq X A f g)
+</span><span id="__span-28-10"><a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a>
+</span><span id="__span-28-11"><a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a><span class="kr">#assume</span><span class="p"> </span>funext : FunExt
 </span></code></pre></div>
 <h2 id="bibliography">Bibliography<a class="headerlink" href="#bibliography" title="Permanent link">&para;</a></h2>
 <p>Some suggested further reading:</p>
