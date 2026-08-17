@@ -515,7 +515,7 @@ Can you solve the following goal in Rzk?
 ```
 
 
-# §1.5. Identity types
+## §1.5. Identity types
 
 In homotopy type theory, the notion of identity is **intensional**, meaning we would like to keep track of *how* and not just *if* two terms of a type are equal. Homotopy type theory supports identity types due to Martin-Löf which are defined as follows:
 
@@ -633,7 +633,7 @@ Similarly, one can prove the left unit law as well as associativity (see the exe
 
 $$ \text{concat-assoc} : \prod_{x,y,z,w : A} \prod_{p : (x=y)} \prod_{q : (y = z)} \prod_{r : (z = w)} \mathrm{concat}_{x,z,w}(\mathrm{concat}_{x,y,z}(p,q), r) = \mathrm{concat}_{x,y,w}(p,\mathrm{concat}_{y,z,w}(q,r))$$
 
-## Types as $\infty$-groupoids
+## §1.6. Types as $\infty$-groupoids
 
 The rules for identity types go back to Per Martin-Löf and his 1975 seminal paper "An Intuitionistic Theory of Types." This work sparked the question if one could derive the principle of **uniqueness of identity proofs (UIP)**, i.e., if one could construct a term of the following type:
 
@@ -666,7 +666,7 @@ We will not go into details about these models but outline below how this presen
 | $p : x=_A y$               | `p : x =_{A} y`                         | equality witness     | $x = y$                           | path                |
 | $\sum_{x,y:A} x=_A y$      | `Σ (x y : A) , Σ (y : A) , x = _{A}  y` | equality relation    | diagonal $\{(a,a) \; \| \; a:A\}$ | path space          |
 
-## §1.6 Equivalences
+## §1.7. Equivalences
 
 Given that types can be modeled as homotopy types we should be able to capture a notion of **equivalence** of types, corresponding to homotopy equivalence in the model.
 
@@ -739,7 +739,7 @@ In Rzk, these definitions are given as follows:
 
 One can prove that being an equivalent is an equivalence relation on the universe of all types. In particular, every equivalence $A \to B$ gives rise to a map $B \to A$ which is an equivalence itself.
 
-## §1.7. Contractibility, propositions, and sets
+## §1.8. Contractibility, propositions, and sets
 
 The (higher) identity types are what gives types interesting homotopical structure. Voevodsky had the insight to stratify them into a hierarchy of $n$-types, with $n$ either being an integer with $n \geq -2$ or $n = \infty$.
 
@@ -875,7 +875,7 @@ With some work one can then prove that a map $f : A \to B$ is an equivalence if 
 $$\text{is-equiv}(f) \simeq \prod_{y : B} \text{is-contr}(f^{-1}(y))$$
 
 
-## §1.8. Function extensionality
+## §1.9. Function extensionality
 
 When are two functions to be considered equal, as terms of a function type? By path induction, equality implies pointwise equality.
 
