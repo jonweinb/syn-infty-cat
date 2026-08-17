@@ -803,9 +803,9 @@ We say that <em>"A is a type in context <span class="arithmatex">\(\Gamma\)</spa
 \]</div>
 <p>It is instructive to compare the tree-shaped derivation of function composition with our earlier Rzk counterpart. In this lecture series, we will mostly disregard the deductive system perspective and just focus on formalization. But we will present new type formers using rules, so it is useful to keep this perspective in the back of your mind as well.</p>
 <p>A key idea of <em>dependent</em> type theory is that it should capture dependent or indexed constructions natively. Functions are ubiquitous in mathematics but they are sometimes not convenient. For instance, in differential geometry a vector field is defined as follows.</p>
-<p>Let <span class="arithmatex">\(M\)</span> be a (topological/differentiable/smooth...) manifold and <span class="arithmatex">\(p : TM \to M\)</span> its tangent projection. A vector field on <span class="arithmatex">\(M\)</span> is a (continuous/differentiable/smooth...function) <span class="arithmatex">\(X : M \to TM\)</span> such that <span class="arithmatex">\(p \circ X = \mathrm{id}_M\)</span>. This amounts to viewing <span class="arithmatex">\(X\)</span> as a generalized "function"
-$$ p \mapsto X(p) \in T_p M $$
-where <span class="arithmatex">\(T_p M\)</span> denotes the tangent space at the point <span class="arithmatex">\(p \in M\)</span>.</p>
+<p>Let <span class="arithmatex">\(M\)</span> be a (topological/differentiable/smooth...) manifold and <span class="arithmatex">\(p : TM \to M\)</span> its tangent projection. A vector field on <span class="arithmatex">\(M\)</span> is a (continuous/differentiable/smooth...function) <span class="arithmatex">\(X : M \to TM\)</span> such that <span class="arithmatex">\(p \circ X = \mathrm{id}_M\)</span>. This amounts to viewing <span class="arithmatex">\(X\)</span> as a generalized "function"</p>
+<div class="arithmatex">\[ p \mapsto X(p) \in T_p M \]</div>
+<p>where <span class="arithmatex">\(T_p M\)</span> denotes the tangent space at the point <span class="arithmatex">\(p \in M\)</span>.</p>
 <p>Crucially, <span class="arithmatex">\(X\)</span> naturally appears here as a "function with varying codomain." To make this precise in set theory we need an additional condition, but in dependent type theory this will be a primitive operation on types, giving rise to <strong>dependent function type</strong> (also called <strong>dependent product</strong> or <strong><span class="arithmatex">\(\prod\)</span>-type</strong>):</p>
 <p>Just as an ordinary function type captures ordinary functions <span class="arithmatex">\(A \to B\)</span>, a dependent function type should capture <strong>dependent functions</strong> <span class="arithmatex">\((x : A ) \to B(x)\)</span>.</p>
 <p>To make this rigoros, let <span class="arithmatex">\(A\)</span> be a type and <span class="arithmatex">\(x : A \vdash B(x)\)</span> be a dependent type. Then the <strong>dependent function type</strong> <span class="arithmatex">\((x:A) \to B(x)\)</span> or <span class="arithmatex">\(\prod_{x:A} B(x)\)</span> is defined by the following rules:</p>
@@ -936,7 +936,7 @@ where <span class="arithmatex">\(T_p M\)</span> denotes the tangent space at the
 <p>Note that we have <span class="arithmatex">\(\lambda\)</span>-abstracted over a term in constructor-form <code>(a , b)</code> rather than an anonymous term <code>p</code> in <code>Σ (a : A) , B a</code>. This useful technique supported by Rzk is called <strong>pattern-matching</strong>, making many proofs easier to write and read.</p>
 <p>Similarly, we also can prove the <strong>induction principle for <span class="arithmatex">\(\sum\)</span>-types</strong> where <span class="arithmatex">\(C\)</span> is not a constant type but a family over <span class="arithmatex">\(\sum_{x:A} B(x)\)</span>:</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:ind-Sigma" id="define:ind-Sigma" style="visibility: visible; position: relative; color: inherit">ind-Sigma</a></span> <span class="p">(</span>A <span class="p">:</span> <span class="kt">U</span>) <span class="p">(</span>B <span class="p">:</span> A → <span class="kt">U</span>) <span class="p">(</span>C <span class="p">:</span> (total-type A B) → <span class="kt">U</span>) <span class="p">(</span>f <span class="p">:</span> <span class="p">(</span>a <span class="p">:</span> A) → <span class="p">(</span>b <span class="p">:</span> B a) → C (a , b))
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>  : <span class="p">( </span>z <span class="p">:</span> total-type A B ) → C z
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>  : <span class="p">( </span>z <span class="p">:</span> total-type A B) → C z
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>  := <span class="bp">?</span>
 </span></code></pre></div>
 <p>Interestingly, we can now prove a version of the axiom of choice: let <span class="arithmatex">\(A\)</span> and <span class="arithmatex">\(B\)</span> be types and <span class="arithmatex">\(R : A \to B \to \mathcal U\)</span> a "relation". Assume that for all <span class="arithmatex">\(x : A\)</span> there is a <span class="arithmatex">\(y : B\)</span> such that <span class="arithmatex">\(R x y\)</span> holds. Then there should exist a "choice function" <span class="arithmatex">\(f : A \to B\)</span> such that for all <span class="arithmatex">\(x:A\)</span> we have <span class="arithmatex">\(Rx (fx)\)</span>.</p>
@@ -1206,8 +1206,8 @@ where <span class="arithmatex">\(T_p M\)</span> denotes the tangent space at the
 </table>
 <h2 id="17-equivalences">§1.7. Equivalences<a class="headerlink" href="#17-equivalences" title="Permanent link">&para;</a></h2>
 <p>Given that types can be modeled as homotopy types we should be able to capture a notion of <strong>equivalence</strong> of types, corresponding to homotopy equivalence in the model.</p>
-<p>As a first notion, we want to introduce <strong>logical equivalence</strong> of a type. We say <span class="arithmatex">\(A\)</span> and <span class="arithmatex">\(B\)</span> are logically equivalent if each admits functions to the other one:
-$$ (A \leftrightarrow B) :\equiv (A \to B) \times (B \to A)$$</p>
+<p>As a first notion, we want to introduce <strong>logical equivalence</strong> of a type. We say <span class="arithmatex">\(A\)</span> and <span class="arithmatex">\(B\)</span> are logically equivalent if each admits functions to the other one:</p>
+<div class="arithmatex">\[ (A \leftrightarrow B) :\equiv (A \to B) \times (B \to A)\]</div>
 <p>This means, one of the types is inhabited if and only if the other one is:</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:iff" id="define:iff" style="visibility: visible; position: relative; color: inherit">iff</a></span>
 </span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>  <span class="p">( </span>A B <span class="p">:</span> <span class="kt">U</span>)
@@ -1261,13 +1261,17 @@ $$ (A \leftrightarrow B) :\equiv (A \to B) \times (B \to A)$$</p>
 <p>The (higher) identity types are what gives types interesting homotopical structure. Voevodsky had the insight to stratify them into a hierarchy of <span class="arithmatex">\(n\)</span>-types, with <span class="arithmatex">\(n\)</span> either being an integer with <span class="arithmatex">\(n \geq -2\)</span> or <span class="arithmatex">\(n = \infty\)</span>.</p>
 <p>We start with the lowest levels.</p>
 <ol>
-<li>A type <span class="arithmatex">\(A\)</span> is <strong>contractible</strong> it comes with a homotopically unique term:
-$$ \text{is-contr}(A) :\equiv \sum_{c : A} \prod_{x : A} (c = x) $$</li>
-<li>A type <span class="arithmatex">\(A\)</span> is a <strong>(mere) proposition</strong> if any two terms in it are equal:
-$$ \text{is-prop}(A) :\equiv \prod_{x, y : A} (x = y) $$</li>
-<li>A type <span class="arithmatex">\(A\)</span> is a <strong>set</strong> if any two proofs of an equality are equal:
-$$ \text{is-set}(A) :\equiv \prod_{x, y : A} \text{is-prop}(x = y) $$</li>
+<li>A type <span class="arithmatex">\(A\)</span> is <strong>contractible</strong> it comes with a homotopically unique term:</li>
 </ol>
+<div class="arithmatex">\[ \text{is-contr}(A) :\equiv \sum_{c : A} \prod_{x : A} (c = x) \]</div>
+<ol>
+<li>A type <span class="arithmatex">\(A\)</span> is a <strong>(mere) proposition</strong> if any two terms in it are equal:</li>
+</ol>
+<div class="arithmatex">\[ \text{is-prop}(A) :\equiv \prod_{x, y : A} (x = y) \]</div>
+<ol>
+<li>A type <span class="arithmatex">\(A\)</span> is a <strong>set</strong> if any two proofs of an equality are equal:</li>
+</ol>
+<div class="arithmatex">\[ \text{is-set}(A) :\equiv \prod_{x, y : A} \text{is-prop}(x = y) \]</div>
 <p>In Rzk, these definitions read as follows:</p>
 <p><div class="language-rzk highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:is-contr" id="define:is-contr" style="visibility: visible; position: relative; color: inherit">is-contr</a></span>
 </span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>    <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
@@ -1356,8 +1360,8 @@ the <strong>preimage</strong> or <strong>fiber</strong> of <span class="arithmat
 <h2 id="19-function-extensionality">§1.9. Function extensionality<a class="headerlink" href="#19-function-extensionality" title="Permanent link">&para;</a></h2>
 <p>When are two functions to be considered equal, as terms of a function type? By path induction, equality implies pointwise equality.</p>
 <p>Let <span class="arithmatex">\(f,g : X \to A\)</span> be functions. Then, we get a map</p>
-<p>$$ (f =<em>{X \to A} g) \to \left( \prod</em>{x:X} f(x) =_A g(x) \right), $$
-or, more generally, if <span class="arithmatex">\(A : X \to \mathcal U\)</span> is a type family, and <span class="arithmatex">\(f,g : \prod_{x:X} A(x)\)</span> are sections:</p>
+<div class="arithmatex">\[ (f =_{X \to A} g) \to \left( \prod_{x:X} f(x) =_A g(x) \right), \]</div>
+<p>or, more generally, if <span class="arithmatex">\(A : X \to \mathcal U\)</span> is a type family, and <span class="arithmatex">\(f,g : \prod_{x:X} A(x)\)</span> are sections:</p>
 <div class="arithmatex">\[(f =_{\prod_{x:X} A(x)} g) \to \left( \prod_{x:X} f(x) =_{A(x)} g(x) \right) \]</div>
 <p>This is defined as follows:</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:htpy-eq" id="define:htpy-eq" style="visibility: visible; position: relative; color: inherit">htpy-eq</a></span>
