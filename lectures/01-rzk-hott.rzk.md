@@ -265,7 +265,9 @@ It is instructive to compare the tree-shaped derivation of function composition 
 A key idea of *dependent* type theory is that it should capture dependent or indexed constructions natively. Functions are ubiquitous in mathematics but they are sometimes not convenient. For instance, in differential geometry a vector field is defined as follows.
 
 Let $M$ be a (topological/differentiable/smooth...) manifold and $p : TM \to M$ its tangent projection. A vector field on $M$ is a (continuous/differentiable/smooth...function) $X : M \to TM$ such that $p \circ X = \mathrm{id}_M$. This amounts to viewing $X$ as a generalized "function"
+
 $$ p \mapsto X(p) \in T_p M $$
+
 where $T_p M$ denotes the tangent space at the point $p \in M$.
 
 Crucially, $X$ naturally appears here as a "function with varying codomain." To make this precise in set theory we need an additional condition, but in dependent type theory this will be a primitive operation on types, giving rise to **dependent function type** (also called **dependent product** or **$\prod$-type**):
@@ -460,7 +462,7 @@ Similarly, we also can prove the **induction principle for $\sum$-types** where 
 
 ```rzk
 #def ind-Sigma (A : U) (B : A → U) (C : (total-type A B) → U) (f : (a : A) → (b : B a) → C (a , b))
-  : ( z : total-type A B ) → C z
+  : ( z : total-type A B) → C z
   := ?
 ```
 
@@ -671,6 +673,7 @@ We will not go into details about these models but outline below how this presen
 Given that types can be modeled as homotopy types we should be able to capture a notion of **equivalence** of types, corresponding to homotopy equivalence in the model.
 
 As a first notion, we want to introduce **logical equivalence** of a type. We say $A$ and $B$ are logically equivalent if each admits functions to the other one:
+
 $$ (A \leftrightarrow B) :\equiv (A \to B) \times (B \to A)$$
 
 This means, one of the types is inhabited if and only if the other one is:
@@ -746,10 +749,15 @@ The (higher) identity types are what gives types interesting homotopical structu
 We start with the lowest levels.
 
 1. A type $A$ is **contractible** it comes with a homotopically unique term:
+
 $$ \text{is-contr}(A) :\equiv \sum_{c : A} \prod_{x : A} (c = x) $$
+
 2. A type $A$ is a **(mere) proposition** if any two terms in it are equal:
+
 $$ \text{is-prop}(A) :\equiv \prod_{x, y : A} (x = y) $$
+
 3. A type $A$ is a **set** if any two proofs of an equality are equal:
+
 $$ \text{is-set}(A) :\equiv \prod_{x, y : A} \text{is-prop}(x = y) $$
 
 In Rzk, these definitions read as follows:
@@ -882,6 +890,7 @@ When are two functions to be considered equal, as terms of a function type? By p
 Let $f,g : X \to A$ be functions. Then, we get a map
 
 $$ (f =_{X \to A} g) \to \left( \prod_{x:X} f(x) =_A g(x) \right), $$
+
 or, more generally, if $A : X \to \mathcal U$ is a type family, and $f,g : \prod_{x:X} A(x)$ are sections:
 
 $$(f =_{\prod_{x:X} A(x)} g) \to \left( \prod_{x:X} f(x) =_{A(x)} g(x) \right) $$
@@ -935,4 +944,3 @@ Some suggested further reading:
 * Michael Shulman. Homotopy type theory: the logic of space. In Mathieu Anel and Gabriel Catren (eds.), *New Spaces in Mathematics: Formal and Conceptual Reflections*, Cambridge University Press, 2021, pp. 322–404. [arXiv:1703.03007](https://arxiv.org/abs/1703.03007)
 * Thomas Streicher. A model of type theory in simplicial sets: A brief introduction to Voevodsky's homotopy type theory. *Journal of Applied Logic* **12** (2014), no. 1, 45–49. [https://www2.mathematik.tu-darmstadt.de/~streicher/sstt.pdf](https://www2.mathematik.tu-darmstadt.de/~streicher/sstt.pdf)
 * The Univalent Foundations Program. *Homotopy Type Theory: Univalent Foundations of Mathematics*. Institute for Advanced Study, 2013. [https://homotopytypetheory.org/book/](https://homotopytypetheory.org/book/)
-
