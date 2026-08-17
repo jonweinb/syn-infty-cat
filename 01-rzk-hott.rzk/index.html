@@ -681,15 +681,15 @@
 <p>The list of declarations on the left hand side of the turnstile is called a <strong>context</strong>. In general, a context <span class="arithmatex">\(\Gamma\)</span> is a finite ordered list of (hypothetical) term declarations:</p>
 <div class="arithmatex">\[\Gamma \equiv [a_1 : A_1, a_2 : A_2(a_1), a_3 : A_3(a_1,a_2), a_n : A_n(a_1, \ldots, a_{n-1})]\]</div>
 <p>A general <strong>typing judgment</strong> has the form</p>
-<p>$<span class="arithmatex">\(\Gamma \vdash A ~~\text{type}\)</span>$
-or, for short:</p>
-<p>$<span class="arithmatex">\(\Gamma \vdash A\)</span>$
-We say that <em>"A is a type in context <span class="arithmatex">\(\Gamma\)</span>."</em></p>
+<div class="arithmatex">\[\Gamma \vdash A ~~\text{type}\]</div>
+<p>or, for short:</p>
+<div class="arithmatex">\[\Gamma \vdash A\]</div>
+<p>We say that <em>"A is a type in context <span class="arithmatex">\(\Gamma\)</span>."</em></p>
 <p>Just as types can be depend on contexts, so can terms:</p>
 <div class="arithmatex">\[a :A, b : B(a) \vdash c(a,b) : C(a,b)\]</div>
 <p>In general, we write:</p>
 <div class="arithmatex">\[\Gamma \vdash a:A\]</div>
-<p>In the above example, $ n : \mathbb N \vdash \mathbb R^n $ we can capture the family of zero vectors as</p>
+<p>In the above example, <span class="arithmatex">\(n : \mathbb N \vdash \mathbb R^n\)</span> we can capture the family of zero vectors as</p>
 <div class="arithmatex">\[ n : \mathbb N \vdash \mathbf{0}_n :  \mathbb R^n. \]</div>
 <p>If <span class="arithmatex">\(A\)</span> is a type with no dependency, we say then <span class="arithmatex">\(A\)</span> is a type in the <strong>empty context</strong>:</p>
 <div class="arithmatex">\[{}\vdash A \quad\text{or}\quad \cdot\vdash A\]</div>
@@ -1352,9 +1352,9 @@ We also say that contractible types are of <strong>homotopy level (h-level)</str
 <li>A type is contractible if and only if it is equivalent to the unit type.</li>
 <li>A type <span class="arithmatex">\(A\)</span> is a proposition if and only if <span class="arithmatex">\(A \to \text{is-contr}(A)\)</span>; in other words if, whenever <span class="arithmatex">\(A\)</span> is inhabited it is contractible.</li>
 </ul>
-<p>For this, we need the notion of <strong>preimage</strong> or <strong>fiber</strong> of a map. If <span class="arithmatex">\(f : A \to B\)</span> is a map between types and <span class="arithmatex">\(y : B\)</span> a point then we call
-$$  \mathrm{preimage}<em>{A,B}(f,y) :\equiv \mathrm{fib}</em>{A,B}(f,y) f^{-1}(y) :\equiv \sum_{x : A} f(x) =_B y$$
-the <strong>preimage</strong> or <strong>fiber</strong> of <span class="arithmatex">\(f\)</span> at <span class="arithmatex">\(y\)</span>. Its terms are pairs <span class="arithmatex">\((x,p)\)</span> where <span class="arithmatex">\(x : A\)</span> and <span class="arithmatex">\(p : f(x) =_B y\)</span> a path from <span class="arithmatex">\(f(x)\)</span> to <span class="arithmatex">\(y\)</span>. This is exactly the synthetic version of the notion of homotopy fiber.</p>
+<p>For this, we need the notion of <strong>preimage</strong> or <strong>fiber</strong> of a map. If <span class="arithmatex">\(f : A \to B\)</span> is a map between types and <span class="arithmatex">\(y : B\)</span> a point then we call</p>
+<div class="arithmatex">\[  \mathrm{preimage}_{A,B}(f,y) :\equiv \mathrm{fib}_{A,B}(f,y) f^{-1}(y) :\equiv \sum_{x : A} f(x) =_B y\]</div>
+<p>the <strong>preimage</strong> or <strong>fiber</strong> of <span class="arithmatex">\(f\)</span> at <span class="arithmatex">\(y\)</span>. Its terms are pairs <span class="arithmatex">\((x,p)\)</span> where <span class="arithmatex">\(x : A\)</span> and <span class="arithmatex">\(p : f(x) =_B y\)</span> a path from <span class="arithmatex">\(f(x)\)</span> to <span class="arithmatex">\(y\)</span>. This is exactly the synthetic version of the notion of homotopy fiber.</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:fib" id="define:fib" style="visibility: visible; position: relative; color: inherit">fib</a></span>
 </span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>  <span class="p">( </span>A B <span class="p">:</span> <span class="kt">U</span>)
 </span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>  <span class="p">( </span>f <span class="p">:</span> A → B)
