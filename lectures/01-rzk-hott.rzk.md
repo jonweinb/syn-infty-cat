@@ -377,7 +377,7 @@ $$\frac{\vdash p : A \times B}{\vdash \mathrm{first}(p) : A }(\text{$\times$-eli
 
 
 
-$$\frac{\vdash p : A \times B}{\vdash \mathrm{second}(p) : A }(\text{$\times$-elim${}_2$})
+$$\frac{\vdash p : A \times B}{\vdash \mathrm{second}(p) : B }(\text{$\times$-elim${}_2$})
 $$
 
 4. **Computation rules**
@@ -400,7 +400,7 @@ Introduction is implemented using the parenthesis primitive `( , )`:
     ( a : A)
     ( b : B)
   : prod A B
-  := ?
+  := ( a , b )
 ```
 
 Elimination is implemented using the primitives `first` and `second`:
@@ -408,11 +408,11 @@ Elimination is implemented using the primitives `first` and `second`:
 ```rzk
 #def fst (A B : U) (p : prod A B)
   : A
-  := ?
+  := first p
 
 #def snd (A B : U) (p : prod A B)
   : B
-  := ?
+  := second p
 ```
 
 Coming back to the intuition from differential geometry,  think about how we drew an analogy between sections and dependent functions. In this view, we also see a connection between dependent types $b : B \vdash E(b)$ and bundles. In a bundle $p : E \to B$, the total space $E$ appears as the union of its fibers, $E \cong \coprod_{b \in B} p^{-1}(b)$. For instance, in the case of the tangent bundle $p : TM \to M$, we have $TM \cong \coprod_{p \in M} T_p M$, where $T_p M$ are the tangent vectors of $M$ at a point $p$. An element of $TM$ then is a pair $(p,\gamma)$ with $\gamma \in T_p M$.
@@ -459,7 +459,7 @@ In analogy to the notion of the total space $E$ of a bundle $p : E \to B$, given
 ```rzk
 #def total-type (A : U) (B : A → U)
   : U
-  := Σ (a : A) , B a
+  := Σ (a : A), B(a)
 ```
 
 To produce a term out of the total type $\sum_{x:A} B(x)$ into any type $C$ it suffices to have a dependent function $f : \prod_{a:A} B(a) \to C$. This is called the **recursion principle for $\sum$-types**:
@@ -568,8 +568,8 @@ Namely, the introduction rule can be stated as:
 #def intro-path
      ( A : U)
      ( x : A)
-  : ( x =_{A} x)
-  := ?
+  : ( x = x)
+  := refl
 ```
 
 Both in type-theoretic and Rzk syntax we can drop the subscript, and simply write $x = y$ or `x = y`, resp.
