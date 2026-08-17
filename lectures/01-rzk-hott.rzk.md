@@ -60,9 +60,11 @@ $$\Gamma \equiv [a_1 : A_1, a_2 : A_2(a_1), a_3 : A_3(a_1,a_2), a_n : A_n(a_1, \
 A general **typing judgment** has the form
 
 $$\Gamma \vdash A ~~\text{type}$$
+
 or, for short:
 
 $$\Gamma \vdash A$$
+
 We say that *"A is a type in context $\Gamma$."*
 
 Just as types can be depend on contexts, so can terms:
@@ -73,7 +75,7 @@ In general, we write:
 
 $$\Gamma \vdash a:A$$
 
-In the above example, $ n : \mathbb N \vdash \mathbb R^n $ we can capture the family of zero vectors as
+In the above example, $n : \mathbb N \vdash \mathbb R^n$ we can capture the family of zero vectors as
 
 $$ n : \mathbb N \vdash \mathbf{0}_n :  \mathbb R^n. $$
 
