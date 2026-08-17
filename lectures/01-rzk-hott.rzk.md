@@ -75,6 +75,8 @@ In general, we write:
 
 $$\Gamma \vdash a:A$$
 
+For intuition, remember how you would start a mathematical definition or proof with a clause like "Let $n$ be a natural number" or similar. You can think of the context $\Gamma$ as the declarations after the "let...".
+
 In the above example, $n : \mathbb N \vdash \mathbb R^n$ we can capture the family of zero vectors as
 
 $$ n : \mathbb N \vdash \mathbf{0}_n :  \mathbb R^n. $$
@@ -194,6 +196,8 @@ Let us try to use this to define the composite of two functions: given types $A,
   := ?
 
 ```
+
+What have we done so far? We have given some definitions and let Rzk check that the typing is correct---and this is basically all we will be doing! We will see soon how we can encode proofs in that way.
 
 The $\to$-operator assigning to two types $A$ and $B$ a new type $A \to B$ is an example of a **type former**, constructing a new type out of old ones.
 
@@ -653,7 +657,7 @@ $$ \prod_{A : \mathcal U} \prod_{x,y:A} \prod_{p,q : (x=_A y)} \left( p=_{(x =_A
 
 This question was answered in the negative by Martin Hofmann and Thomas Streicher and their **groupoid model** from 1993: a type is interpreted as a groupoid and identity types are interpreted as the automorphisms of the respective elements. Since these need not necessarily be singletons UIP is not validated in this model, hence cannot be derivable in the theory.
 
-However, given that all the higher identity types are themselves groupoids and that the groupoid laws in the theory don't hold strictly but, in turn, only up to higher identities, one might ask for the types to be modeled not just as groupoids but weak infinite-dimensional groupoids aka **$\infty$-groupoids**. A well-known version of $\infty$-groupoids is the notion of a Kan complex (see Nima's lecture).
+However, given that all the higher identity types are themselves groupoids and that the groupoid laws in the theory don't hold strictly but, in turn, only up to higher identities, one might ask for the types to be modeled not just as groupoids but weak infinite-dimensional groupoids aka **$\infty$-groupoids**. A well-known version of $\infty$-groupoids is the notion of a Kan complex (cf. Nima's preview today and lecture tomorrow).
 
 Indeed, this was suggested independently by Vladimir Voevodsky and Streicher in 2006, and fully developed by Chris Kapulkin, Peter Lumsdaine, and Voevodsky. In that sense, Kan complexes present the "standard model" of HoTT: a type is a Kan complex aka $\infty$-groupoid aka a topological space up to homotopy.
 
@@ -677,6 +681,8 @@ We will not go into details about these models but outline below how this presen
 | $x : A \vdash b(x) : B(x)$ | `b : (x : A) → B(x)`                    | parametrized witness | family of elements                | section             |
 | $p : x=_A y$               | `p : x =_{A} y`                         | equality witness     | $x = y$                           | path                |
 | $\sum_{x,y:A} x=_A y$      | `Σ (x y : A) , Σ (y : A) , x = _{A}  y` | equality relation    | diagonal $\{(a,a) \; \mid \; a:A\}$ | path space          |
+
+**NB:** "Space" her can mean e.g. Kan complex, a notion of $\infty$-groupoids in simplicial sets (cf. Nima's lecture). Accordingly, fibrations are then Kan fibrations.
 
 ## §1.7. Equivalences
 
