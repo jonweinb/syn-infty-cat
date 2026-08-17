@@ -76,6 +76,8 @@ In general, we write:
 
 $$\Gamma \vdash a:A$$
 
+For intuition, remember how you would start a mathematical definition or proof with a clause like "Let $n$ be a natural number" or similar. You can think of the context $\Gamma$ as the declarations after the "let...".
+
 In the above example, $n : \mathbb N \vdash \mathbb R^n$ we can capture the family of zero vectors as
 
 $$ n : \mathbb N \vdash \mathbf{0}\_n : \mathbb R^n. $$
@@ -125,7 +127,7 @@ In this case, since we already know that $a:A$, we can just use this same term t
   ( A : U)
   ( a : A)
   : A
-  := ?
+  := a
 ```
 
 This essentially corresponds to defining the **identity function** of the type $A$.
@@ -154,7 +156,7 @@ The identity function $\mathrm{id}_A : A \to A$ sends each $a : A$ to itself:
 #def id
   ( A : U)
   : A → A
-  := ?
+  := \ a -> a
 ```
 
 We can also define a constant function: given types $A$ and $B$ and a term $x :B$, the **constant function** with value $x$ is defined as $\mathrm{const}_x :\equiv \lambda a.x : A \to B$:
@@ -165,7 +167,7 @@ We can also define a constant function: given types $A$ and $B$ and a term $x :B
   ( A B : U)
   ( x : B)
   : A → B
-  := ?
+  := \ _ -> x
 ```
 
 The $\lambda$-operator **build** terms of a function type: if for every $a : A$ we have a term $f(a) : B$ this defines a term $f:A \to B$.
@@ -180,7 +182,7 @@ In Rzk, this reads as follows:
     ( f : A → B)
     ( a : A)
   : B
-  := ?
+  := (f a)
 ```
 
 Let us try to use this to define the composite of two functions: given types $A, B, C$ and functions $f : A \to B$ and $g : B \to C$ we want to express the **composite function** $g \circ f : A \to C$. Can you do it in Rzk using `\ `?
@@ -190,9 +192,11 @@ Let us try to use this to define the composite of two functions: given types $A,
     ( A B C : U)
     ( g : B → C) (f : A → B)
   : A → C
-  := ?
+  := \ a -> (g (f a))
 
 ```
+
+What have we done so far? We have given some definitions and let Rzk check that the typing is correct---and this is basically all we will be doing! We will see soon how we can encode proofs in that way.
 
 The $\to$-operator assigning to two types $A$ and $B$ a new type $A \to B$ is an example of a **type former**, constructing a new type out of old ones.
 
@@ -244,7 +248,7 @@ $$ (\lambda x.f)(a) \equiv f[a/x] \qquad (\text{$\to$-$\beta$})$$
 
 4.2 **$\eta$-conversion rule:** In type theory, a function should _name itself_. We want to refer to a function $\lambda x.f$ simply by $f$. This is achieved by the $\eta$-rule (again suppressing the implied premises):
 
-$$ \lambda x.f \equiv f \qquad(\text{$\to$-$\eta$}) $$
+$$ \lambda x.f(x) \equiv f \qquad(\text{$\to$-$\eta$}) $$
 
 **Derivation trees** are built using the rules of the system.
 
@@ -289,11 +293,11 @@ $$ \frac{\vdash A \quad x : A\vdash B(x)}{\vdash \prod\_{x:A}B(x)}(\text{$\prod$
 
 2. **Introduction rules:**
 
-$$ \frac{\vdash A \quad x : A\vdash B(x) \quad x : A \vdash f(x) : B}{\vdash \lambda x . f(x) :\prod\_{x:A}B(x)}(\text{$\prod$-intro})$$
+$$ \frac{\vdash A \quad x : A\vdash B(x) \quad x : A \vdash f(x) : B(x)}{\vdash \lambda x . f(x) :\prod\_{x:A}B(x)}(\text{$\prod$-intro})$$
 
 3. **Elimination rules:**
 
-$$ \frac{\vdash A \quad x:A\vdash B(x) \quad \vdash f : \prod\_{x:A}B(x) \quad \vdash a:A}{\vdash f(a) : B }(\text{$\prod$-elim}) $$
+$$ \frac{\vdash A \quad x:A\vdash B(x) \quad \vdash f : \prod\_{x:A}B(x) \quad \vdash a:A}{\vdash f(a) : B(a) }(\text{$\prod$-elim}) $$
 
 The $\beta$- and $\eta$-rules hold verbatim.
 
@@ -324,7 +328,7 @@ $$ \frac{\vdash A \quad x:A\vdash B(x) \quad \vdash f : \prod\_{x:A}B(x) \quad \
     ( f : (x : A) → B x)
     ( a : A)
   : B a
-  := ?
+  := f(a)
 ```
 
 **Local vs. global style rules:** In dependent type theory, any rule can be used in any context. For notational simplicity we are hence presenting all our rules in **local** style, leaving an arbitrary background context $\Gamma$ implicit. For instance, the by $\prod$-formation rule
@@ -519,7 +523,7 @@ Can you solve the following goal in Rzk?
   := ?
 ```
 
-## §1.5. Identity types
+## §1.6. Identity types
 
 In homotopy type theory, the notion of identity is **intensional**, meaning we would like to keep track of _how_ and not just _if_ two terms of a type are equal. Homotopy type theory supports identity types due to Martin-Löf which are defined as follows:
 
@@ -638,7 +642,7 @@ Similarly, one can prove the left unit law as well as associativity (see the exe
 
 $$ \text{concat-assoc} : \prod_{x,y,z,w : A} \prod_{p : (x=y)} \prod_{q : (y = z)} \prod_{r : (z = w)} \mathrm{concat}_{x,z,w}(\mathrm{concat}_{x,y,z}(p,q), r) = \mathrm{concat}_{x,y,w}(p,\mathrm{concat}_{y,z,w}(q,r))$$
 
-## §1.6. Types as $\infty$-groupoids
+## §1.7. Types as $\infty$-groupoids
 
 The rules for identity types go back to Per Martin-Löf and his 1975 seminal paper "An Intuitionistic Theory of Types." This work sparked the question if one could derive the principle of **uniqueness of identity proofs (UIP)**, i.e., if one could construct a term of the following type:
 
@@ -646,7 +650,7 @@ $$ \prod_{A : \mathcal U} \prod_{x,y:A} \prod_{p,q : (x=_A y)} \left( p=_{(x =_A
 
 This question was answered in the negative by Martin Hofmann and Thomas Streicher and their **groupoid model** from 1993: a type is interpreted as a groupoid and identity types are interpreted as the automorphisms of the respective elements. Since these need not necessarily be singletons UIP is not validated in this model, hence cannot be derivable in the theory.
 
-However, given that all the higher identity types are themselves groupoids and that the groupoid laws in the theory don't hold strictly but, in turn, only up to higher identities, one might ask for the types to be modeled not just as groupoids but weak infinite-dimensional groupoids aka **$\infty$-groupoids**. A well-known version of $\infty$-groupoids is the notion of a Kan complex (see Nima's lecture).
+However, given that all the higher identity types are themselves groupoids and that the groupoid laws in the theory don't hold strictly but, in turn, only up to higher identities, one might ask for the types to be modeled not just as groupoids but weak infinite-dimensional groupoids aka **$\infty$-groupoids**. A well-known version of $\infty$-groupoids is the notion of a Kan complex (cf. Nima's preview today and lecture tomorrow).
 
 Indeed, this was suggested independently by Vladimir Voevodsky and Streicher in 2006, and fully developed by Chris Kapulkin, Peter Lumsdaine, and Voevodsky. In that sense, Kan complexes present the "standard model" of HoTT: a type is a Kan complex aka $\infty$-groupoid aka a topological space up to homotopy.
 
@@ -669,9 +673,11 @@ We will not go into details about these models but outline below how this presen
 | $\sum_{x:A} B(x)$          | `Σ (x : A) , B x`                       | $\exists x, B(x)$    | disjoint union                    | total space         |
 | $x : A \vdash b(x) : B(x)$ | `b : (x : A) → B(x)`                    | parametrized witness | family of elements                | section             |
 | $p : x=_A y$               | `p : x =_{A} y`                         | equality witness     | $x = y$                           | path                |
-| $\sum_{x,y:A} x=_A y$      | `Σ (x y : A) , Σ (y : A) , x = _{A}  y` | equality relation    | diagonal $\{(a,a) \; | \; a:A\}$ | path space          |
+| $\sum_{x,y:A} x=_A y$      | `Σ (x y : A) , Σ (y : A) , x = _{A}  y` | equality relation    | diagonal $\{(a,a) \; \mid \; a:A\}$ | path space          |
 
-## §1.7. Equivalences
+**NB:** "Space" her can mean e.g. Kan complex, a notion of $\infty$-groupoids in simplicial sets (cf. Nima's lecture). Accordingly, fibrations are then Kan fibrations.
+
+## §1.8. Equivalences
 
 Given that types can be modeled as homotopy types we should be able to capture a notion of **equivalence** of types, corresponding to homotopy equivalence in the model.
 
@@ -746,7 +752,7 @@ In Rzk, these definitions are given as follows:
 
 One can prove that being an equivalent is an equivalence relation on the universe of all types. In particular, every equivalence $A \to B$ gives rise to a map $B \to A$ which is an equivalence itself.
 
-## §1.8. Contractibility, propositions, and sets
+## §1.9. Contractibility, propositions, and sets
 
 The (higher) identity types are what gives types interesting homotopical structure. Voevodsky had the insight to stratify them into a hierarchy of $n$-types, with $n$ either being an integer with $n \geq -2$ or $n = \infty$.
 
@@ -888,7 +894,7 @@ With some work one can then prove that a map $f : A \to B$ is an equivalence if 
 
 $$\text{is-equiv}(f) \simeq \prod_{y : B} \text{is-contr}(f^{-1}(y))$$
 
-## §1.9. Function extensionality
+## §1.10. Function extensionality
 
 When are two functions to be considered equal, as terms of a function type? By path induction, equality implies pointwise equality.
 
