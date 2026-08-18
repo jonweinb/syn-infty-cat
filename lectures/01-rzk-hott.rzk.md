@@ -628,7 +628,7 @@ You can prove these later in the exercises. To give you a taste, here are two ex
   ( p : x = y)
   ( b : B x)
   : B y
-  := ind-path A x (\ y' → \ p' → B y') b y p
+  := ?
 ```
 
 Do you notice the power of path induction? It seems hard to define functions depending on arbitrary paths in such an abstract setting, but path induction lets us reduce this to the case of reflexivity which makes giving the actual function seem trivial.
@@ -982,6 +982,7 @@ Some suggested further reading:
 - Martin Hofmann and Thomas Streicher. The groupoid model refutes uniqueness of identity proofs. In _Proceedings of the Ninth Annual IEEE Symposium on Logic in Computer Science (LICS 1994)_, IEEE Computer Society Press, 1994, pp. 208–212.
 - Krzysztof Kapulkin and Peter LeFanu Lumsdaine. The simplicial model of Univalent Foundations (after Voevodsky). _Journal of the European Mathematical Society_ **23** (2021), no. 6, 2071–2126. [arXiv:1211.2851](https://arxiv.org/abs/1211.2851)
 - Nikolai Kudasov, Violetta Sim, and Benedikt Ahrens. Rzk: a proof assistant for synthetic $\infty$-categories. Preprint, 2026. [arXiv:2607.12207](https://arxiv.org/abs/2607.12207)
+- Per Martin-Löf, An intuitionistic theory of types: predicative part, in: H. E. Rose, J. C. Shepherdson (eds.), Logic Colloquium '73, Proceedings of the Logic Colloquium, Studies in Logic and the Foundations of Mathematics 80, Elsevier (1975) 73-118 [doi:10.1016/S0049-237X(08)71945-1](https://linkinghub.elsevier.com/retrieve/pii/S0049237X08719451)
 - Emily Riehl. _Homotopy Type Theory_. Lecture notes for Math 721, Johns Hopkins University, Fall 2021. [https://github.com/emilyriehl/721](https://github.com/emilyriehl/721)
 - Emily Riehl. On the $\infty$-topos semantics of homotopy type theory. Lecture notes, Logic and Higher Structures, CIRM–Luminy, 2022. [arXiv:2212.06937](https://arxiv.org/abs/2212.06937)
 - Egbert Rijke. _Introduction to Homotopy Type Theory_. Cambridge Studies in Advanced Mathematics. Cambridge University Press, 2025. Also [arXiv:2212.11082](https://arxiv.org/abs/2212.11082).
