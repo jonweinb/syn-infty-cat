@@ -13,6 +13,7 @@ exclude_docs: |
 nav:
   - Home: index.md
   - Lecture 1 — Intro to HoTT: 01-rzk-hott.rzk.md
+  - Lecture 2 — Simplicial HoTT and Segal types: 02-shott.rzk.md
 
 theme:
   name: material
