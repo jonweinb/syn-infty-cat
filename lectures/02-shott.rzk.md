@@ -110,7 +110,7 @@ The representation of (sub-)topes/shapes in Rzk is analogous to the presentation
 ```rzk
 #def Λ²₁
   : Δ² → TOPE
-  := \ (s , t) → Λ (s , t)
+  := \ (t , s) → Λ (t , s)
 ```
 
 ```rzk
@@ -130,7 +130,7 @@ The representation of (sub-)topes/shapes in Rzk is analogous to the presentation
 
 ## §2.2. Extension types in simplicial HoTT
 
-If we assumed an interval type $\mathbb I$ we could define the type of arrows in a type $A$ as follows:
+If we assumed a directed interval type $\mathbb I$ we could define the type of arrows in a type $A$ as follows:
 
 $$ \sum_{f : \mathbb I \to A} (f(0) =_A x) \times  (f(1) =_A y)$$
 
@@ -138,7 +138,7 @@ Terms in this type are morphisms *up to homotopy*, i.e. triples $\langle f, p, q
 
 In this version of simplicial HoTT, we will work with **extension types** instead:
 
-* Let $\phi \hookrightarrow \psi$ be a shape inclusion.
+* Let $\phi \subseteq \psi$ be a shape inclusion.
 * Let $t : \phi \vdash a(t) : A$.
 
 We now want to consider all the terms $t : \psi \vdash b(t) : A$ that *extend* $a$, and *strictly* so:
@@ -185,9 +185,10 @@ In Rzk, the notation is:
   ( A : U)
   ( x y : A)
   : U
-  := (t : Δ¹) → A [ t ≡ 0₂ ↦ x
-  , -- the left endpoint is exactly x
-  t ≡ 1₂ ↦ y ] -- the right endpoint is exactly y
+  :=
+  (t : Δ¹)
+  → A [ t ≡ 0₂ ↦ x , -- the left endpoint is exactly `x`
+        t ≡ 1₂ ↦ y ] -- the right endpoint is exactly `y`
 ```
 
 For every term $x : A$ we can define the **identity morphism** as the morphism that is constant at $x$:
@@ -217,10 +218,10 @@ In Rzk, this can be implemented as follows using case-splits on the dimension va
   ( h : hom A x z)
   : U
   :=
-    ( ( t₁ , t₂) : Δ²)
+  ( ( t₁ , t₂) : Δ²)
   → A [ t₂ ≡ 0₂ ↦ f t₁ , -- the top edge is exactly `f`,
         t₁ ≡ 1₂ ↦ g t₂ , -- the right edge is exactly `g`, and
-        t₂ ≡ t₁ ↦ h t₂]   -- the diagonal is exactly `h`
+        t₂ ≡ t₁ ↦ h t₂]  -- the diagonal is exactly `h`
 ```
 
 There are some canonical triangles in every type, regardless if it's a category or not:
@@ -242,7 +243,7 @@ Of course, these should witness unitality of the identity morphism, part of the 
 
 We want to express the property of a type having composition of arrows (as witnessed by a $2$-simplex) uniquely up to homotopy. Namely, we call a type $A$ **Segal** if and only if the following proposition is satisfied:
 
-$$ \text{is-Segal}(A) :\equiv \prod_{x,y,z:A} \prod_{f : \hom_A(x,y)}\prod_{g : \hom_A(x,z)} \text{is-contr}\left( \sum_{h : \hom_A(x,z)}\hom_A^2(f,g,h) \right) $$
+$$ \text{is-Segal}(A) :\equiv \prod_{x,y,z:A} \prod_{f : \hom_A(x,y)}\prod_{g : \hom_A(y,z)} \text{is-contr}\left( \sum_{h : \hom_A(x,z)}\hom_A^2(f,g,h) \right) $$
 
 In Rzk, this translates into:
 
@@ -251,7 +252,7 @@ In Rzk, this translates into:
   ( A : U)
   : U
   :=
-    ( x : A) → (y : A) → (z : A)
+  ( x : A) → (y : A) → (z : A)
   → ( f : hom A x y) → (g : hom A y z)
   → is-contr (Σ (h : hom A x z) , (hom2 A x y z f g h))
 ```
@@ -315,14 +316,14 @@ For this, we need some prerequisites about paths in sHoTT:
   ( alpha : hom2 A x y z f g h)
   : ( comp-is-segal A is-segal-A x y z f g) = h
   :=
-    first-path-Σ
-      ( hom A x z)
-      ( hom2 A x y z f g)
-      ( comp-is-segal A is-segal-A x y z f g
-      , witness-comp-is-segal A is-segal-A x y z f g)
-      ( h , alpha)
-      ( homotopy-contraction
-        ( Σ ( k : hom A x z) , (hom2 A x y z f g k))
-        ( is-segal-A x y z f g)
-        ( h , alpha))
+  first-path-Σ
+  ( hom A x z)
+  ( hom2 A x y z f g)
+  ( comp-is-segal A is-segal-A x y z f g
+    , witness-comp-is-segal A is-segal-A x y z f g)
+  ( h , alpha)
+  ( homotopy-contraction
+    ( Σ ( k : hom A x z) , (hom2 A x y z f g k))
+    ( is-segal-A x y z f g)
+    ( h , alpha))
 ```
