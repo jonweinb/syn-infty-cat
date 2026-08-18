@@ -105,8 +105,9 @@ The representation of (sub-)topes/shapes in Rzk is analogous to the presentation
 #def Λ
   : ( 2 × 2) → TOPE
   := \ (t , s) → (s ≡ 0₂ ∨ t ≡ 1₂)
+```
 
--- not mentioned later
+```rzk
 #def Λ²₁
   : Δ² → TOPE
   := \ (s , t) → Λ (s , t)
