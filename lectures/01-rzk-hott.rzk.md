@@ -908,7 +908,7 @@ One can furthermore prove:
 
 For this, we need the notion of **preimage** or **fiber** of a map. If $f : A \to B$ is a map between types and $y : B$ a point then we call
 
-$$ \mathrm{preimage}_{A,B}(f,y) :\equiv \mathrm{fib}_{A,B}(f,y) f^{-1}(y) :\equiv \sum_{x : A} f(x) =_B y $$
+$$ \mathrm{preimage}_{A,B}(f,y) :\equiv \mathrm{fib}_{A,B}(f,y) :\equiv f^{-1}(y) :\equiv \sum_{x : A} f(x) =_B y $$
 
 the **preimage** or **fiber** of $f$ at $y$. Its terms are pairs $(x,p)$ where $x : A$ and $p : f(x) =_B y$ a path from $f(x)$ to $y$. This is exactly the synthetic version of the notion of homotopy fiber.
 
