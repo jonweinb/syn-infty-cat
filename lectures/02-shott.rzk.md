@@ -38,15 +38,15 @@ Thus, we will choose a different route:
 
 1. We will introduce **subshapes** such as
 
- $$\partial \Delta^1 \subseteq \Delta^1, \quad  \Delta^1 \subseteq \Delta^2,  \quad \Lambda_1^2 \subseteq \Delta^2.$$
+ $$ \partial \Delta^1 \subseteq \Delta^1, \quad  \Delta^1 \subseteq \Delta^2,  \quad \Lambda_1^2 \subseteq \Delta^2. $$
 
  2. Then we will introduce strict **extension types** to define arrows with strictly defined domain and codomain, i.e.,
 
- $$ x  \stackrel{f}{\longrightarrow}  y$$
+ $$ x  \stackrel{f}{\longrightarrow}  y $$
 
 rather than
 
-$$ x \stackrel{p}{=} f(0) \stackrel{f}{\longrightarrow} f(1) \stackrel{q}{=} y$$
+$$ x \stackrel{p}{=} f(0) \stackrel{f}{\longrightarrow} f(1) \stackrel{q}{=} y.$$
 
 But this comes at a price:
 
@@ -116,7 +116,9 @@ A cube $I$ together with a tope formula $\phi$ is called a **shape**, written $\
 If $I \; | \; \phi \vdash \psi$, we say that the shape defined by $\phi$ is a **subshape** of $\psi$, and we write:
 
 $$ \{ t : I \; | \; \phi(t)\} \subseteq \{ t : I \; | \; \psi(t)\}, $$
+
 or, for short:
+
 $$ \phi \subseteq \psi.$$
 
 We show below the following important shapes together with their definitions in Rzk.
@@ -129,13 +131,14 @@ The representation of (sub-)topes/shapes in Rzk is analogous to the presentation
 | dependent type $x : A \vdash B(x)$                          | `B:A -> U`       |
 | cube $I$                                                    | `I : CUBE`       |
 | tope/shape $t : I \vdash \psi(t)$                        | `ψ : I → TOPE`   |
-| subtope/subshape $t : I \; \| \; \phi(t) \vdash \psi(t)$ | `ϕ : ψ → TOPE `  |
+| subtope/subshape $t : I \; \mid \; \phi(t) \vdash \psi(t)$ | `ϕ : ψ → TOPE `  |
 
 * **$1$-simplex $\Delta^1$:**
 
 <img src="delta1.jpg" alt="$1$-simplex">
 
 The **$1$-simplex** is the $1$-cube:
+
 $$ \Delta^1 :\equiv \{t : 2 \; | \; \top \}$$
 
 ```rzk
@@ -240,9 +243,9 @@ $$ t : \phi \vdash b(t) \equiv a(t) $$
 | dependent type $x : A \vdash B(x)$                          | `B:A -> U`       |
 | cube $I$                                                    | `I : CUBE`       |
 | tope/shape $t : I \vdash \psi(t)$                        | `ψ : I → TOPE`   |
-| subtope/subshape $t : I \; \| \; \phi(t) \vdash \psi(t)$ | `ϕ : ψ → TOPE `  |
+| subtope/subshape $t : I \; \mid | \; \phi(t) \vdash \psi(t)$ | `ϕ : ψ → TOPE `  |
 | term over shape $t : \phi(t) \vdash a(t) : A$            | `a : ϕ → A`      |
-| extension type $\langle \psi \to A \|^\phi_a\rangle$                 | `(t : ψ) → A [ϕ t ↦ a t]`|
+| extension type $\langle \psi \to A \vert^\phi_a\rangle$                 | `(t : ψ) → A [ϕ t ↦ a t]`|
 
 
 ## §2.4. Morphisms in a type
@@ -251,7 +254,7 @@ Let $A$ be a type and $x,y:A$. We will use the extension types to define types o
 
 In sHoTT we define this as:
 
-$$\hom_A(x,y) := \left \langle \Delta^1 \to A |^{\partial \Delta^1}_{[x,y]}\right\rangle$$
+$$\hom_A(x,y) := \left \langle \Delta^1 \to A \Big |^{\partial \Delta^1}_{[x,y]}\right\rangle$$
 
 In Rzk, the notation is:
 
@@ -280,7 +283,7 @@ Can you write this in Rzk?
 
 To talk about composition, we need to reason about triangles. Let $x,y,z : A$, $f : \hom_A(x,y)$, $g : \hom_A(y,z)$, and $h : \hom_A(x,z)$. We define the type of triangles with boundary consisting of those morphisms as:
 
-$$ \hom_{A,x,y,z}^2(f,g,h) :\equiv \left \langle \Delta^2 \to A |^{\partial \Delta^2}_{[f,g,h]}\right\rangle$$
+$$ \hom_{A,x,y,z}^2(f,g,h) :\equiv \left \langle \Delta^2 \to A \Big \vert^{\partial \Delta^2}_{[f,g,h]}\right\rangle$$
 
 In Rzk, this can be implemented as follows using case-splits on the dimension variables on the simplex:
 
@@ -334,7 +337,7 @@ In Rzk, this translates into:
 
   It will be handy to extract the pieces of the "canonical" composition data through the following helper functions. The data is comprised out of:
   1. a composite morphism ($1$-simplex) $\mathrm{comp}_A(f,g)$
-  2. a triangle ($2$-simplex) bounded $f$, $g$, and $\mathrm{comp}(f,g)$:
+  2. a triangle ($2$-simplex) bounded $f$, $g$, and $\mathrm{comp}_A(f,g)$:
 
 ```rzk
 #def comp-is-segal
