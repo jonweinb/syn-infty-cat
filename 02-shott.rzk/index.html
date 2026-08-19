@@ -581,8 +581,8 @@ $$\rightsquigarrow i^* : \left((\Delta^2 \to A) \to (\Lambda_1^2 \to A) \right)\
 <li>But this then will allows us to strictify shapes and diagrams.</li>
 </ul>
 <p><strong>Idea:</strong></p>
-<p>If <span class="arithmatex">\(\psi\)</span> is a shape, then a <strong>subshape</strong> <span class="arithmatex">\(\varphi \subseteq \psi\)</span> is a family of propositions</p>
-<div class="arithmatex">\[ \varphi : \psi \to \mathrm{Tope},\]</div>
+<p>If <span class="arithmatex">\(\psi\)</span> is a shape, then a <strong>subshape</strong> <span class="arithmatex">\(\phi \subseteq \psi\)</span> is a family of propositions</p>
+<div class="arithmatex">\[ \phi : \psi \to \mathrm{Tope},\]</div>
 <p>where <span class="arithmatex">\(\mathrm{Tope}\)</span> captures syntactic propositions in a special language built out of</p>
 <div class="arithmatex">\[ \equiv, \quad \land, \quad \lor, \quad \bot, \quad \top, \quad \leq, \quad 0_2, \quad 1_2 \]</div>
 <p>and where the variables <span class="arithmatex">\(r,s,t, \ldots\)</span> come from directed cubes:</p>
@@ -624,14 +624,14 @@ $$\rightsquigarrow i^* : \left((\Delta^2 \to A) \to (\Lambda_1^2 \to A) \right)\
 <li>finite conjunction <span class="arithmatex">\(\land\)</span> and finite disjunction <span class="arithmatex">\(\lor\)</span></li>
 </ul>
 <p>Tope formulas live over a cube context:</p>
-<div class="arithmatex">\[ \Xi \; |\; \varphi \; \; \text{tope}\]</div>
+<div class="arithmatex">\[ \Xi \; |\; \phi \; \; \text{tope}\]</div>
 <p>Moreover, a tope formula can be entailed by a tope context (over a common cube):</p>
 <div class="arithmatex">\[ \Xi  \; |\; \Phi \vdash \psi \; \; \text{tope}\]</div>
-<p>A cube <span class="arithmatex">\(I\)</span> together with a tope formula <span class="arithmatex">\(\varphi\)</span> is called a <strong>shape</strong>, written <span class="arithmatex">\(\{ t : I \; | \; \varphi(t)\}\)</span>.</p>
-<p>If <span class="arithmatex">\(I \; | \; \varphi \vdash \psi\)</span>, we say that the shape defined by <span class="arithmatex">\(\varphi\)</span> is a <strong>subshape</strong> of <span class="arithmatex">\(\psi\)</span>, and we write:</p>
-<div class="arithmatex">\[ \{ t : I \; | \; \varphi(t)\} \subseteq \{ t : I \; | \; \psi(t)\}, $$
+<p>A cube <span class="arithmatex">\(I\)</span> together with a tope formula <span class="arithmatex">\(\phi\)</span> is called a <strong>shape</strong>, written <span class="arithmatex">\(\{ t : I \; | \; \phi(t)\}\)</span>.</p>
+<p>If <span class="arithmatex">\(I \; | \; \phi \vdash \psi\)</span>, we say that the shape defined by <span class="arithmatex">\(\phi\)</span> is a <strong>subshape</strong> of <span class="arithmatex">\(\psi\)</span>, and we write:</p>
+<div class="arithmatex">\[ \{ t : I \; | \; \phi(t)\} \subseteq \{ t : I \; | \; \psi(t)\}, $$
 or, for short:
-$$ \varphi \subseteq \psi.\]</div>
+$$ \phi \subseteq \psi.\]</div>
 <p>We show below the following important shapes together with their definitions in Rzk.</p>
 <p>The representation of (sub-)topes/shapes in Rzk is analogous to the presentation of ordinary dependent types, i.e., as a family into an appropriate universe:</p>
 <table>
@@ -655,17 +655,17 @@ $$ \varphi \subseteq \psi.\]</div>
 <td><code>I : CUBE</code></td>
 </tr>
 <tr>
-<td>tope/shape <span class="arithmatex">\(t : I \vdash \varphi(t)\)</span></td>
-<td><code>Φ : I → TOPE</code></td>
+<td>tope/shape <span class="arithmatex">\(t : I \vdash \psi(t)\)</span></td>
+<td><code>ψ : I → TOPE</code></td>
 </tr>
 <tr>
-<td>subtope/subshape <span class="arithmatex">\(t : I \; \| \; \varphi(t) \vdash \psi(t)\)</span></td>
+<td>subtope/subshape <span class="arithmatex">\(t : I \; \| \; \phi(t) \vdash \psi(t)\)</span></td>
 <td><code>ϕ : ψ → TOPE</code></td>
 </tr>
 </tbody>
 </table>
 <ul>
-<li><strong><span class="arithmatex">\(1\)</span>-simplex <span class="arithmatex">\(\Delta^2\)</span>:</strong></li>
+<li><strong><span class="arithmatex">\(1\)</span>-simplex <span class="arithmatex">\(\Delta^1\)</span>:</strong></li>
 </ul>
 <p><img src="delta1.jpg" alt="<span class="arithmatex">\(1\)</span>-simplex"></p>
 <p>The <strong><span class="arithmatex">\(1\)</span>-simplex</strong> is the <span class="arithmatex">\(1\)</span>-cube:
@@ -676,8 +676,8 @@ $$ \Delta^1 :\equiv {t : 2 \; | \; \top }$$</p>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  := <span class="p">\ </span>t → <span class="m">TOP</span>
 </span></code></pre></div>
 <p>The <strong>boundary of the <span class="arithmatex">\(1\)</span>-simplex</strong> is a pair of isolated points:</p>
-<div class="arithmatex">\[ 0 \; \bullet \qquad 1 \; \bullet\]</div>
-<p>$<span class="arithmatex">\(\partial \Delta^1 :\equiv \{t : 2 \; | \; t \equiv 0_2 \lor t \equiv 1_2 \}\)</span>$
+<div class="arithmatex">\[ 0_2 \; \bullet \qquad 1_2 \; \bullet\]</div>
+<p>$<span class="arithmatex">\(\partial \Delta^1 :\equiv \{t : \Delta^1 \; | \; t \equiv 0_2 \lor t \equiv 1_2 \}\)</span>$
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:∂Δ¹" id="define:∂Δ¹" style="visibility: visible; position: relative; color: inherit">∂Δ¹</a></span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  : Δ¹ → <span class="kt">TOPE</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  := <span class="p">\ </span>t → (t <span class="sx">≡</span> <span class="m">0₂</span> <span class="sx">∨</span> t <span class="sx">≡</span> <span class="m">1₂</span>)
@@ -717,7 +717,7 @@ $<span class="arithmatex">\(\Lambda :\equiv \{ (t,s) : 2 \times 2 \; | \; s \equ
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  : Δ² → <span class="kt">TOPE</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>  := \ (t , s) → Λ (t , s)
 </span></code></pre></div>
-<p><strong>So a shape always comes with an explicit emebdding to a specified larger shape or cube!</strong></p>
+<p><strong>So a shape always comes with an explicit embedding to a specified larger shape or cube!</strong></p>
 <h2 id="23-extension-types-in-simplicial-hott">§2.3. Extension types in simplicial HoTT<a class="headerlink" href="#23-extension-types-in-simplicial-hott" title="Permanent link">&para;</a></h2>
 <p>We can now introduce extension types to define our strict hom-types. This will be a brief overview; we will hear a more thorough discussion on extension types by Elif on Thursday.</p>
 <ul>
@@ -753,19 +753,19 @@ $<span class="arithmatex">\(\Lambda :\equiv \{ (t,s) : 2 \times 2 \; | \; s \equ
 <td><code>I : CUBE</code></td>
 </tr>
 <tr>
-<td>tope/shape <span class="arithmatex">\(t : I \vdash \varphi(t)\)</span></td>
-<td><code>Φ : I → TOPE</code></td>
+<td>tope/shape <span class="arithmatex">\(t : I \vdash \psi(t)\)</span></td>
+<td><code>ψ : I → TOPE</code></td>
 </tr>
 <tr>
-<td>subtope/subshape <span class="arithmatex">\(t : I \; \| \; \varphi(t) \vdash \psi(t)\)</span></td>
+<td>subtope/subshape <span class="arithmatex">\(t : I \; \| \; \phi(t) \vdash \psi(t)\)</span></td>
 <td><code>ϕ : ψ → TOPE</code></td>
 </tr>
 <tr>
-<td>term over shape <span class="arithmatex">\(t : \varphi(t) \vdash b(t) : A\)</span></td>
-<td><code>b : ϕ → A</code></td>
+<td>term over shape <span class="arithmatex">\(t : \phi(t) \vdash a(t) : A\)</span></td>
+<td><code>a : ϕ → A</code></td>
 </tr>
 <tr>
-<td>extension type <span class="arithmatex">\(\langle \psi \to A \rangle\)</span></td>
+<td>extension type <span class="arithmatex">\(\langle \psi \to A \|^\phi_a\rangle\)</span></td>
 <td><code>(t : ψ) → A [ϕ t ↦ a t]</code></td>
 </tr>
 </tbody>
