@@ -1,5 +1,6 @@
 # Synthetic Lecture 2: Simplicial HoTT and first steps with Segal types
 
+## Day 3
 
 With the basics in HoTT from Lecture 1, we are now ready to introduce the simplicial extension due to Riehl--Shulman. We want to do higher category theory synthetically. We have seen how in homotopy type theory every type is an $\infty$-groupoid. But how do we get a working theory of $\infty$-categories? In simplicial HoTT, the approach is to introduce an axiomatic directed interval, defining the shape of a morphism that need not necessarily be invertible. We describe the setup in sHoTT and Rzk to achieve this.
 
@@ -251,6 +252,7 @@ $$ t : \phi \vdash b(t) \equiv a(t) $$
 | term over shape $t : \phi(t) \vdash a(t) : A$            | `a : ϕ → A`      |
 | extension type $\langle \psi \to A \vert^\phi_a\rangle$                 | `(t : ψ) → A [ϕ t ↦ a t]`|
 
+## Day 4
 
 ## §2.4. Morphisms in a type
 

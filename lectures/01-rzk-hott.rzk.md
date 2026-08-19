@@ -1,5 +1,7 @@
 # Synthetic Lecture 1: Introduction to homotopy type theory
 
+## Day 1
+
 [ICERM Teaching Higher Category Theory with Computers, Aug 17 - 21, 2026](https://icerm.brown.edu/program/topical_workshop/tw-26-thc)
 
 This lecture series is a hands-on introduction to higher category theory in the proof assistant [Rzk](https://rzk-lang.github.io/). We will work **synthetically**, i.e., in a language where the underlying homotopical notions will be primitives. Our language will be based on **homotopy type theory**, namely an extension thereof that adds simplicial shapes to reason about $\infty$-categories. The notation of the lectures will (largely) be in line with the architecture of the [sHoTT library](https://rzk-lang.github.io/sHoTT/) and its [code conventions](https://rzk-lang.github.io/sHoTT/STYLEGUIDE/).
@@ -640,6 +642,8 @@ You can prove these later in the exercises. To give you a taste, here are two ex
   : B y
   := ?
 ```
+
+## Day 2
 
 Do you notice the power of path induction? It seems hard to define functions depending on arbitrary paths in such an abstract setting, but path induction lets us reduce this to the case of reflexivity which makes giving the actual function seem trivial.
 
