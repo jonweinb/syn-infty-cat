@@ -7,6 +7,7 @@ The HTML notes are published at [jonweinb.github.io/syn-infty-cat](https://jonwe
 ## Lectures
 
 - [Lecture 1: Introduction to homotopy type theory](lectures/01-rzk-hott.rzk.md)
+- [Lecture 2: Simplicial homotopy type theory and Segal types](lectures/02-shott.rzk.md)
 
 ## Prerequisites
 
@@ -22,7 +23,7 @@ export PATH="$HOME/Library/Application Support/Cursor/User/globalStorage/nikolai
 rzk typecheck --allow-holes
 ```
 
-Lecture 1 leaves some constructions as `?` holes.
+Some constructions are left as `?` holes.
 
 ## Preview HTML
 

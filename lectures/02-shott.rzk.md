@@ -22,6 +22,7 @@ $$ d^0, d^1, d^2 : (\Delta^1 \to \Delta^2)$$
 $$\rightsquigarrow (d_0)^*, (d_1)^*, (d_2)^* : \left((\Delta^2 \to A) \to (\Delta^1 \to A) \right)$$
 
 $$ i : (\Lambda_1^2 \to \Delta^2 )$$
+
 $$\rightsquigarrow i^* : \left((\Delta^2 \to A) \to (\Lambda_1^2 \to A) \right)$$
 
 One way to tackle this is as follows. Let us assume a directed interval type $\Delta^1$. Then we could define the type of arrows in a type $A$ as follows:
@@ -38,11 +39,11 @@ Thus, we will choose a different route:
 
 1. We will introduce **subshapes** such as
 
- $$ \partial \Delta^1 \subseteq \Delta^1, \quad  \Delta^1 \subseteq \Delta^2,  \quad \Lambda_1^2 \subseteq \Delta^2. $$
+$$ \partial \Delta^1 \subseteq \Delta^1, \quad  \Delta^1 \subseteq \Delta^2,  \quad \Lambda_1^2 \subseteq \Delta^2. $$
 
- 2. Then we will introduce strict **extension types** to define arrows with strictly defined domain and codomain, i.e.,
+2. Then we will introduce strict **extension types** to define arrows with strictly defined domain and codomain, i.e.,
 
- $$ x  \stackrel{f}{\longrightarrow}  y $$
+$$ x  \stackrel{f}{\longrightarrow}  y $$
 
 rather than
 
@@ -80,7 +81,7 @@ In sHoTT, we want our types to not only depend on other types but geometric **sh
 
 Concretely, a general family depends on a multi-part context
 
-$$ \Xi \; | \; \Phi \; | \; \Gamma \vdash A$$
+$$ \Xi \; \vert \; \Phi \; \vert \; \Gamma \vdash A$$
 
 where:
 
@@ -105,17 +106,17 @@ where:
 
 Tope formulas live over a cube context:
 
-$$ \Xi \; |\; \phi \; \; \text{tope}$$
+$$ \Xi \; \vert \; \phi \; \; \text{tope}$$
 
 Moreover, a tope formula can be entailed by a tope context (over a common cube):
 
-$$ \Xi  \; |\; \Phi \vdash \psi \; \; \text{tope}$$
+$$ \Xi \; \vert \; \Phi \vdash \psi \; \; \text{tope}$$
 
-A cube $I$ together with a tope formula $\phi$ is called a **shape**, written $\{ t : I \; | \; \phi(t)\}$.
+A cube $I$ together with a tope formula $\phi$ is called a **shape**, written $\{ t : I \; \vert \; \phi(t)\}$.
 
-If $I \; | \; \phi \vdash \psi$, we say that the shape defined by $\phi$ is a **subshape** of $\psi$, and we write:
+If $I \; \vert \; \phi \vdash \psi$, we say that the shape defined by $\phi$ is a **subshape** of $\psi$, and we write:
 
-$$ \{ t : I \; | \; \phi(t)\} \subseteq \{ t : I \; | \; \psi(t)\}, $$
+$$ \{ t : I \; \vert \; \phi(t)\} \subseteq \{ t : I \; \vert \; \psi(t)\}, $$
 
 or, for short:
 
@@ -131,15 +132,15 @@ The representation of (sub-)topes/shapes in Rzk is analogous to the presentation
 | dependent type $x : A \vdash B(x)$                          | `B:A -> U`       |
 | cube $I$                                                    | `I : CUBE`       |
 | tope/shape $t : I \vdash \psi(t)$                        | `ψ : I → TOPE`   |
-| subtope/subshape $t : I \; \mid \; \phi(t) \vdash \psi(t)$ | `ϕ : ψ → TOPE `  |
+| subtope/subshape $t : I \mid \phi(t) \vdash \psi(t)$ | `ϕ : ψ → TOPE` |
 
 * **$1$-simplex $\Delta^1$:**
 
-<img src="delta1.jpg" alt="1-simplex">
+<img src="../delta1.jpg" alt="1-simplex">
 
 The **$1$-simplex** is the $1$-cube:
 
-$$ \Delta^1 :\equiv \{t : 2 \; | \; \top \}$$
+$$ \Delta^1 :\equiv \{t : 2 \; \vert \; \top \}$$
 
 ```rzk
 
@@ -154,7 +155,8 @@ The **boundary of the $1$-simplex** is a pair of isolated points:
 
 $$ 0_2 \; \bullet \qquad 1_2 \; \bullet$$
 
-$$\partial \Delta^1 :\equiv \{t : \Delta^1 \; | \; t \equiv 0_2 \lor t \equiv 1_2 \}$$
+$$\partial \Delta^1 :\equiv \{t : \Delta^1 \; \vert \; t \equiv 0_2 \lor t \equiv 1_2 \}$$
+
 ```rzk
 #def ∂Δ¹
   : Δ¹ → TOPE
@@ -163,11 +165,12 @@ $$\partial \Delta^1 :\equiv \{t : \Delta^1 \; | \; t \equiv 0_2 \lor t \equiv 1
 
 * **$2$-simplex $\Delta^2$:**
 
-<img src="delta2.jpg" alt="2-simplex">
+<img src="../delta2.jpg" alt="2-simplex">
 
 The **$2$-simplex** is (chosen to be) the following square in $2 \times 2$:
 
-$$ \Delta^2 :\equiv \{ (t,s) : 2 \times 2 \; | \; s \leq t \} $$
+$$ \Delta^2 :\equiv \{ (t,s) : 2 \times 2 \; \vert \; s \leq t \} $$
+
 ```rzk
 #def Δ²
   : ( 2 × 2) → TOPE
@@ -176,9 +179,9 @@ $$ \Delta^2 :\equiv \{ (t,s) : 2 \times 2 \; | \; s \leq t \} $$
 
 * **$3$-simplex $\Delta^3$:**
 
-<img src="delta3.jpg" alt="3-simplex">
+<img src="../delta3.jpg" alt="3-simplex">
 
-$$ \Delta^3 :\equiv \{((t_1, t_2),t_3) : 2 \times 2 \times 2 \; | \; t_3 \leq t_2 \land t_2 \leq t_1 \} $$
+$$ \Delta^3 :\equiv \{((t_1, t_2),t_3) : 2 \times 2 \times 2 \; \vert \; t_3 \leq t_2 \land t_2 \leq t_1 \} $$
 
 ```rzk
 #def Δ³
@@ -188,10 +191,11 @@ $$ \Delta^3 :\equiv \{((t_1, t_2),t_3) : 2 \times 2 \times 2 \; | \; t_3 \leq t_
 
 * **$(2,1)$-horn $\Lambda_1^2$:**
 
-<img src="horn21.jpg" alt="(2,1)-horn">
+<img src="../horn21.jpg" alt="(2,1)-horn">
 
 We can capture the $(2,1)$-horn as subshape of the $2$-cube:
-$$\Lambda :\equiv \{ (t,s) : 2 \times 2 \; | \; s \equiv 0_2 \lor t \equiv 1_2\}$$
+
+$$\Lambda :\equiv \{ (t,s) : 2 \times 2 \; \vert \; s \equiv 0_2 \lor t \equiv 1_2\}$$
 
 ```rzk
 #def Λ
@@ -201,7 +205,7 @@ $$\Lambda :\equiv \{ (t,s) : 2 \times 2 \; | \; s \equiv 0_2 \lor t \equiv 1_2\}
 
 But we often will want to use the the $(2,1)$-horn as a subshape of the *$2$-simplex*:
 
-$$\Lambda_1^2 :\equiv \{ (t,s) : \Delta^2 \; | \; s \equiv 0_2 \lor t \equiv 1_2\}$$
+$$\Lambda_1^2 :\equiv \{ (t,s) : \Delta^2 \; \vert \; s \equiv 0_2 \lor t \equiv 1_2\}$$
 
 ```rzk
 #def Λ²₁
@@ -225,9 +229,9 @@ $$ t : \phi \vdash a(t) \equiv b(t) $$
 
 This cannot be defined in our type theory, so we add as a primitive the **extension type** associated to the data $(A, \phi \subseteq \psi, a)$:
 
-$$ \langle \psi \to A |^\phi_a \rangle $$
+$$ \langle \psi \to A \vert^\phi_a \rangle $$
 
-The syntax looks like a function type, only with some imposed side conditions---and that's exactly right. The terms $b : \langle \psi \to A |^\phi_a \rangle$ are dependent terms
+The syntax looks like a function type, only with some imposed side conditions---and that's exactly right. The terms $b : \langle \psi \to A \vert^\phi_a \rangle$ are dependent terms
 
 $$ t : \psi \vdash b(t) : A $$
 
@@ -243,7 +247,7 @@ $$ t : \phi \vdash b(t) \equiv a(t) $$
 | dependent type $x : A \vdash B(x)$                          | `B:A -> U`       |
 | cube $I$                                                    | `I : CUBE`       |
 | tope/shape $t : I \vdash \psi(t)$                        | `ψ : I → TOPE`   |
-| subtope/subshape $t : I \; \mid | \; \phi(t) \vdash \psi(t)$ | `ϕ : ψ → TOPE `  |
+| subtope/subshape $t : I \mid \phi(t) \vdash \psi(t)$ | `ϕ : ψ → TOPE` |
 | term over shape $t : \phi(t) \vdash a(t) : A$            | `a : ϕ → A`      |
 | extension type $\langle \psi \to A \vert^\phi_a\rangle$                 | `(t : ψ) → A [ϕ t ↦ a t]`|
 
@@ -254,7 +258,7 @@ Let $A$ be a type and $x,y:A$. We will use the extension types to define types o
 
 In sHoTT we define this as:
 
-$$\hom_A(x,y) := \left \langle \Delta^1 \to A \Big |^{\partial \Delta^1}_{[x,y]}\right\rangle$$
+$$\hom_A(x,y) := \left \langle \Delta^1 \to A \Big\vert^{\partial \Delta^1}_{[x,y]}\right\rangle$$
 
 In Rzk, the notation is:
 
@@ -304,7 +308,7 @@ In Rzk, this can be implemented as follows using case-splits on the dimension va
 
 There are some canonical triangles in every type, regardless if it's a category or not:
 
-<img src="identities.jpg" alt="Triangle witnesses" style="zoom: 1.5;">
+<img src="../identities.jpg" alt="Triangle witnesses">
 
 E.g., the leftmost one is given by:
 
@@ -405,3 +409,12 @@ For this, we need some prerequisites about paths in sHoTT:
     ( is-segal-A x y z f g)
     ( h , alpha))
 ```
+
+## Bibliography
+
+Some suggested further reading:
+
+- Nicolai Kraus. Extension types for free: cofibrations, gluing, and univalence in two-level type theory. Preprint, 2026. [arXiv:2607.27387](https://arxiv.org/abs/2607.27387)
+- Emily Riehl. Could $\infty$-category theory be taught to undergraduates? _Notices of the American Mathematical Society_ **70** (2023), no. 5, 727–736. [arXiv:2302.07855](https://arxiv.org/abs/2302.07855)
+- Emily Riehl. Synthetic perspectives on spaces and categories. In _International Congress of Mathematicians 2026_, Volume 4: Invited Lectures: Sections 5–8, 2026, pp. 414–433. [arXiv:2510.15795](https://arxiv.org/abs/2510.15795)
+- Emily Riehl and Michael Shulman. A type theory for synthetic $\infty$-categories. _Higher Structures_ **1** (2017), no. 1, 116–193. [arXiv:1705.07442](https://arxiv.org/abs/1705.07442)
