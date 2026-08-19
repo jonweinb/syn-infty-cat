@@ -424,6 +424,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#bibliography" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bibliography
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -513,6 +524,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#bibliography" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bibliography
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -557,8 +579,8 @@
 <p>Furthermore, maps between those shapes should give <em>restriction maps</em> between the ensuing types, e.g.:</p>
 <div class="arithmatex">\[ d^0, d^1, d^2 : (\Delta^1 \to \Delta^2)\]</div>
 <div class="arithmatex">\[\rightsquigarrow (d_0)^*, (d_1)^*, (d_2)^* : \left((\Delta^2 \to A) \to (\Delta^1 \to A) \right)\]</div>
-<div class="arithmatex">\[ i : (\Lambda_1^2 \to \Delta^2 )$$
-$$\rightsquigarrow i^* : \left((\Delta^2 \to A) \to (\Lambda_1^2 \to A) \right)\]</div>
+<div class="arithmatex">\[ i : (\Lambda_1^2 \to \Delta^2 )\]</div>
+<div class="arithmatex">\[\rightsquigarrow i^* : \left((\Delta^2 \to A) \to (\Lambda_1^2 \to A) \right)\]</div>
 <p>One way to tackle this is as follows. Let us assume a directed interval type <span class="arithmatex">\(\Delta^1\)</span>. Then we could define the type of arrows in a type <span class="arithmatex">\(A\)</span> as follows:</p>
 <div class="arithmatex">\[ \hom_A(x,y) \stackrel{(?)}{:\equiv} \sum_{f : \Delta^1 \to A} (x =_A f(0)) \times (f(1) =_A y) \]</div>
 <p>Terms in this type are morphisms <em>up to homotopy</em>, i.e. triples <span class="arithmatex">\(\langle f, p, q \rangle\)</span> where <span class="arithmatex">\(p,q\)</span> are paths <span class="arithmatex">\(p : x = f(0)\)</span> and <span class="arithmatex">\(q : f(1) = y\)</span>:</p>
@@ -568,11 +590,11 @@ $$\rightsquigarrow i^* : \left((\Delta^2 \to A) \to (\Lambda_1^2 \to A) \right)\
 <ol>
 <li>We will introduce <strong>subshapes</strong> such as</li>
 </ol>
-<p>$$ \partial \Delta^1 \subseteq \Delta^1, \quad  \Delta^1 \subseteq \Delta^2,  \quad \Lambda_1^2 \subseteq \Delta^2. $$</p>
+<div class="arithmatex">\[ \partial \Delta^1 \subseteq \Delta^1, \quad  \Delta^1 \subseteq \Delta^2,  \quad \Lambda_1^2 \subseteq \Delta^2. \]</div>
 <ol>
 <li>Then we will introduce strict <strong>extension types</strong> to define arrows with strictly defined domain and codomain, i.e.,</li>
 </ol>
-<p>$$ x  \stackrel{f}{\longrightarrow}  y $$</p>
+<div class="arithmatex">\[ x  \stackrel{f}{\longrightarrow}  y \]</div>
 <p>rather than</p>
 <div class="arithmatex">\[ x \stackrel{p}{=} f(0) \stackrel{f}{\longrightarrow} f(1) \stackrel{q}{=} y.\]</div>
 <p>But this comes at a price:</p>
@@ -593,7 +615,7 @@ $$\rightsquigarrow i^* : \left((\Delta^2 \to A) \to (\Lambda_1^2 \to A) \right)\
 <div class="arithmatex">\[ \Gamma \vdash A \]</div>
 <p>In sHoTT, we want our types to not only depend on other types but geometric <strong>shapes</strong>. This is done by adding new layers to the type theory with their corresponding notion of context.</p>
 <p>Concretely, a general family depends on a multi-part context</p>
-<div class="arithmatex">\[ \Xi \; | \; \Phi \; | \; \Gamma \vdash A\]</div>
+<div class="arithmatex">\[ \Xi \; \vert \; \Phi \; \vert \; \Gamma \vdash A\]</div>
 <p>where:</p>
 <ul>
 <li><span class="arithmatex">\(\Xi\)</span> is a <strong>cube context</strong></li>
@@ -624,12 +646,12 @@ $$\rightsquigarrow i^* : \left((\Delta^2 \to A) \to (\Lambda_1^2 \to A) \right)\
 <li>finite conjunction <span class="arithmatex">\(\land\)</span> and finite disjunction <span class="arithmatex">\(\lor\)</span></li>
 </ul>
 <p>Tope formulas live over a cube context:</p>
-<div class="arithmatex">\[ \Xi \; |\; \phi \; \; \text{tope}\]</div>
+<div class="arithmatex">\[ \Xi \; \vert \; \phi \; \; \text{tope}\]</div>
 <p>Moreover, a tope formula can be entailed by a tope context (over a common cube):</p>
-<div class="arithmatex">\[ \Xi  \; |\; \Phi \vdash \psi \; \; \text{tope}\]</div>
-<p>A cube <span class="arithmatex">\(I\)</span> together with a tope formula <span class="arithmatex">\(\phi\)</span> is called a <strong>shape</strong>, written <span class="arithmatex">\(\{ t : I \; | \; \phi(t)\}\)</span>.</p>
-<p>If <span class="arithmatex">\(I \; | \; \phi \vdash \psi\)</span>, we say that the shape defined by <span class="arithmatex">\(\phi\)</span> is a <strong>subshape</strong> of <span class="arithmatex">\(\psi\)</span>, and we write:</p>
-<div class="arithmatex">\[ \{ t : I \; | \; \phi(t)\} \subseteq \{ t : I \; | \; \psi(t)\}, \]</div>
+<div class="arithmatex">\[ \Xi \; \vert \; \Phi \vdash \psi \; \; \text{tope}\]</div>
+<p>A cube <span class="arithmatex">\(I\)</span> together with a tope formula <span class="arithmatex">\(\phi\)</span> is called a <strong>shape</strong>, written <span class="arithmatex">\(\{ t : I \; \vert \; \phi(t)\}\)</span>.</p>
+<p>If <span class="arithmatex">\(I \; \vert \; \phi \vdash \psi\)</span>, we say that the shape defined by <span class="arithmatex">\(\phi\)</span> is a <strong>subshape</strong> of <span class="arithmatex">\(\psi\)</span>, and we write:</p>
+<div class="arithmatex">\[ \{ t : I \; \vert \; \phi(t)\} \subseteq \{ t : I \; \vert \; \psi(t)\}, \]</div>
 <p>or, for short:</p>
 <div class="arithmatex">\[ \phi \subseteq \psi.\]</div>
 <p>We show below the following important shapes together with their definitions in Rzk.</p>
@@ -659,7 +681,7 @@ $$\rightsquigarrow i^* : \left((\Delta^2 \to A) \to (\Lambda_1^2 \to A) \right)\
 <td><code>ψ : I → TOPE</code></td>
 </tr>
 <tr>
-<td>subtope/subshape <span class="arithmatex">\(t : I \; \mid \; \phi(t) \vdash \psi(t)\)</span></td>
+<td>subtope/subshape <span class="arithmatex">\(t : I \mid \phi(t) \vdash \psi(t)\)</span></td>
 <td><code>ϕ : ψ → TOPE</code></td>
 </tr>
 </tbody>
@@ -667,9 +689,9 @@ $$\rightsquigarrow i^* : \left((\Delta^2 \to A) \to (\Lambda_1^2 \to A) \right)\
 <ul>
 <li><strong><span class="arithmatex">\(1\)</span>-simplex <span class="arithmatex">\(\Delta^1\)</span>:</strong></li>
 </ul>
-<p><img src="delta1.jpg" alt="1-simplex"></p>
+<p><img src="../delta1.jpg" alt="1-simplex"></p>
 <p>The <strong><span class="arithmatex">\(1\)</span>-simplex</strong> is the <span class="arithmatex">\(1\)</span>-cube:</p>
-<div class="arithmatex">\[ \Delta^1 :\equiv \{t : 2 \; | \; \top \}\]</div>
+<div class="arithmatex">\[ \Delta^1 :\equiv \{t : 2 \; \vert \; \top \}\]</div>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nd">#lang</span><span class="p"> </span><span class="s">rzk-1</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Δ¹" id="define:Δ¹" style="visibility: visible; position: relative; color: inherit">Δ¹</a></span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  : <span class="kt">2</span> → <span class="kt">TOPE</span>
@@ -677,26 +699,26 @@ $$\rightsquigarrow i^* : \left((\Delta^2 \to A) \to (\Lambda_1^2 \to A) \right)\
 </span></code></pre></div>
 <p>The <strong>boundary of the <span class="arithmatex">\(1\)</span>-simplex</strong> is a pair of isolated points:</p>
 <div class="arithmatex">\[ 0_2 \; \bullet \qquad 1_2 \; \bullet\]</div>
-<p>$<span class="arithmatex">\(\partial \Delta^1 :\equiv \{t : \Delta^1 \; | \; t \equiv 0_2 \lor t \equiv 1_2 \}\)</span>$
+<div class="arithmatex">\[\partial \Delta^1 :\equiv \{t : \Delta^1 \; \vert \; t \equiv 0_2 \lor t \equiv 1_2 \}\]</div>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:∂Δ¹" id="define:∂Δ¹" style="visibility: visible; position: relative; color: inherit">∂Δ¹</a></span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  : Δ¹ → <span class="kt">TOPE</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  := <span class="p">\ </span>t → (t <span class="sx">≡</span> <span class="m">0₂</span> <span class="sx">∨</span> t <span class="sx">≡</span> <span class="m">1₂</span>)
-</span></code></pre></div></p>
+</span></code></pre></div>
 <ul>
 <li><strong><span class="arithmatex">\(2\)</span>-simplex <span class="arithmatex">\(\Delta^2\)</span>:</strong></li>
 </ul>
-<p><img src="delta2.jpg" alt="2-simplex"></p>
+<p><img src="../delta2.jpg" alt="2-simplex"></p>
 <p>The <strong><span class="arithmatex">\(2\)</span>-simplex</strong> is (chosen to be) the following square in <span class="arithmatex">\(2 \times 2\)</span>:</p>
-<p>$$ \Delta^2 :\equiv { (t,s) : 2 \times 2 \; | \; s \leq t } $$
+<div class="arithmatex">\[ \Delta^2 :\equiv \{ (t,s) : 2 \times 2 \; \vert \; s \leq t \} \]</div>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Δ²" id="define:Δ²" style="visibility: visible; position: relative; color: inherit">Δ²</a></span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  : ( <span class="kt">2</span> × <span class="kt">2</span>) → <span class="kt">TOPE</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  := \ (t , s) → s <span class="sx">≤</span> t
-</span></code></pre></div></p>
+</span></code></pre></div>
 <ul>
 <li><strong><span class="arithmatex">\(3\)</span>-simplex <span class="arithmatex">\(\Delta^3\)</span>:</strong></li>
 </ul>
-<p><img src="delta3.jpg" alt="3-simplex"></p>
-<div class="arithmatex">\[ \Delta^3 :\equiv \{((t_1, t_2),t_3) : 2 \times 2 \times 2 \; | \; t_3 \leq t_2 \land t_2 \leq t_1 \} \]</div>
+<p><img src="../delta3.jpg" alt="3-simplex"></p>
+<div class="arithmatex">\[ \Delta^3 :\equiv \{((t_1, t_2),t_3) : 2 \times 2 \times 2 \; \vert \; t_3 \leq t_2 \land t_2 \leq t_1 \} \]</div>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Δ³" id="define:Δ³" style="visibility: visible; position: relative; color: inherit">Δ³</a></span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  : ( <span class="kt">2</span> × <span class="kt">2</span> × <span class="kt">2</span>) → <span class="kt">TOPE</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  := \ ((t1 , t2) , t3) → t3 <span class="sx">≤</span> t2 <span class="sx">∧</span> t2 <span class="sx">≤</span> t1
@@ -704,15 +726,15 @@ $$\rightsquigarrow i^* : \left((\Delta^2 \to A) \to (\Lambda_1^2 \to A) \right)\
 <ul>
 <li><strong><span class="arithmatex">\((2,1)\)</span>-horn <span class="arithmatex">\(\Lambda_1^2\)</span>:</strong></li>
 </ul>
-<p><img src="horn21.jpg" alt="(2,1)-horn"></p>
-<p>We can capture the <span class="arithmatex">\((2,1)\)</span>-horn as subshape of the <span class="arithmatex">\(2\)</span>-cube:
-$<span class="arithmatex">\(\Lambda :\equiv \{ (t,s) : 2 \times 2 \; | \; s \equiv 0_2 \lor t \equiv 1_2\}\)</span>$</p>
+<p><img src="../horn21.jpg" alt="(2,1)-horn"></p>
+<p>We can capture the <span class="arithmatex">\((2,1)\)</span>-horn as subshape of the <span class="arithmatex">\(2\)</span>-cube:</p>
+<div class="arithmatex">\[\Lambda :\equiv \{ (t,s) : 2 \times 2 \; \vert \; s \equiv 0_2 \lor t \equiv 1_2\}\]</div>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Λ" id="define:Λ" style="visibility: visible; position: relative; color: inherit">Λ</a></span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  : ( <span class="kt">2</span> × <span class="kt">2</span>) → <span class="kt">TOPE</span>
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  := \ (t , s) → (s <span class="sx">≡</span> <span class="m">0₂</span> <span class="sx">∨</span> t <span class="sx">≡</span> <span class="m">1₂</span>)
 </span></code></pre></div>
 <p>But we often will want to use the the <span class="arithmatex">\((2,1)\)</span>-horn as a subshape of the <em><span class="arithmatex">\(2\)</span>-simplex</em>:</p>
-<div class="arithmatex">\[\Lambda_1^2 :\equiv \{ (t,s) : \Delta^2 \; | \; s \equiv 0_2 \lor t \equiv 1_2\}\]</div>
+<div class="arithmatex">\[\Lambda_1^2 :\equiv \{ (t,s) : \Delta^2 \; \vert \; s \equiv 0_2 \lor t \equiv 1_2\}\]</div>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Λ²₁" id="define:Λ²₁" style="visibility: visible; position: relative; color: inherit">Λ²₁</a></span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  : Δ² → <span class="kt">TOPE</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>  := \ (t , s) → Λ (t , s)
@@ -727,8 +749,8 @@ $<span class="arithmatex">\(\Lambda :\equiv \{ (t,s) : 2 \times 2 \; | \; s \equ
 <p>We now want to consider all the terms <span class="arithmatex">\(t : \psi \vdash b(t) : A\)</span> that <em>extend</em> <span class="arithmatex">\(a\)</span>, and <em>strictly</em> so:</p>
 <div class="arithmatex">\[ t : \phi \vdash a(t) \equiv b(t) \]</div>
 <p>This cannot be defined in our type theory, so we add as a primitive the <strong>extension type</strong> associated to the data <span class="arithmatex">\((A, \phi \subseteq \psi, a)\)</span>:</p>
-<div class="arithmatex">\[ \langle \psi \to A |^\phi_a \rangle \]</div>
-<p>The syntax looks like a function type, only with some imposed side conditions---and that's exactly right. The terms <span class="arithmatex">\(b : \langle \psi \to A |^\phi_a \rangle\)</span> are dependent terms</p>
+<div class="arithmatex">\[ \langle \psi \to A \vert^\phi_a \rangle \]</div>
+<p>The syntax looks like a function type, only with some imposed side conditions---and that's exactly right. The terms <span class="arithmatex">\(b : \langle \psi \to A \vert^\phi_a \rangle\)</span> are dependent terms</p>
 <div class="arithmatex">\[ t : \psi \vdash b(t) : A \]</div>
 <p>that also satisfy:</p>
 <div class="arithmatex">\[ t : \phi \vdash b(t) \equiv a(t) \]</div>
@@ -757,8 +779,8 @@ $<span class="arithmatex">\(\Lambda :\equiv \{ (t,s) : 2 \times 2 \; | \; s \equ
 <td><code>ψ : I → TOPE</code></td>
 </tr>
 <tr>
-<td>subtope/subshape $t : I \; \mid</td>
-<td>\; \phi(t) \vdash \psi(t)$</td>
+<td>subtope/subshape <span class="arithmatex">\(t : I \mid \phi(t) \vdash \psi(t)\)</span></td>
+<td><code>ϕ : ψ → TOPE</code></td>
 </tr>
 <tr>
 <td>term over shape <span class="arithmatex">\(t : \phi(t) \vdash a(t) : A\)</span></td>
@@ -773,7 +795,7 @@ $<span class="arithmatex">\(\Lambda :\equiv \{ (t,s) : 2 \times 2 \; | \; s \equ
 <h2 id="24-morphisms-in-a-type">§2.4. Morphisms in a type<a class="headerlink" href="#24-morphisms-in-a-type" title="Permanent link">&para;</a></h2>
 <p>Let <span class="arithmatex">\(A\)</span> be a type and <span class="arithmatex">\(x,y:A\)</span>. We will use the extension types to define types of <strong>arrows</strong> or <strong>morphisms</strong> in <span class="arithmatex">\(A\)</span>. The idea is that an arrow <span class="arithmatex">\(x \to y\)</span> should have the shape of the interval <span class="arithmatex">\(\Delta^1\)</span> with the initial vertex labeled <span class="arithmatex">\(x\)</span> and the terminal vertex labeled <span class="arithmatex">\(y\)</span>.</p>
 <p>In sHoTT we define this as:</p>
-<div class="arithmatex">\[\hom_A(x,y) := \left \langle \Delta^1 \to A \Big |^{\partial \Delta^1}_{[x,y]}\right\rangle\]</div>
+<div class="arithmatex">\[\hom_A(x,y) := \left \langle \Delta^1 \to A \Big\vert^{\partial \Delta^1}_{[x,y]}\right\rangle\]</div>
 <p>In Rzk, the notation is:</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:hom" id="define:hom" style="visibility: visible; position: relative; color: inherit">hom</a></span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
@@ -808,7 +830,7 @@ $<span class="arithmatex">\(\Lambda :\equiv \{ (t,s) : 2 \times 2 \; | \; s \equ
 </span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>        t₂ <span class="sx">≡</span> t₁ ↦ h t₂]  <span class="c">-- the diagonal is exactly `h`</span>
 </span></code></pre></div>
 <p>There are some canonical triangles in every type, regardless if it's a category or not:</p>
-<p><img src="identities.jpg" alt="Triangle witnesses" style="zoom: 1.5;"></p>
+<p><img src="../identities.jpg" alt="Triangle witnesses"></p>
 <p>E.g., the leftmost one is given by:</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:const-triangle" id="define:const-triangle" style="visibility: visible; position: relative; color: inherit">const-triangle</a></span> <span class="p">(</span>A <span class="p">:</span> <span class="kt">U</span>) <span class="p">(</span>x <span class="p">:</span> A)
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>  : hom2 A x x x
@@ -888,6 +910,14 @@ $<span class="arithmatex">\(\Lambda :\equiv \{ (t,s) : 2 \times 2 \; | \; s \equ
 </span><span id="__span-14-19"><a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a>    ( is-segal-A x y z f g)
 </span><span id="__span-14-20"><a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a>    ( h , alpha))
 </span></code></pre></div>
+<h2 id="bibliography">Bibliography<a class="headerlink" href="#bibliography" title="Permanent link">&para;</a></h2>
+<p>Some suggested further reading:</p>
+<ul>
+<li>Nicolai Kraus. Extension types for free: cofibrations, gluing, and univalence in two-level type theory. Preprint, 2026. <a href="https://arxiv.org/abs/2607.27387">arXiv:2607.27387</a></li>
+<li>Emily Riehl. Could <span class="arithmatex">\(\infty\)</span>-category theory be taught to undergraduates? <em>Notices of the American Mathematical Society</em> <strong>70</strong> (2023), no. 5, 727–736. <a href="https://arxiv.org/abs/2302.07855">arXiv:2302.07855</a></li>
+<li>Emily Riehl. Synthetic perspectives on spaces and categories. In <em>International Congress of Mathematicians 2026</em>, Volume 4: Invited Lectures: Sections 5–8, 2026, pp. 414–433. <a href="https://arxiv.org/abs/2510.15795">arXiv:2510.15795</a></li>
+<li>Emily Riehl and Michael Shulman. A type theory for synthetic <span class="arithmatex">\(\infty\)</span>-categories. <em>Higher Structures</em> <strong>1</strong> (2017), no. 1, 116–193. <a href="https://arxiv.org/abs/1705.07442">arXiv:1705.07442</a></li>
+</ul>
 
 
 
