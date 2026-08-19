@@ -135,7 +135,7 @@ The representation of (sub-)topes/shapes in Rzk is analogous to the presentation
 
 * **$1$-simplex $\Delta^1$:**
 
-<img src="delta1.jpg" alt="$1$-simplex">
+<img src="delta1.jpg" alt="1-simplex">
 
 The **$1$-simplex** is the $1$-cube:
 
@@ -163,7 +163,7 @@ $$\partial \Delta^1 :\equiv \{t : \Delta^1 \; | \; t \equiv 0_2 \lor t \equiv 1
 
 * **$2$-simplex $\Delta^2$:**
 
-<img src="delta2.jpg" alt="$2$-simplex">
+<img src="delta2.jpg" alt="2-simplex">
 
 The **$2$-simplex** is (chosen to be) the following square in $2 \times 2$:
 
@@ -176,7 +176,7 @@ $$ \Delta^2 :\equiv \{ (t,s) : 2 \times 2 \; | \; s \leq t \} $$
 
 * **$3$-simplex $\Delta^3$:**
 
-<img src="delta3.jpg" alt="$3$-simplex">
+<img src="delta3.jpg" alt="3-simplex">
 
 $$ \Delta^3 :\equiv \{((t_1, t_2),t_3) : 2 \times 2 \times 2 \; | \; t_3 \leq t_2 \land t_2 \leq t_1 \} $$
 
@@ -188,7 +188,7 @@ $$ \Delta^3 :\equiv \{((t_1, t_2),t_3) : 2 \times 2 \times 2 \; | \; t_3 \leq t_
 
 * **$(2,1)$-horn $\Lambda_1^2$:**
 
-<img src="horn21.jpg" alt="$(2,1)$-horn">
+<img src="horn21.jpg" alt="(2,1)-horn">
 
 We can capture the $(2,1)$-horn as subshape of the $2$-cube:
 $$\Lambda :\equiv \{ (t,s) : 2 \times 2 \; | \; s \equiv 0_2 \lor t \equiv 1_2\}$$
