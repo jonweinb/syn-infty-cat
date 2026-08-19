@@ -55,9 +55,9 @@ But this comes at a price:
 
 **Idea:**
 
-If $\psi$ is a shape, then a **subshape** $\varphi \subseteq \psi$ is a family of propositions
+If $\psi$ is a shape, then a **subshape** $\phi \subseteq \psi$ is a family of propositions
 
-$$ \varphi : \psi \to \mathrm{Tope},$$
+$$ \phi : \psi \to \mathrm{Tope},$$
 
 where $\mathrm{Tope}$ captures syntactic propositions in a special language built out of
 
@@ -105,19 +105,19 @@ where:
 
 Tope formulas live over a cube context:
 
-$$ \Xi \; |\; \varphi \; \; \text{tope}$$
+$$ \Xi \; |\; \phi \; \; \text{tope}$$
 
 Moreover, a tope formula can be entailed by a tope context (over a common cube):
 
 $$ \Xi  \; |\; \Phi \vdash \psi \; \; \text{tope}$$
 
-A cube $I$ together with a tope formula $\varphi$ is called a **shape**, written $\{ t : I \; | \; \varphi(t)\}$.
+A cube $I$ together with a tope formula $\phi$ is called a **shape**, written $\{ t : I \; | \; \phi(t)\}$.
 
-If $I \; | \; \varphi \vdash \psi$, we say that the shape defined by $\varphi$ is a **subshape** of $\psi$, and we write:
+If $I \; | \; \phi \vdash \psi$, we say that the shape defined by $\phi$ is a **subshape** of $\psi$, and we write:
 
-$$ \{ t : I \; | \; \varphi(t)\} \subseteq \{ t : I \; | \; \psi(t)\}, $$
+$$ \{ t : I \; | \; \phi(t)\} \subseteq \{ t : I \; | \; \psi(t)\}, $$
 or, for short:
-$$ \varphi \subseteq \psi.$$
+$$ \phi \subseteq \psi.$$
 
 We show below the following important shapes together with their definitions in Rzk.
 
@@ -128,10 +128,10 @@ The representation of (sub-)topes/shapes in Rzk is analogous to the presentation
 | type $\; \vdash A$                                          | `A:U`            |
 | dependent type $x : A \vdash B(x)$                          | `B:A -> U`       |
 | cube $I$                                                    | `I : CUBE`       |
-| tope/shape $t : I \vdash \varphi(t)$                        | `Φ : I → TOPE`   |
-| subtope/subshape $t : I \; \| \; \varphi(t) \vdash \psi(t)$ | `ϕ : ψ → TOPE `  |
+| tope/shape $t : I \vdash \psi(t)$                        | `ψ : I → TOPE`   |
+| subtope/subshape $t : I \; \| \; \phi(t) \vdash \psi(t)$ | `ϕ : ψ → TOPE `  |
 
-* **$1$-simplex $\Delta^2$:**
+* **$1$-simplex $\Delta^1$:**
 
 <img src="delta1.jpg" alt="$1$-simplex">
 
@@ -149,9 +149,9 @@ $$ \Delta^1 :\equiv \{t : 2 \; | \; \top \}$$
 
 The **boundary of the $1$-simplex** is a pair of isolated points:
 
-$$ 0 \; \bullet \qquad 1 \; \bullet$$
+$$ 0_2 \; \bullet \qquad 1_2 \; \bullet$$
 
-$$\partial \Delta^1 :\equiv \{t : 2 \; | \; t \equiv 0_2 \lor t \equiv 1_2 \}$$
+$$\partial \Delta^1 :\equiv \{t : \Delta^1 \; | \; t \equiv 0_2 \lor t \equiv 1_2 \}$$
 ```rzk
 #def ∂Δ¹
   : Δ¹ → TOPE
@@ -206,7 +206,7 @@ $$\Lambda_1^2 :\equiv \{ (t,s) : \Delta^2 \; | \; s \equiv 0_2 \lor t \equiv 1_2
   := \ (t , s) → Λ (t , s)
 ```
 
-**So a shape always comes with an explicit emebdding to a specified larger shape or cube!**
+**So a shape always comes with an explicit embedding to a specified larger shape or cube!**
 
 
 ## §2.3. Extension types in simplicial HoTT
@@ -239,10 +239,10 @@ $$ t : \phi \vdash b(t) \equiv a(t) $$
 | type $\; \vdash A$                                          | `A:U`            |
 | dependent type $x : A \vdash B(x)$                          | `B:A -> U`       |
 | cube $I$                                                    | `I : CUBE`       |
-| tope/shape $t : I \vdash \varphi(t)$                        | `Φ : I → TOPE`   |
-| subtope/subshape $t : I \; \| \; \varphi(t) \vdash \psi(t)$ | `ϕ : ψ → TOPE `  |
-| term over shape $t : \varphi(t) \vdash b(t) : A$            | `b : ϕ → A`      |
-| extension type $\langle \psi \to A \rangle$                 | `(t : ψ) → A [ϕ t ↦ a t]`|
+| tope/shape $t : I \vdash \psi(t)$                        | `ψ : I → TOPE`   |
+| subtope/subshape $t : I \; \| \; \phi(t) \vdash \psi(t)$ | `ϕ : ψ → TOPE `  |
+| term over shape $t : \phi(t) \vdash a(t) : A$            | `a : ϕ → A`      |
+| extension type $\langle \psi \to A \|^\phi_a\rangle$                 | `(t : ψ) → A [ϕ t ↦ a t]`|
 
 
 ## §2.4. Morphisms in a type
