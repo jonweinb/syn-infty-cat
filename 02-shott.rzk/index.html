@@ -568,13 +568,13 @@ $$\rightsquigarrow i^* : \left((\Delta^2 \to A) \to (\Lambda_1^2 \to A) \right)\
 <ol>
 <li>We will introduce <strong>subshapes</strong> such as</li>
 </ol>
-<p>$<span class="arithmatex">\(\partial \Delta^1 \subseteq \Delta^1, \quad  \Delta^1 \subseteq \Delta^2,  \quad \Lambda_1^2 \subseteq \Delta^2.\)</span>$</p>
+<p>$$ \partial \Delta^1 \subseteq \Delta^1, \quad  \Delta^1 \subseteq \Delta^2,  \quad \Lambda_1^2 \subseteq \Delta^2. $$</p>
 <ol>
 <li>Then we will introduce strict <strong>extension types</strong> to define arrows with strictly defined domain and codomain, i.e.,</li>
 </ol>
-<p>$$ x  \stackrel{f}{\longrightarrow}  y$$</p>
+<p>$$ x  \stackrel{f}{\longrightarrow}  y $$</p>
 <p>rather than</p>
-<div class="arithmatex">\[ x \stackrel{p}{=} f(0) \stackrel{f}{\longrightarrow} f(1) \stackrel{q}{=} y\]</div>
+<div class="arithmatex">\[ x \stackrel{p}{=} f(0) \stackrel{f}{\longrightarrow} f(1) \stackrel{q}{=} y.\]</div>
 <p>But this comes at a price:</p>
 <ul>
 <li>We have to introduce shapes as a separate syntactic layer.</li>
@@ -629,9 +629,9 @@ $$\rightsquigarrow i^* : \left((\Delta^2 \to A) \to (\Lambda_1^2 \to A) \right)\
 <div class="arithmatex">\[ \Xi  \; |\; \Phi \vdash \psi \; \; \text{tope}\]</div>
 <p>A cube <span class="arithmatex">\(I\)</span> together with a tope formula <span class="arithmatex">\(\phi\)</span> is called a <strong>shape</strong>, written <span class="arithmatex">\(\{ t : I \; | \; \phi(t)\}\)</span>.</p>
 <p>If <span class="arithmatex">\(I \; | \; \phi \vdash \psi\)</span>, we say that the shape defined by <span class="arithmatex">\(\phi\)</span> is a <strong>subshape</strong> of <span class="arithmatex">\(\psi\)</span>, and we write:</p>
-<div class="arithmatex">\[ \{ t : I \; | \; \phi(t)\} \subseteq \{ t : I \; | \; \psi(t)\}, $$
-or, for short:
-$$ \phi \subseteq \psi.\]</div>
+<div class="arithmatex">\[ \{ t : I \; | \; \phi(t)\} \subseteq \{ t : I \; | \; \psi(t)\}, \]</div>
+<p>or, for short:</p>
+<div class="arithmatex">\[ \phi \subseteq \psi.\]</div>
 <p>We show below the following important shapes together with their definitions in Rzk.</p>
 <p>The representation of (sub-)topes/shapes in Rzk is analogous to the presentation of ordinary dependent types, i.e., as a family into an appropriate universe:</p>
 <table>
@@ -659,7 +659,7 @@ $$ \phi \subseteq \psi.\]</div>
 <td><code>ψ : I → TOPE</code></td>
 </tr>
 <tr>
-<td>subtope/subshape <span class="arithmatex">\(t : I \; \| \; \phi(t) \vdash \psi(t)\)</span></td>
+<td>subtope/subshape <span class="arithmatex">\(t : I \; \mid \; \phi(t) \vdash \psi(t)\)</span></td>
 <td><code>ϕ : ψ → TOPE</code></td>
 </tr>
 </tbody>
@@ -668,8 +668,8 @@ $$ \phi \subseteq \psi.\]</div>
 <li><strong><span class="arithmatex">\(1\)</span>-simplex <span class="arithmatex">\(\Delta^1\)</span>:</strong></li>
 </ul>
 <p><img src="delta1.jpg" alt="<span class="arithmatex">\(1\)</span>-simplex"></p>
-<p>The <strong><span class="arithmatex">\(1\)</span>-simplex</strong> is the <span class="arithmatex">\(1\)</span>-cube:
-$$ \Delta^1 :\equiv {t : 2 \; | \; \top }$$</p>
+<p>The <strong><span class="arithmatex">\(1\)</span>-simplex</strong> is the <span class="arithmatex">\(1\)</span>-cube:</p>
+<div class="arithmatex">\[ \Delta^1 :\equiv \{t : 2 \; | \; \top \}\]</div>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nd">#lang</span><span class="p"> </span><span class="s">rzk-1</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Δ¹" id="define:Δ¹" style="visibility: visible; position: relative; color: inherit">Δ¹</a></span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  : <span class="kt">2</span> → <span class="kt">TOPE</span>
@@ -757,15 +757,15 @@ $<span class="arithmatex">\(\Lambda :\equiv \{ (t,s) : 2 \times 2 \; | \; s \equ
 <td><code>ψ : I → TOPE</code></td>
 </tr>
 <tr>
-<td>subtope/subshape <span class="arithmatex">\(t : I \; \| \; \phi(t) \vdash \psi(t)\)</span></td>
-<td><code>ϕ : ψ → TOPE</code></td>
+<td>subtope/subshape $t : I \; \mid</td>
+<td>\; \phi(t) \vdash \psi(t)$</td>
 </tr>
 <tr>
 <td>term over shape <span class="arithmatex">\(t : \phi(t) \vdash a(t) : A\)</span></td>
 <td><code>a : ϕ → A</code></td>
 </tr>
 <tr>
-<td>extension type <span class="arithmatex">\(\langle \psi \to A \|^\phi_a\rangle\)</span></td>
+<td>extension type <span class="arithmatex">\(\langle \psi \to A \vert^\phi_a\rangle\)</span></td>
 <td><code>(t : ψ) → A [ϕ t ↦ a t]</code></td>
 </tr>
 </tbody>
@@ -773,7 +773,7 @@ $<span class="arithmatex">\(\Lambda :\equiv \{ (t,s) : 2 \times 2 \; | \; s \equ
 <h2 id="24-morphisms-in-a-type">§2.4. Morphisms in a type<a class="headerlink" href="#24-morphisms-in-a-type" title="Permanent link">&para;</a></h2>
 <p>Let <span class="arithmatex">\(A\)</span> be a type and <span class="arithmatex">\(x,y:A\)</span>. We will use the extension types to define types of <strong>arrows</strong> or <strong>morphisms</strong> in <span class="arithmatex">\(A\)</span>. The idea is that an arrow <span class="arithmatex">\(x \to y\)</span> should have the shape of the interval <span class="arithmatex">\(\Delta^1\)</span> with the initial vertex labeled <span class="arithmatex">\(x\)</span> and the terminal vertex labeled <span class="arithmatex">\(y\)</span>.</p>
 <p>In sHoTT we define this as:</p>
-<div class="arithmatex">\[\hom_A(x,y) := \left \langle \Delta^1 \to A |^{\partial \Delta^1}_{[x,y]}\right\rangle\]</div>
+<div class="arithmatex">\[\hom_A(x,y) := \left \langle \Delta^1 \to A \Big |^{\partial \Delta^1}_{[x,y]}\right\rangle\]</div>
 <p>In Rzk, the notation is:</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:hom" id="define:hom" style="visibility: visible; position: relative; color: inherit">hom</a></span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
@@ -792,7 +792,7 @@ $<span class="arithmatex">\(\Lambda :\equiv \{ (t,s) : 2 \times 2 \; | \; s \equ
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>  := <span class="p">\ </span>t → x
 </span></code></pre></div>
 <p>To talk about composition, we need to reason about triangles. Let <span class="arithmatex">\(x,y,z : A\)</span>, <span class="arithmatex">\(f : \hom_A(x,y)\)</span>, <span class="arithmatex">\(g : \hom_A(y,z)\)</span>, and <span class="arithmatex">\(h : \hom_A(x,z)\)</span>. We define the type of triangles with boundary consisting of those morphisms as:</p>
-<div class="arithmatex">\[ \hom_{A,x,y,z}^2(f,g,h) :\equiv \left \langle \Delta^2 \to A |^{\partial \Delta^2}_{[f,g,h]}\right\rangle\]</div>
+<div class="arithmatex">\[ \hom_{A,x,y,z}^2(f,g,h) :\equiv \left \langle \Delta^2 \to A \Big \vert^{\partial \Delta^2}_{[f,g,h]}\right\rangle\]</div>
 <p>In Rzk, this can be implemented as follows using case-splits on the dimension variables on the simplex:</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:hom2" id="define:hom2" style="visibility: visible; position: relative; color: inherit">hom2</a></span>
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
@@ -830,7 +830,7 @@ $<span class="arithmatex">\(\Lambda :\equiv \{ (t,s) : 2 \times 2 \; | \; s \equ
 </span></code></pre></div>
 <p>It will be handy to extract the pieces of the "canonical" composition data through the following helper functions. The data is comprised out of:
   1. a composite morphism (<span class="arithmatex">\(1\)</span>-simplex) <span class="arithmatex">\(\mathrm{comp}_A(f,g)\)</span>
-  2. a triangle (<span class="arithmatex">\(2\)</span>-simplex) bounded <span class="arithmatex">\(f\)</span>, <span class="arithmatex">\(g\)</span>, and <span class="arithmatex">\(\mathrm{comp}(f,g)\)</span>:</p>
+  2. a triangle (<span class="arithmatex">\(2\)</span>-simplex) bounded <span class="arithmatex">\(f\)</span>, <span class="arithmatex">\(g\)</span>, and <span class="arithmatex">\(\mathrm{comp}_A(f,g)\)</span>:</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:comp-is-segal" id="define:comp-is-segal" style="visibility: visible; position: relative; color: inherit">comp-is-segal</a></span>
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>  <span class="p">( </span>is-segal-A <span class="p">:</span> is-segal A)
