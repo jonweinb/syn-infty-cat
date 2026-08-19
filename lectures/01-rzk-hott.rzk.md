@@ -156,18 +156,18 @@ The identity function $\mathrm{id}_A : A \to A$ sends each $a : A$ to itself:
 #def id
   ( A : U)
   : A → A
-  := \ a -> a
+  := \ a → a
 ```
 
 We can also define a constant function: given types $A$ and $B$ and a term $x :B$, the **constant function** with value $x$ is defined as $\mathrm{const}_x :\equiv \lambda a.x : A \to B$:
 
 ```rzk
 
-#def const
+#def constant
   ( A B : U)
   ( x : B)
   : A → B
-  := \ _ -> x
+  := \ _ → x
 ```
 
 The $\lambda$-operator **build** terms of a function type: if for every $a : A$ we have a term $f(a) : B$ this defines a term $f:A \to B$.
@@ -393,7 +393,7 @@ Introduction is implemented using the parenthesis primitive `( , )`:
   ( a : A)
   ( b : B)
   : prod A B
-  := ( a , b )
+  := (a , b)
 ```
 
 Elimination is implemented using the primitives `first` and `second`:
@@ -454,7 +454,17 @@ In analogy to the notion of the total space $E$ of a bundle $p : E \to B$, given
   ( A : U)
   ( B : A → U)
   : U
-  := Σ (a : A), B(a)
+  := Σ (a : A) , B(a)
+```
+
+The total type comes with a first projection:
+
+```rzk
+#def projection-total-type
+  ( A : U)
+  ( B : A → U)
+  : ( total-type A B) → A
+  := \ z → first z
 ```
 
 To produce a term out of the total type $\sum_{x:A} B(x)$ into any type $C$ it suffices to have a dependent function $f : \prod_{a:A} B(a) \to C$. This is called the **recursion principle for $\sum$-types**:
@@ -659,7 +669,7 @@ Again, we construct such a term by path induction:
   : concat A x y y p refl = p
   :=
   ind-path A x
-  (\ y' → \ p' → concat A x y' y' p' refl = p')
+  ( \ y' → \ p' → concat A x y' y' p' refl = p')
   ( refl)
   ( y)
   ( p)
@@ -883,7 +893,7 @@ In Rzk, this reads as follows:
   : x = y
   :=
   concat A x (center-contraction A is-contr-A) y
-  ( rev A ( center-contraction A is-contr-A) x
+  ( rev A (center-contraction A is-contr-A) x
     ( homotopy-contraction A is-contr-A x))
   ( homotopy-contraction A is-contr-A y)
 ```
