@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#synthetic-lecture-2-first-steps-with-segal-types" class="md-skip">
+        <a href="#synthetic-lecture-2-simplicial-hott-and-first-steps-with-segal-types" class="md-skip">
           Skip to content
         </a>
       
@@ -370,10 +370,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#21-shapes-in-simplicial-hott" class="md-nav__link">
+  <a href="#21-motivation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        §2.1. Shapes in simplicial HoTT
+        §2.1. Motivation
       
     </span>
   </a>
@@ -381,10 +381,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#22-extension-types-in-simplicial-hott" class="md-nav__link">
+  <a href="#22-shapes-in-simplicial-hott" class="md-nav__link">
     <span class="md-ellipsis">
       
-        §2.2. Extension types in simplicial HoTT
+        §2.2. Shapes in simplicial HoTT
       
     </span>
   </a>
@@ -392,10 +392,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#23-morphisms-in-a-type" class="md-nav__link">
+  <a href="#23-extension-types-in-simplicial-hott" class="md-nav__link">
     <span class="md-ellipsis">
       
-        §2.3. Morphisms in a type
+        §2.3. Extension types in simplicial HoTT
       
     </span>
   </a>
@@ -403,10 +403,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#23-segal-types" class="md-nav__link">
+  <a href="#24-morphisms-in-a-type" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.3 Segal types
+        §2.4. Morphisms in a type
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-segal-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        §2.5. Segal types
       
     </span>
   </a>
@@ -448,10 +459,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#21-shapes-in-simplicial-hott" class="md-nav__link">
+  <a href="#21-motivation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        §2.1. Shapes in simplicial HoTT
+        §2.1. Motivation
       
     </span>
   </a>
@@ -459,10 +470,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#22-extension-types-in-simplicial-hott" class="md-nav__link">
+  <a href="#22-shapes-in-simplicial-hott" class="md-nav__link">
     <span class="md-ellipsis">
       
-        §2.2. Extension types in simplicial HoTT
+        §2.2. Shapes in simplicial HoTT
       
     </span>
   </a>
@@ -470,10 +481,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#23-morphisms-in-a-type" class="md-nav__link">
+  <a href="#23-extension-types-in-simplicial-hott" class="md-nav__link">
     <span class="md-ellipsis">
       
-        §2.3. Morphisms in a type
+        §2.3. Extension types in simplicial HoTT
       
     </span>
   </a>
@@ -481,10 +492,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#23-segal-types" class="md-nav__link">
+  <a href="#24-morphisms-in-a-type" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.3 Segal types
+        §2.4. Morphisms in a type
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-segal-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        §2.5. Segal types
       
     </span>
   </a>
@@ -516,9 +538,57 @@
   
 
 
-<h1 id="synthetic-lecture-2-first-steps-with-segal-types">Synthetic Lecture 2: First steps with Segal types<a class="headerlink" href="#synthetic-lecture-2-first-steps-with-segal-types" title="Permanent link">&para;</a></h1>
+<h1 id="synthetic-lecture-2-simplicial-hott-and-first-steps-with-segal-types">Synthetic Lecture 2: Simplicial HoTT and first steps with Segal types<a class="headerlink" href="#synthetic-lecture-2-simplicial-hott-and-first-steps-with-segal-types" title="Permanent link">&para;</a></h1>
 <p>With the basics in HoTT from Lecture 1, we are now ready to introduce the simplicial extension due to Riehl--Shulman. We want to do higher category theory synthetically. We have seen how in homotopy type theory every type is an <span class="arithmatex">\(\infty\)</span>-groupoid. But how do we get a working theory of <span class="arithmatex">\(\infty\)</span>-categories? In simplicial HoTT, the approach is to introduce an axiomatic directed interval, defining the shape of a morphism that need not necessarily be invertible. We describe the setup in sHoTT and Rzk to achieve this.</p>
-<h2 id="21-shapes-in-simplicial-hott">§2.1. Shapes in simplicial HoTT<a class="headerlink" href="#21-shapes-in-simplicial-hott" title="Permanent link">&para;</a></h2>
+<h2 id="21-motivation">§2.1. Motivation<a class="headerlink" href="#21-motivation" title="Permanent link">&para;</a></h2>
+<p>We have the following</p>
+<p><strong>Goal:</strong> Introduce shapes into HoTT such that get the following:</p>
+<ol>
+<li>
+<p>Shape <span class="arithmatex">\(\Delta^1\)</span> such that a term in <span class="arithmatex">\(\Delta^1 \to A\)</span> defines an arrow (morphism) in <span class="arithmatex">\(A\)</span></p>
+</li>
+<li>
+<p>Shape <span class="arithmatex">\(\Lambda_1^2\)</span> such that a term in <span class="arithmatex">\(\Lambda_1^2 \to A\)</span> defines a pair of composable arrows in <span class="arithmatex">\(A\)</span></p>
+</li>
+<li>
+<p>Shape <span class="arithmatex">\(\Delta^2\)</span> such that a term in <span class="arithmatex">\(\Delta^2 \to A\)</span> defines a pair of composable arrows in <span class="arithmatex">\(A\)</span> together with their composite</p>
+</li>
+</ol>
+<p>Furthermore, maps between those shapes should give <em>restriction maps</em> between the ensuing types, e.g.:</p>
+<div class="arithmatex">\[ d^0, d^1, d^2 : (\Delta^1 \to \Delta^2)\]</div>
+<div class="arithmatex">\[\rightsquigarrow (d_0)^*, (d_1)^*, (d_2)^* : \left((\Delta^2 \to A) \to (\Delta^1 \to A) \right)\]</div>
+<div class="arithmatex">\[ i : (\Lambda_1^2 \to \Delta^2 )$$
+$$\rightsquigarrow i^* : \left((\Delta^2 \to A) \to (\Lambda_1^2 \to A) \right)\]</div>
+<p>One way to tackle this is as follows. Let us assume a directed interval type <span class="arithmatex">\(\Delta^1\)</span>. Then we could define the type of arrows in a type <span class="arithmatex">\(A\)</span> as follows:</p>
+<div class="arithmatex">\[ \hom_A(x,y) \stackrel{(?)}{:\equiv} \sum_{f : \Delta^1 \to A} (x =_A f(0)) \times (f(1) =_A y) \]</div>
+<p>Terms in this type are morphisms <em>up to homotopy</em>, i.e. triples <span class="arithmatex">\(\langle f, p, q \rangle\)</span> where <span class="arithmatex">\(p,q\)</span> are paths <span class="arithmatex">\(p : x = f(0)\)</span> and <span class="arithmatex">\(q : f(1) = y\)</span>:</p>
+<div class="arithmatex">\[ x \stackrel{p}{=} f(0) \stackrel{f}{\longrightarrow} f(1) \stackrel{q}{=} y\]</div>
+<p>Given the intensional character of our identity types, we cannot necessarily conclude that <span class="arithmatex">\(f(0) \equiv x\)</span> and <span class="arithmatex">\(f(1) \equiv y\)</span>, so we have to keep track about the homotopical data. This becomes difficult to work with quite quickly.</p>
+<p>Thus, we will choose a different route:</p>
+<ol>
+<li>We will introduce <strong>subshapes</strong> such as</li>
+</ol>
+<p>$<span class="arithmatex">\(\partial \Delta^1 \subseteq \Delta^1, \quad  \Delta^1 \subseteq \Delta^2,  \quad \Lambda_1^2 \subseteq \Delta^2.\)</span>$</p>
+<ol>
+<li>Then we will introduce strict <strong>extension types</strong> to define arrows with strictly defined domain and codomain, i.e.,</li>
+</ol>
+<p>$$ x  \stackrel{f}{\longrightarrow}  y$$</p>
+<p>rather than</p>
+<div class="arithmatex">\[ x \stackrel{p}{=} f(0) \stackrel{f}{\longrightarrow} f(1) \stackrel{q}{=} y\]</div>
+<p>But this comes at a price:</p>
+<ul>
+<li>We have to introduce shapes as a separate syntactic layer.</li>
+<li>But this then will allows us to strictify shapes and diagrams.</li>
+</ul>
+<p><strong>Idea:</strong></p>
+<p>If <span class="arithmatex">\(\psi\)</span> is a shape, then a <strong>subshape</strong> <span class="arithmatex">\(\varphi \subseteq \psi\)</span> is a family of propositions</p>
+<div class="arithmatex">\[ \varphi : \psi \to \mathrm{Tope},\]</div>
+<p>where <span class="arithmatex">\(\mathrm{Tope}\)</span> captures syntactic propositions in a special language built out of</p>
+<div class="arithmatex">\[ \equiv, \quad \land, \quad \lor, \quad \bot, \quad \top, \quad \leq, \quad 0_2, \quad 1_2 \]</div>
+<p>and where the variables <span class="arithmatex">\(r,s,t, \ldots\)</span> come from directed cubes:</p>
+<div class="arithmatex">\[ 1, \quad  2, \quad 2 \times 2, \quad 2 \times 2 \times 2, \ldots \]</div>
+<p><strong>There is more to say about how to set up shape theory properly. We will only birefly glance at this in the notes. But the above is all the upshot you will need for Rzk.</strong></p>
+<h2 id="22-shapes-in-simplicial-hott">§2.2. Shapes in simplicial HoTT<a class="headerlink" href="#22-shapes-in-simplicial-hott" title="Permanent link">&para;</a></h2>
 <p>Recall that in ordinary dependent type theory types depend on contexts:</p>
 <div class="arithmatex">\[ \Gamma \vdash A \]</div>
 <p>In sHoTT, we want our types to not only depend on other types but geometric <strong>shapes</strong>. This is done by adding new layers to the type theory with their corresponding notion of context.</p>
@@ -535,10 +605,10 @@
 <p>The <strong>cube layer</strong> is a non-dependent type theory, generated by the following:</p>
 </li>
 <li>
-<p>the terminal cube <span class="arithmatex">\(\mathbf{1}\)</span> <em>aka</em> the <strong><span class="arithmatex">\(0\)</span>-cube</strong> with a unique term <span class="arithmatex">\(1_1 \in \mathbf{1}\)</span>.</p>
+<p>the terminal cube <span class="arithmatex">\(1\)</span> <em>aka</em> the <strong><span class="arithmatex">\(0\)</span>-cube</strong> with a unique term <span class="arithmatex">\(1_1 \in 1\)</span>.</p>
 </li>
 <li>
-<p>a directed interval <span class="arithmatex">\(\mathbf{2}\)</span> <em>aka</em> the <strong><span class="arithmatex">\(1\)</span>-cube</strong> with two terms <span class="arithmatex">\(0_2, 1_2 : \mathbf{2}\)</span></p>
+<p>a directed interval <span class="arithmatex">\(2\)</span> <em>aka</em> the <strong><span class="arithmatex">\(1\)</span>-cube</strong> with two terms <span class="arithmatex">\(0_2, 1_2 : 2\)</span></p>
 </li>
 <li>
 <p>for every pair of cubes <span class="arithmatex">\(I, J\)</span> the cartesian product <span class="arithmatex">\(I \times J\)</span> is again a cube</p>
@@ -549,7 +619,7 @@
 <li>
 <p><strong>equality topes</strong> of the form <span class="arithmatex">\(s \equiv t\)</span> for <span class="arithmatex">\(s,t : I\)</span>, for a cube <span class="arithmatex">\(I\)</span></p>
 </li>
-<li><strong>inequality topes</strong> of the form <span class="arithmatex">\(s \leq t\)</span> for <span class="arithmatex">\(s,t : \mathbf{2}\)</span></li>
+<li><strong>inequality topes</strong> of the form <span class="arithmatex">\(s \leq t\)</span> for <span class="arithmatex">\(s,t : 2\)</span></li>
 <li>the minimal and maximal topes <span class="arithmatex">\(\bot, \top\)</span></li>
 <li>finite conjunction <span class="arithmatex">\(\land\)</span> and finite disjunction <span class="arithmatex">\(\lor\)</span></li>
 </ul>
@@ -598,59 +668,58 @@ $$ \varphi \subseteq \psi.\]</div>
 <li><strong><span class="arithmatex">\(1\)</span>-simplex <span class="arithmatex">\(\Delta^2\)</span>:</strong></li>
 </ul>
 <p><img src="delta1.jpg" alt="<span class="arithmatex">\(1\)</span>-simplex"></p>
+<p>The <strong><span class="arithmatex">\(1\)</span>-simplex</strong> is the <span class="arithmatex">\(1\)</span>-cube:
+$$ \Delta^1 :\equiv {t : 2 \; | \; \top }$$</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nd">#lang</span><span class="p"> </span><span class="s">rzk-1</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Δ¹" id="define:Δ¹" style="visibility: visible; position: relative; color: inherit">Δ¹</a></span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  : <span class="kt">2</span> → <span class="kt">TOPE</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  := <span class="p">\ </span>t → <span class="m">TOP</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:∂Δ¹" id="define:∂Δ¹" style="visibility: visible; position: relative; color: inherit">∂Δ¹</a></span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  : Δ¹ → <span class="kt">TOPE</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>  := <span class="p">\ </span>t → (t <span class="sx">≡</span> <span class="m">0₂</span> <span class="sx">∨</span> t <span class="sx">≡</span> <span class="m">1₂</span>)
+</span></code></pre></div>
+<p>The <strong>boundary of the <span class="arithmatex">\(1\)</span>-simplex</strong> is a pair of isolated points:</p>
+<div class="arithmatex">\[ 0 \; \bullet \qquad 1 \; \bullet\]</div>
+<p>$<span class="arithmatex">\(\partial \Delta^1 :\equiv \{t : 2 \; | \; t \equiv 0_2 \lor t \equiv 1_2 \}\)</span>$
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:∂Δ¹" id="define:∂Δ¹" style="visibility: visible; position: relative; color: inherit">∂Δ¹</a></span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  : Δ¹ → <span class="kt">TOPE</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  := <span class="p">\ </span>t → (t <span class="sx">≡</span> <span class="m">0₂</span> <span class="sx">∨</span> t <span class="sx">≡</span> <span class="m">1₂</span>)
+</span></code></pre></div></p>
+<ul>
+<li><strong><span class="arithmatex">\(2\)</span>-simplex <span class="arithmatex">\(\Delta^2\)</span>:</strong></li>
+</ul>
+<p><img src="delta2.jpg" alt="<span class="arithmatex">\(2\)</span>-simplex"></p>
+<p>The <strong><span class="arithmatex">\(2\)</span>-simplex</strong> is (chosen to be) the following square in <span class="arithmatex">\(2 \times 2\)</span>:</p>
+<p>$$ \Delta^2 :\equiv { (t,s) : 2 \times 2 \; | \; s \leq t } $$
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Δ²" id="define:Δ²" style="visibility: visible; position: relative; color: inherit">Δ²</a></span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  : ( <span class="kt">2</span> × <span class="kt">2</span>) → <span class="kt">TOPE</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  := \ (t , s) → s <span class="sx">≤</span> t
+</span></code></pre></div></p>
+<ul>
+<li><strong><span class="arithmatex">\(3\)</span>-simplex <span class="arithmatex">\(\Delta^3\)</span>:</strong></li>
+</ul>
+<p><img src="delta3.jpg" alt="<span class="arithmatex">\(3\)</span>-simplex"></p>
+<div class="arithmatex">\[ \Delta^3 :\equiv \{((t_1, t_2),t_3) : 2 \times 2 \times 2 \; | \; t_3 \leq t_2 \land t_2 \leq t_1 \} \]</div>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Δ³" id="define:Δ³" style="visibility: visible; position: relative; color: inherit">Δ³</a></span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  : ( <span class="kt">2</span> × <span class="kt">2</span> × <span class="kt">2</span>) → <span class="kt">TOPE</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  := \ ((t1 , t2) , t3) → t3 <span class="sx">≤</span> t2 <span class="sx">∧</span> t2 <span class="sx">≤</span> t1
 </span></code></pre></div>
 <ul>
-<li><strong><span class="arithmatex">\(2\)</span>-simplex <span class="arithmatex">\(\Delta^2\)</span>:</strong>
-<img src="delta2.jpg" alt="<span class="arithmatex">\(2\)</span>-simplex"></li>
+<li><strong><span class="arithmatex">\((2,1)\)</span>-horn <span class="arithmatex">\(\Lambda_1^2\)</span>:</strong></li>
 </ul>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Δ²" id="define:Δ²" style="visibility: visible; position: relative; color: inherit">Δ²</a></span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  : ( <span class="kt">2</span> × <span class="kt">2</span>) → <span class="kt">TOPE</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  := \ (t , s) → s <span class="sx">≤</span> t
+<p><img src="horn21.jpg" alt="<span class="arithmatex">\((2,1)\)</span>-horn"></p>
+<p>We can capture the <span class="arithmatex">\((2,1)\)</span>-horn as subshape of the <span class="arithmatex">\(2\)</span>-cube:
+$<span class="arithmatex">\(\Lambda :\equiv \{ (t,s) : 2 \times 2 \; | \; s \equiv 0_2 \lor t \equiv 1_2\}\)</span>$</p>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Λ" id="define:Λ" style="visibility: visible; position: relative; color: inherit">Λ</a></span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  : ( <span class="kt">2</span> × <span class="kt">2</span>) → <span class="kt">TOPE</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  := \ (t , s) → (s <span class="sx">≡</span> <span class="m">0₂</span> <span class="sx">∨</span> t <span class="sx">≡</span> <span class="m">1₂</span>)
 </span></code></pre></div>
-<ul>
-<li><strong><span class="arithmatex">\(3\)</span>-simplex <span class="arithmatex">\(\Delta^3\)</span>:</strong>
-<img src="delta3.jpg" alt="<span class="arithmatex">\(3\)</span>-simplex"></li>
-</ul>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Δ³" id="define:Δ³" style="visibility: visible; position: relative; color: inherit">Δ³</a></span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  : ( <span class="kt">2</span> × <span class="kt">2</span> × <span class="kt">2</span>) → <span class="kt">TOPE</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  := \ ((t1 , t2) , t3) → t3 <span class="sx">≤</span> t2 <span class="sx">∧</span> t2 <span class="sx">≤</span> t1
+<p>But we often will want to use the the <span class="arithmatex">\((2,1)\)</span>-horn as a subshape of the <em><span class="arithmatex">\(2\)</span>-simplex</em>:</p>
+<div class="arithmatex">\[\Lambda_1^2 :\equiv \{ (t,s) : \Delta^2 \; | \; s \equiv 0_2 \lor t \equiv 1_2\}\]</div>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Λ²₁" id="define:Λ²₁" style="visibility: visible; position: relative; color: inherit">Λ²₁</a></span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  : Δ² → <span class="kt">TOPE</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>  := \ (t , s) → Λ (t , s)
 </span></code></pre></div>
-<ul>
-<li><strong><span class="arithmatex">\((2,1)\)</span>-horn <span class="arithmatex">\(\Lambda_1^2\)</span>:</strong>
-<img src="horn21.jpg" alt="<span class="arithmatex">\(3\)</span>-simplex">
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Λ" id="define:Λ" style="visibility: visible; position: relative; color: inherit">Λ</a></span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  : ( <span class="kt">2</span> × <span class="kt">2</span>) → <span class="kt">TOPE</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  := \ (t , s) → (s <span class="sx">≡</span> <span class="m">0₂</span> <span class="sx">∨</span> t <span class="sx">≡</span> <span class="m">1₂</span>)
-</span></code></pre></div></li>
-</ul>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Λ²₁" id="define:Λ²₁" style="visibility: visible; position: relative; color: inherit">Λ²₁</a></span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  : Δ² → <span class="kt">TOPE</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  := \ (t , s) → Λ (t , s)
-</span></code></pre></div>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:shape-prod" id="define:shape-prod" style="visibility: visible; position: relative; color: inherit">shape-prod</a></span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  <span class="p">( </span>I J <span class="p">:</span> <span class="kt">CUBE</span>)
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>  <span class="p">( </span>ψ <span class="p">:</span> I → <span class="kt">TOPE</span>)
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  <span class="p">( </span>χ <span class="p">:</span> J → <span class="kt">TOPE</span>)
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>  : ( I × J) → <span class="kt">TOPE</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>  := \ (t , s) → ψ t <span class="sx">∧</span> χ s
-</span></code></pre></div>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:Δ¹×Δ¹" id="define:Δ¹×Δ¹" style="visibility: visible; position: relative; color: inherit">Δ¹×Δ¹</a></span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  : ( <span class="kt">2</span> × <span class="kt">2</span>) → <span class="kt">TOPE</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>  := shape-prod <span class="kt">2</span> <span class="kt">2</span> Δ¹ Δ¹
-</span></code></pre></div>
-<h2 id="22-extension-types-in-simplicial-hott">§2.2. Extension types in simplicial HoTT<a class="headerlink" href="#22-extension-types-in-simplicial-hott" title="Permanent link">&para;</a></h2>
-<p>If we assumed a directed interval type <span class="arithmatex">\(\mathbb I\)</span> we could define the type of arrows in a type <span class="arithmatex">\(A\)</span> as follows:</p>
-<div class="arithmatex">\[ \sum_{f : \mathbb I \to A} (f(0) =_A x) \times  (f(1) =_A y)\]</div>
-<p>Terms in this type are morphisms <em>up to homotopy</em>, i.e. triples <span class="arithmatex">\(\langle f, p, q \rangle\)</span> where <span class="arithmatex">\(p,q\)</span> are paths <span class="arithmatex">\(p : f(0) = x\)</span> and <span class="arithmatex">\(q : f(1) = y\)</span>. Given the intensional character of our identity types, we cannot necessarily conclude that <span class="arithmatex">\(f(0) \equiv x\)</span> and <span class="arithmatex">\(f(1) \equiv y\)</span>, so we have to keep track about the homotopical data. This becomes difficult to work with quite quickly.</p>
-<p>In this version of simplicial HoTT, we will work with <strong>extension types</strong> instead:</p>
+<p><strong>So a shape always comes with an explicit emebdding to a specified larger shape or cube!</strong></p>
+<h2 id="23-extension-types-in-simplicial-hott">§2.3. Extension types in simplicial HoTT<a class="headerlink" href="#23-extension-types-in-simplicial-hott" title="Permanent link">&para;</a></h2>
+<p>We can now introduce extension types to define our strict hom-types. This will be a brief overview; we will hear a more thorough discussion on extension types by Elif on Thursday.</p>
 <ul>
 <li>Let <span class="arithmatex">\(\phi \subseteq \psi\)</span> be a shape inclusion.</li>
 <li>Let <span class="arithmatex">\(t : \phi \vdash a(t) : A\)</span>.</li>
@@ -701,123 +770,123 @@ $$ \varphi \subseteq \psi.\]</div>
 </tr>
 </tbody>
 </table>
-<h2 id="23-morphisms-in-a-type">§2.3. Morphisms in a type<a class="headerlink" href="#23-morphisms-in-a-type" title="Permanent link">&para;</a></h2>
+<h2 id="24-morphisms-in-a-type">§2.4. Morphisms in a type<a class="headerlink" href="#24-morphisms-in-a-type" title="Permanent link">&para;</a></h2>
 <p>Let <span class="arithmatex">\(A\)</span> be a type and <span class="arithmatex">\(x,y:A\)</span>. We will use the extension types to define types of <strong>arrows</strong> or <strong>morphisms</strong> in <span class="arithmatex">\(A\)</span>. The idea is that an arrow <span class="arithmatex">\(x \to y\)</span> should have the shape of the interval <span class="arithmatex">\(\Delta^1\)</span> with the initial vertex labeled <span class="arithmatex">\(x\)</span> and the terminal vertex labeled <span class="arithmatex">\(y\)</span>.</p>
 <p>In sHoTT we define this as:</p>
 <div class="arithmatex">\[\hom_A(x,y) := \left \langle \Delta^1 \to A |^{\partial \Delta^1}_{[x,y]}\right\rangle\]</div>
 <p>In Rzk, the notation is:</p>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:hom" id="define:hom" style="visibility: visible; position: relative; color: inherit">hom</a></span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>  <span class="p">( </span>x y <span class="p">:</span> A)
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>  : <span class="kt">U</span>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>  :=
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>  <span class="p">(</span>t <span class="p">:</span> Δ¹)
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>  → A [ t <span class="sx">≡</span> <span class="m">0₂</span> ↦ x , <span class="c">-- the left endpoint is exactly `x`</span>
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>        t <span class="sx">≡</span> <span class="m">1₂</span> ↦ y ] <span class="c">-- the right endpoint is exactly `y`</span>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:hom" id="define:hom" style="visibility: visible; position: relative; color: inherit">hom</a></span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>  <span class="p">( </span>x y <span class="p">:</span> A)
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>  : <span class="kt">U</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>  :=
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>  <span class="p">( </span>t <span class="p">:</span> Δ¹)
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>  → A [ t <span class="sx">≡</span> <span class="m">0₂</span> ↦ x , <span class="c">-- the left endpoint is exactly `x`</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>        t <span class="sx">≡</span> <span class="m">1₂</span> ↦ y ] <span class="c">-- the right endpoint is exactly `y`</span>
 </span></code></pre></div>
 <p>For every term <span class="arithmatex">\(x : A\)</span> we can define the <strong>identity morphism</strong> as the morphism that is constant at <span class="arithmatex">\(x\)</span>:</p>
 <div class="arithmatex">\[ \mathrm{id}_x :\equiv \lambda t.x : \hom_A(x,x)\]</div>
 <p>Can you write this in Rzk?</p>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:id-hom" id="define:id-hom" style="visibility: visible; position: relative; color: inherit">id-hom</a></span> <span class="p">(</span>A <span class="p">:</span> <span class="kt">U</span>) <span class="p">(</span>x <span class="p">:</span> A)
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>  : hom A x x
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>  := <span class="p">\ </span>t → x
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:id-hom" id="define:id-hom" style="visibility: visible; position: relative; color: inherit">id-hom</a></span> <span class="p">(</span>A <span class="p">:</span> <span class="kt">U</span>) <span class="p">(</span>x <span class="p">:</span> A)
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>  : hom A x x
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>  := <span class="p">\ </span>t → x
 </span></code></pre></div>
 <p>To talk about composition, we need to reason about triangles. Let <span class="arithmatex">\(x,y,z : A\)</span>, <span class="arithmatex">\(f : \hom_A(x,y)\)</span>, <span class="arithmatex">\(g : \hom_A(y,z)\)</span>, and <span class="arithmatex">\(h : \hom_A(x,z)\)</span>. We define the type of triangles with boundary consisting of those morphisms as:</p>
 <div class="arithmatex">\[ \hom_{A,x,y,z}^2(f,g,h) :\equiv \left \langle \Delta^2 \to A |^{\partial \Delta^2}_{[f,g,h]}\right\rangle\]</div>
 <p>In Rzk, this can be implemented as follows using case-splits on the dimension variables on the simplex:</p>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:hom2" id="define:hom2" style="visibility: visible; position: relative; color: inherit">hom2</a></span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>  <span class="p">( </span>x y z <span class="p">:</span> A)
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>  <span class="p">( </span>f <span class="p">:</span> hom A x y)
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>  <span class="p">( </span>g <span class="p">:</span> hom A y z)
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>  <span class="p">( </span>h <span class="p">:</span> hom A x z)
-</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>  : <span class="kt">U</span>
-</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>  :=
-</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>  ( ( t₁ , t₂) : Δ²)
-</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>  → A [ t₂ <span class="sx">≡</span> <span class="m">0₂</span> ↦ f t₁ , <span class="c">-- the top edge is exactly `f`,</span>
-</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>        t₁ <span class="sx">≡</span> <span class="m">1₂</span> ↦ g t₂ , <span class="c">-- the right edge is exactly `g`, and</span>
-</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>        t₂ <span class="sx">≡</span> t₁ ↦ h t₂]  <span class="c">-- the diagonal is exactly `h`</span>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:hom2" id="define:hom2" style="visibility: visible; position: relative; color: inherit">hom2</a></span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>  <span class="p">( </span>x y z <span class="p">:</span> A)
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>  <span class="p">( </span>f <span class="p">:</span> hom A x y)
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>  <span class="p">( </span>g <span class="p">:</span> hom A y z)
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>  <span class="p">( </span>h <span class="p">:</span> hom A x z)
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>  : <span class="kt">U</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>  :=
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>  ( ( t₁ , t₂) : Δ²)
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>  → A [ t₂ <span class="sx">≡</span> <span class="m">0₂</span> ↦ f t₁ , <span class="c">-- the top edge is exactly `f`,</span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>        t₁ <span class="sx">≡</span> <span class="m">1₂</span> ↦ g t₂ , <span class="c">-- the right edge is exactly `g`, and</span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>        t₂ <span class="sx">≡</span> t₁ ↦ h t₂]  <span class="c">-- the diagonal is exactly `h`</span>
 </span></code></pre></div>
 <p>There are some canonical triangles in every type, regardless if it's a category or not:</p>
 <p><img src="identities.jpg" alt="Triangle witnesses" style="zoom: 1.5;"></p>
 <p>E.g., the leftmost one is given by:</p>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:const-triangle" id="define:const-triangle" style="visibility: visible; position: relative; color: inherit">const-triangle</a></span> <span class="p">(</span>A <span class="p">:</span> <span class="kt">U</span>) <span class="p">(</span>x <span class="p">:</span> A)
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>  : hom2 A x x x
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    ( id-hom A x) (id-hom A x) (id-hom A x)
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>  := \ (t , s) → x
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:const-triangle" id="define:const-triangle" style="visibility: visible; position: relative; color: inherit">const-triangle</a></span> <span class="p">(</span>A <span class="p">:</span> <span class="kt">U</span>) <span class="p">(</span>x <span class="p">:</span> A)
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>  : hom2 A x x x
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    ( id-hom A x) (id-hom A x) (id-hom A x)
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>  := \ (t , s) → x
 </span></code></pre></div>
-<p>Of course, these should witness unitality of the identity morphism, part of the axiomatics of a category. But we don't have a notion of composition yet!</p>
-<h2 id="23-segal-types">2.3 Segal types<a class="headerlink" href="#23-segal-types" title="Permanent link">&para;</a></h2>
+<p>Being üart of the axiomatics of a category, these should witness unitality of the identity morphism. But we don't even have a notion of composition yet!</p>
+<h2 id="25-segal-types">§2.5. Segal types<a class="headerlink" href="#25-segal-types" title="Permanent link">&para;</a></h2>
 <p>We want to express the property of a type having composition of arrows (as witnessed by a <span class="arithmatex">\(2\)</span>-simplex) uniquely up to homotopy. Namely, we call a type <span class="arithmatex">\(A\)</span> <strong>Segal</strong> if and only if the following proposition is satisfied:</p>
 <div class="arithmatex">\[ \text{is-Segal}(A) :\equiv \prod_{x,y,z:A} \prod_{f : \hom_A(x,y)}\prod_{g : \hom_A(y,z)} \text{is-contr}\left( \sum_{h : \hom_A(x,z)}\hom_A^2(f,g,h) \right) \]</div>
 <p>In Rzk, this translates into:</p>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:is-segal" id="define:is-segal" style="visibility: visible; position: relative; color: inherit">is-segal</a></span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>  : <span class="kt">U</span>
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>  :=
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>  <span class="p">( </span>x <span class="p">:</span> A) → <span class="p">(</span>y <span class="p">:</span> A) → <span class="p">(</span>z <span class="p">:</span> A)
-</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>  → <span class="p">( </span>f <span class="p">:</span> hom A x y) → <span class="p">(</span>g <span class="p">:</span> hom A y z)
-</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>  → is-contr <span class="p">(</span>Σ (h <span class="p">:</span> hom A x z) , (hom2 A x y z f g h))
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:is-segal" id="define:is-segal" style="visibility: visible; position: relative; color: inherit">is-segal</a></span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>  : <span class="kt">U</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>  :=
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>  <span class="p">( </span>x <span class="p">:</span> A) → <span class="p">(</span>y <span class="p">:</span> A) → <span class="p">(</span>z <span class="p">:</span> A)
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>  → <span class="p">( </span>f <span class="p">:</span> hom A x y) → <span class="p">(</span>g <span class="p">:</span> hom A y z)
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>  → is-contr <span class="p">(</span>Σ (h <span class="p">:</span> hom A x z) , (hom2 A x y z f g h))
 </span></code></pre></div>
 <p>It will be handy to extract the pieces of the "canonical" composition data through the following helper functions. The data is comprised out of:
   1. a composite morphism (<span class="arithmatex">\(1\)</span>-simplex) <span class="arithmatex">\(\mathrm{comp}_A(f,g)\)</span>
   2. a triangle (<span class="arithmatex">\(2\)</span>-simplex) bounded <span class="arithmatex">\(f\)</span>, <span class="arithmatex">\(g\)</span>, and <span class="arithmatex">\(\mathrm{comp}(f,g)\)</span>:</p>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:comp-is-segal" id="define:comp-is-segal" style="visibility: visible; position: relative; color: inherit">comp-is-segal</a></span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>  <span class="p">( </span>is-segal-A <span class="p">:</span> is-segal A)
-</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>  <span class="p">( </span>x y z <span class="p">:</span> A)
-</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>  <span class="p">( </span>f <span class="p">:</span> hom A x y)
-</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>  <span class="p">( </span>g <span class="p">:</span> hom A y z)
-</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>  : hom A x z
-</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>  := <span class="s">first</span> (<span class="s">first</span> (is-segal-A x y z f g))
-</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>
-</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:witness-comp-is-segal" id="define:witness-comp-is-segal" style="visibility: visible; position: relative; color: inherit">witness-comp-is-segal</a></span>
-</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
-</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>  <span class="p">( </span>is-segal-A <span class="p">:</span> is-segal A)
-</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>  <span class="p">( </span>x y z <span class="p">:</span> A)
-</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>  <span class="p">( </span>f <span class="p">:</span> hom A x y)
-</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>  <span class="p">( </span>g <span class="p">:</span> hom A y z)
-</span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a>  : hom2 A x y z f g (comp-is-segal A is-segal-A x y z f g)
-</span><span id="__span-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a>  := <span class="s">second</span> (<span class="s">first</span> (is-segal-A x y z f g))
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:comp-is-segal" id="define:comp-is-segal" style="visibility: visible; position: relative; color: inherit">comp-is-segal</a></span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>  <span class="p">( </span>is-segal-A <span class="p">:</span> is-segal A)
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>  <span class="p">( </span>x y z <span class="p">:</span> A)
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>  <span class="p">( </span>f <span class="p">:</span> hom A x y)
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>  <span class="p">( </span>g <span class="p">:</span> hom A y z)
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>  : hom A x z
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>  := <span class="s">first</span> (<span class="s">first</span> (is-segal-A x y z f g))
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:witness-comp-is-segal" id="define:witness-comp-is-segal" style="visibility: visible; position: relative; color: inherit">witness-comp-is-segal</a></span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>  <span class="p">( </span>is-segal-A <span class="p">:</span> is-segal A)
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>  <span class="p">( </span>x y z <span class="p">:</span> A)
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>  <span class="p">( </span>f <span class="p">:</span> hom A x y)
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>  <span class="p">( </span>g <span class="p">:</span> hom A y z)
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>  : hom2 A x y z f g (comp-is-segal A is-segal-A x y z f g)
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>  := <span class="s">second</span> (<span class="s">first</span> (is-segal-A x y z f g))
 </span></code></pre></div>
 <p>Indeed, we can now prove that the Segal condition implies the unique existence of composite morphisms. Whenever there exists a candidate composite edge <span class="arithmatex">\(h : \hom_A(x,z)\)</span>, fitting into a <span class="arithmatex">\(2\)</span>-simplex <span class="arithmatex">\(\alpha : \hom_A^2(f,g,h)\)</span>, then we can construct a path from the canonical composite as constructed above.</p>
 <p>For this, we need some prerequisites about paths in sHoTT:</p>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:ap" id="define:ap" style="visibility: visible; position: relative; color: inherit">ap</a></span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>  <span class="p">( </span>A B <span class="p">:</span> <span class="kt">U</span>)
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>  <span class="p">( </span>x y <span class="p">:</span> A)
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>  <span class="p">( </span>f <span class="p">:</span> A → B)
-</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>  <span class="p">( </span>p <span class="p">:</span> x = y)
-</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>  : f x = f y
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:ap" id="define:ap" style="visibility: visible; position: relative; color: inherit">ap</a></span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>  <span class="p">( </span>A B <span class="p">:</span> <span class="kt">U</span>)
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>  <span class="p">( </span>x y <span class="p">:</span> A)
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>  <span class="p">( </span>f <span class="p">:</span> A → B)
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>  <span class="p">( </span>p <span class="p">:</span> x = y)
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>  : f x = f y
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>  := <span class="bp">?</span>
+</span></code></pre></div>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:first-path-Σ" id="define:first-path-Σ" style="visibility: visible; position: relative; color: inherit">first-path-Σ</a></span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>  <span class="p">( </span>B <span class="p">:</span> A → <span class="kt">U</span>)
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>  <span class="p">( </span>s t <span class="p">:</span> <span class="kt">Σ</span> <span class="p">(</span>a <span class="p">:</span> A) , B a)
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>  <span class="p">( </span>e <span class="p">:</span> s = t)
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>  : <span class="s">first</span> s = <span class="s">first</span> t
 </span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>  := <span class="bp">?</span>
 </span></code></pre></div>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:first-path-Σ" id="define:first-path-Σ" style="visibility: visible; position: relative; color: inherit">first-path-Σ</a></span>
+<div class="language-rzk highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:uniqueness-comp-is-segal" id="define:uniqueness-comp-is-segal" style="visibility: visible; position: relative; color: inherit">uniqueness-comp-is-segal</a></span>
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>  <span class="p">( </span>B <span class="p">:</span> A → <span class="kt">U</span>)
-</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>  <span class="p">( </span>s t <span class="p">:</span> <span class="kt">Σ</span> <span class="p">(</span>a <span class="p">:</span> A) , B a)
-</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>  <span class="p">( </span>e <span class="p">:</span> s = t)
-</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>  : <span class="s">first</span> s = <span class="s">first</span> t
-</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>  := <span class="bp">?</span>
-</span></code></pre></div>
-<div class="language-rzk highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:uniqueness-comp-is-segal" id="define:uniqueness-comp-is-segal" style="visibility: visible; position: relative; color: inherit">uniqueness-comp-is-segal</a></span>
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
-</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>  <span class="p">( </span>is-segal-A <span class="p">:</span> is-segal A)
-</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>  <span class="p">( </span>x y z <span class="p">:</span> A)
-</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>  <span class="p">( </span>f <span class="p">:</span> hom A x y)
-</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>  <span class="p">( </span>g <span class="p">:</span> hom A y z)
-</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>  <span class="p">( </span>h <span class="p">:</span> hom A x z)
-</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>  <span class="p">( </span>alpha <span class="p">:</span> hom2 A x y z f g h)
-</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>  : ( comp-is-segal A is-segal-A x y z f g) = h
-</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>  :=
-</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>  first-path-Σ
-</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>  ( hom A x z)
-</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>  ( hom2 A x y z f g)
-</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>  ( comp-is-segal A is-segal-A x y z f g
-</span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a>    , witness-comp-is-segal A is-segal-A x y z f g)
-</span><span id="__span-15-16"><a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a>  ( h , alpha)
-</span><span id="__span-15-17"><a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a>  <span class="p">( </span>homotopy-contraction
-</span><span id="__span-15-18"><a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a>    ( Σ ( k <span class="p">:</span> hom A x z) , (hom2 A x y z f g k))
-</span><span id="__span-15-19"><a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a>    ( is-segal-A x y z f g)
-</span><span id="__span-15-20"><a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a>    ( h , alpha))
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>  <span class="p">( </span>is-segal-A <span class="p">:</span> is-segal A)
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>  <span class="p">( </span>x y z <span class="p">:</span> A)
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>  <span class="p">( </span>f <span class="p">:</span> hom A x y)
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>  <span class="p">( </span>g <span class="p">:</span> hom A y z)
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>  <span class="p">( </span>h <span class="p">:</span> hom A x z)
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>  <span class="p">( </span>alpha <span class="p">:</span> hom2 A x y z f g h)
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>  : ( comp-is-segal A is-segal-A x y z f g) = h
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>  :=
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>  first-path-Σ
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>  ( hom A x z)
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>  ( hom2 A x y z f g)
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>  ( comp-is-segal A is-segal-A x y z f g
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>    , witness-comp-is-segal A is-segal-A x y z f g)
+</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>  ( h , alpha)
+</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>  <span class="p">( </span>homotopy-contraction
+</span><span id="__span-14-18"><a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a>    ( Σ ( k <span class="p">:</span> hom A x z) , (hom2 A x y z f g k))
+</span><span id="__span-14-19"><a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a>    ( is-segal-A x y z f g)
+</span><span id="__span-14-20"><a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a>    ( h , alpha))
 </span></code></pre></div>
 
 
