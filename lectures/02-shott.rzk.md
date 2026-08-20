@@ -334,7 +334,7 @@ E.g., the leftmost one is given by:
   := \ (t , s) → x
 ```
 
-Being üart of the axiomatics of a category, these should witness unitality of the identity morphism. But we don't even have a notion of composition yet!
+Being part of the axiomatics of a category, these should witness unitality of the identity morphism. But we don't even have a notion of composition yet!
 
 ## §2.5. Segal types
 
