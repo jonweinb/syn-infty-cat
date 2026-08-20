@@ -6,6 +6,15 @@
 
 The aim of this problem set is to prove associativity of composition in Segal types by following the geometric argument of [RS17]. This depends on the notion of *Segal types* introduced in the simplicial HoTT lecture as well as their basic infrastructure including `comp-is-segal`, `witness-comp-is-segal`, and `uniqueness-comp-is-segal`.
 
+Typecheck this file (and the previous files containing those definitions) by running `rzk typecheck --allow-holes` from the root of this repository. The `rzk.yaml` file tells `rzk` to typecheck the lecture files first followed by this file.
+
+Our aim is to prove that if `A` is a Segal type with elements `w x y z : A` and arrows
+` f : hom A w x` and `g : hom A x y` and `h : hom A y z` then `h ∘ (g ∘ f) = (h ∘ g) ∘ f`, where the composition is expressed with the `comp-is-segal` function. This involves some geometry!
+
+
+
+## Squares as arrows in arrows
+
 In simplicial sets, a square is built by gluing two triangles together along the diagonal. Thus if we have a map from a triangle `Δ²` into a type `A`, we can build a square `Δ¹×Δ¹ → A` by mapping each constituent triangle separately.
 
 This is permitted by an operation called `recOR` on the shape layer of Rzk. There is a logical equivalence between the topes `TOP` and the tope `(t ≤ s) ∨  (s ≤ t)` over `(t, s) : 2 × 2`. So we can define a function `\ (t , s) → ?` out of the square by specifying the pieces `\ (t , s) → recOR ( t ≤ s ↦ ? , s ≤ t ↦ ?)` separately provided these specifications are compatible on the intersection `(t ≤ s) ∧ (s ≤ t)`.
@@ -100,11 +109,11 @@ Importantly the arrow type of a Segal type is a Segal type. We are just going to
 
 To use this, we make an assumption:
 
-```rzk
+```
 #assume extext : ExtExt
 ```
 
-The following assumption can proven using `extext`, but we just assume it here:
+(except we are not doing this here to avoid an unused variable error when this file is compiled). The following assumption can proven using `extext`, but we just assume it here:
 
 ```rzk
 #assume is-segal-arr :
@@ -114,7 +123,7 @@ The following assumption can proven using `extext`, but we just assume it here:
 Back to associativity! Assume now that `A` is a Segal type with elements `w x y z : A` and three composable arrows `f : hom A w x`, `g : hom A x y`, and `h : hom A y z`. Using the fact that `arr A` is a Segal type, we can compose the arrow from `f` to `g` defined by `arr-in-arr-is-segal` and an analogous arrow from `g` to `h`. We will actually use the witness to this composition rather than just the composite arrow from `f` to `h`:
 
 ```rzk
-#def witness-associative-is-segal uses (extext is-segal-arr)
+#def witness-associative-is-segal uses (is-segal-arr)
   ( A : U)
   ( is-segal-A : is-segal A)
   ( w x y z : A)
@@ -136,7 +145,7 @@ Back to associativity! Assume now that `A` is a Segal type with elements `w x y 
 This `witness-associative-is-segal` defines a map `Δ² → Δ¹ → A` which curries to define a map `Δ²×Δ¹ → A`. We will extract a tetrahedron `Δ³ → A` from this data whose spine is `f` followed by `g` followed by `h`. This is done via a particular map `Δ³ → Δ²×Δ¹` defined by `\ ((t, s), r) → ((t, r), s)`.
 
 ```rzk
-#def tetrahedron-associative-is-segal uses (extext is-segal-arr)
+#def tetrahedron-associative-is-segal uses (is-segal-arr)
   ( A : U)
   ( is-segal-A : is-segal A)
   ( w x y z : A)
@@ -152,7 +161,7 @@ This `witness-associative-is-segal` defines a map `Δ² → Δ¹ → A` which cu
 Using this data, we can extract a diagonal edge, defining the triple composite arrow from `w` to `z`.
 
 ```rzk
-#def triple-comp-is-segal uses (extext is-segal-arr)
+#def triple-comp-is-segal uses (is-segal-arr)
   ( A : U)
   ( is-segal-A : is-segal A)
   ( w x y z : A)
@@ -166,7 +175,7 @@ Using this data, we can extract a diagonal edge, defining the triple composite a
 We also have witnesses that this triple composite arrow is a binary composite of both `g f` followed by `h` and `f` followed by `h g`.
 
 ```rzk
-#def left-witness-associative-is-segal uses (extext is-segal-arr)
+#def left-witness-associative-is-segal uses (is-segal-arr)
   ( A : U)
   ( is-segal-A : is-segal A)
   ( w x y z : A)
@@ -179,7 +188,7 @@ We also have witnesses that this triple composite arrow is a binary composite of
     ( triple-comp-is-segal A is-segal-A w x y z f g h)
   := ?
 
-#def right-witness-associative-is-segal uses (extext)
+#def right-witness-associative-is-segal uses (is-segal-arr)
   ( A : U)
   ( is-segal-A : is-segal A)
   ( w x y z : A)
@@ -196,7 +205,7 @@ We also have witnesses that this triple composite arrow is a binary composite of
 These witnesses are really commutative triangles with specified boundary. What we want to conclude is that the triple composite is *equal* to the composites of these composites, using identity types. This follows from the uniqueness of composition in the Segal type `A`.
 
 ```rzk
-#def left-associative-is-segal uses (extext is-segal-arr)
+#def left-associative-is-segal uses (is-segal-arr)
   ( A : U)
   ( is-segal-A : is-segal A)
   ( w x y z : A)
@@ -207,7 +216,7 @@ These witnesses are really commutative triangles with specified boundary. What w
   = ( triple-comp-is-segal A is-segal-A w x y z f g h)
   := ?
 
-#def right-associative-is-segal uses (extext is-segal-arr)
+#def right-associative-is-segal uses (is-segal-arr)
   ( A : U)
   ( is-segal-A : is-segal A)
   ( w x y z : A)
@@ -222,7 +231,7 @@ These witnesses are really commutative triangles with specified boundary. What w
 Using this we can finally prove associativity!
 
 ```rzk
-#def associative-is-segal uses (extext is-segal-arr)
+#def associative-is-segal uses (is-segal-arr)
   ( A : U)
   ( is-segal-A : is-segal A)
   ( w x y z : A)
@@ -233,7 +242,7 @@ Using this we can finally prove associativity!
   = ( comp-is-segal A is-segal-A w x z f (comp-is-segal A is-segal-A x y z g h))
   := ?
 
-#def rev-associative-is-segal uses (extext is-segal-arr)
+#def rev-associative-is-segal uses (is-segal-arr)
   ( A : U)
   ( is-segal-A : is-segal A)
   ( w x y z : A)
