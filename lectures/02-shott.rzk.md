@@ -214,6 +214,19 @@ $$\Lambda_1^2 :\equiv \{ (t,s) : \Delta^2 \; \vert \; s \equiv 0_2 \lor t \equiv
   := \ (t , s) → Λ (t , s)
 ```
 
+```rzk
+#def shape-prod
+  ( I J : CUBE)
+  ( ψ : I → TOPE)
+  ( χ : J → TOPE)
+  : ( I × J) → TOPE
+  := \ (t , s) → ψ t ∧ χ s
+
+#def Δ¹×Δ¹
+  : ( 2 × 2) → TOPE
+  := shape-prod 2 2 Δ¹ Δ¹
+```
+
 **So a shape always comes with an explicit embedding to a specified larger shape or cube!**
 
 
