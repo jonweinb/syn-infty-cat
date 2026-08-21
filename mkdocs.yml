@@ -14,6 +14,10 @@ nav:
   - Home: index.md
   - Lecture 1 — Intro to HoTT: 01-rzk-hott.rzk.md
   - Lecture 2 — Simplicial HoTT and Segal types: 02-shott.rzk.md
+  - Lecture 3 — Category theory with Segal types: 03-more-segal.rzk.md
+  - Lecture 4 — Discrete and Rezk types: 04-disc-segal-rezk.rzk.md
+  - Exercises:
+      - Associativity in Segal types: exercises/03a-associativity.rzk.md
 
 theme:
   name: material
