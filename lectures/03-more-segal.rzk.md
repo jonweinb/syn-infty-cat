@@ -1,5 +1,7 @@
 # Synthetic Lecture 3: Category theory with Segal types
 
+## Day 5
+
 ```rzk
 #lang rzk-1
 ```
@@ -182,7 +184,7 @@ This showcases another big strength of dependent type theory.
 
 It will turn out that this is equivalent to the **component-wise** natural transformations:
 
-$$\mathrm{nat-compw}(f,g) :\equiv \prod_{x:A} \hom_{B(x)}(f(x),g(x))$$
+$$\text{nat-compw}(f,g) :\equiv \prod_{x:A} \hom_{B(x)}(f(x),g(x))$$
 
 ```rzk
 #def nat-trans-components
