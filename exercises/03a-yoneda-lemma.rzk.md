@@ -1,4 +1,4 @@
-# Exercises: Associativity in Segal types
+# Exercises: the Yoneda Lemma for Segal Types
 
 ```rzk
 #lang rzk-1

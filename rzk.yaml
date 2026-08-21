@@ -4,4 +4,4 @@ include:
   - lectures/02-shott.rzk.md
   - lectures/03-more-segal.rzk.md
   - lectures/04-disc-segal-rezk.rzk.md
-  - lectures/exercises/02a-associativity.rzk.md
+  - exercises/02a-associativity.rzk.md
