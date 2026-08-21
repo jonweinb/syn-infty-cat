@@ -4,13 +4,12 @@
 #lang rzk-1
 ```
 
-The aim of this problem set is to prove associativity of composition in Segal types by following the geometric argument of [RS17]. This depends on the notion of *Segal types* introduced in the simplicial HoTT lecture as well as their basic infrastructure including `comp-is-segal`, `witness-comp-is-segal`, and `uniqueness-comp-is-segal`.
+The aim of this problem set is to prove associativity of composition in Segal types by following the geometric argument of [RS17]. This depends on the notion of *Segal types* introduced in the simplicial HoTT lecture as well as their basic infrastructure including `comp-is-segal`, `witness-comp-is-segal`, and `uniqueness-comp-is-segal`. Remind yourself what those functions do before proceeding.
 
 Typecheck this file (and the previous files containing those definitions) by running `rzk typecheck --allow-holes` from the root of this repository. The `rzk.yaml` file tells `rzk` to typecheck the lecture files first followed by this file.
 
 Our aim is to prove that if `A` is a Segal type with elements `w x y z : A` and arrows
 ` f : hom A w x` and `g : hom A x y` and `h : hom A y z` then `h ∘ (g ∘ f) = (h ∘ g) ∘ f`, where the composition is expressed with the `comp-is-segal` function. This involves some geometry!
-
 
 
 ## Squares as arrows in arrows
@@ -68,6 +67,8 @@ We can interpret the `witness-square-comp-is-segal` as an arrow in the arrow typ
   := ?
 ```
 
+## Arrow types of Segal types are Segal types
+
 Importantly the arrow type of a Segal type is a Segal type. We are just going to use this without supplying a proof but we should acknowledge that it uses an axiom called *extension extensionality* which characterizes identity types in extension types.
 
 ```rzk
@@ -85,7 +86,7 @@ Importantly the arrow type of a Segal type is a Segal type. We are just going to
     ( ( t : ψ) → A t [ϕ t ↦ a t])
     ( f)
     ( \ g' p' → (t : ψ)
-      → (f t =_{A t} g' t) [ϕ t ↦ refl])
+      → ( f t =_{A t} g' t) [ϕ t ↦ refl])
     ( \ _ → refl)
     ( g)
     ( p)
@@ -103,7 +104,7 @@ Importantly the arrow type of a Segal type is a Segal type. We are just going to
   → is-equiv
     ( f = g)
     ( ( t : ψ)
-      → (f t =_{A t} g t) [ϕ t ↦ refl])
+      → ( f t =_{A t} g t) [ϕ t ↦ refl])
     ( ext-htpy-eq I ψ ϕ A a f g))
 ```
 
@@ -113,12 +114,14 @@ To use this, we make an assumption:
 #assume extext : ExtExt
 ```
 
-(except we are not doing this here to avoid an unused variable error when this file is compiled). The following assumption can proven using `extext`, but we just assume it here:
+except we are not doing this here to avoid an unused variable error when this file is compiled. The above is a code block but not an `rzk` code block, so it is not seen by the typechecker. The following theorem can proven using `extext`, but we just assume it here:
 
 ```rzk
 #assume is-segal-arr :
-  ( A : U) → ( is-segal A) → is-segal (arr A)
+  ( A : U) → (is-segal A) → is-segal (arr A)
 ```
+
+## Associativity
 
 Back to associativity! Assume now that `A` is a Segal type with elements `w x y z : A` and three composable arrows `f : hom A w x`, `g : hom A x y`, and `h : hom A y z`. Using the fact that `arr A` is a Segal type, we can compose the arrow from `f` to `g` defined by `arr-in-arr-is-segal` and an analogous arrow from `g` to `h`. We will actually use the witness to this composition rather than just the composite arrow from `f` to `h`:
 
