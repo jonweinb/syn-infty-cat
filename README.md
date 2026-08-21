@@ -8,6 +8,12 @@ The HTML notes are published at [jonweinb.github.io/syn-infty-cat](https://jonwe
 
 - [Lecture 1: Introduction to homotopy type theory](lectures/01-rzk-hott.rzk.md)
 - [Lecture 2: Simplicial homotopy type theory and Segal types](lectures/02-shott.rzk.md)
+- [Lecture 3: Category theory with Segal types](lectures/03-more-segal.rzk.md)
+- [Lecture 4: Discrete and Rezk types](lectures/04-disc-segal-rezk.rzk.md)
+
+## Exercises
+
+- [Associativity in Segal types](lectures/exercises/03a-associativity.rzk.md)
 
 ## Prerequisites
 

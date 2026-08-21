@@ -3,4 +3,5 @@ include:
   - lectures/01-rzk-hott.rzk.md
   - lectures/02-shott.rzk.md
   - lectures/03-more-segal.rzk.md
-  - exercises/03a-associativity.rzk.md
+  - lectures/exercises/03a-associativity.rzk.md
+  - lectures/04-disc-segal-rezk.rzk.md

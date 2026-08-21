@@ -6,7 +6,7 @@
 
 The aim of this problem set is to prove associativity of composition in Segal types by following the geometric argument of [RS17]. This depends on the notion of *Segal types* introduced in the simplicial HoTT lecture as well as their basic infrastructure including `comp-is-segal`, `witness-comp-is-segal`, and `uniqueness-comp-is-segal`. Remind yourself what those functions do before proceeding.
 
-Typecheck this file (and the previous files containing those definitions) by running `rzk typecheck --allow-holes` from the root of this repository. The `rzk.yaml` file tells `rzk` to typecheck the lecture files first followed by this file.
+Typecheck this file (and the previous files containing those definitions) by running `rzk typecheck --allow-holes` from the root of this repository. The `rzk.yaml` file tells `rzk` to typecheck the lecture files first, followed by this file.
 
 Our aim is to prove that if `A` is a Segal type with elements `w x y z : A` and arrows
 ` f : hom A w x` and `g : hom A x y` and `h : hom A y z` then `h ∘ (g ∘ f) = (h ∘ g) ∘ f`, where the composition is expressed with the `comp-is-segal` function. This involves some geometry!
