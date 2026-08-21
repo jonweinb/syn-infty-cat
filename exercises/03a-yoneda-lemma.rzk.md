@@ -324,6 +324,9 @@ This commutativity condition can be expressed elementwise: for any `v : hom A y 
 
 In fact this is not a separate requirement, but is provable!
 
+To start, we arrange the arrows `f : hom A x y` and
+`v : hom A y a` into a square with their composite and the arrow `id-hom A a`.
+
 ```rzk
 #def id-codomain-square
   ( A : U)
@@ -340,7 +343,11 @@ In fact this is not a separate requirement, but is provable!
       , t ≤ s ↦
         ( comp-id-witness A x a
           ( comp-is-segal A is-segal-A x y a f v)) (s , t))
+```
 
+Now apply `ϕ` to produce a square with boundary given by `f`, `ϕ y v`, `ϕ` of the composite, and `id-hom A b`.
+
+```rzk
 #def square-representable-transformation
   ( A : U)
   ( is-segal-A : is-segal A)
@@ -349,11 +356,7 @@ In fact this is not a separate requirement, but is provable!
   ( v : hom A y a)
   ( ϕ : (z : A) → hom A z a → hom A z b)
   : ( t : Δ¹) → hom A (f t) b
-  :=
-    \ t →
-      ϕ
-      ( f t)
-      ( id-codomain-square A is-segal-A a x y f v t)
+  := ?
 ```
 
 This is why we defined `eq-square-is-segal`: it will convert this square into an equality, though not quite the equality we want. Compose that equality with a second equality to prove the naturality of `ϕ`.
@@ -368,14 +371,7 @@ This is why we defined `eq-square-is-segal`: it will convert this square into an
   ( ϕ : (z : A) → hom A z a → hom A z b)
   : ( comp-is-segal A is-segal-A x y b f (ϕ y v))
   = ( ϕ x (comp-is-segal A is-segal-A x y a f v))
-  :=
-  concat (hom A x b)
-  ( comp-is-segal A is-segal-A x y b f (ϕ y v))
-  ( comp-is-segal A is-segal-A x b b  (ϕ x (comp-is-segal A is-segal-A x y a f v)) (id-hom A b))
-  ( ϕ x (comp-is-segal A is-segal-A x y a f v))
-  ( eq-square-is-segal A is-segal-A
-    ( square-representable-transformation A is-segal-A a b x y f v ϕ))
-  ( comp-id-is-segal A is-segal-A x b   (ϕ x (comp-is-segal A is-segal-A x y a f v)))
+  := ?
 ```
 
 In summary, the type of natural transformations between representable functors is just given by `(z : A) → hom A z a → hom A z b`. There is no naturality condition needed in the definition because it is provable!
