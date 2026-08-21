@@ -355,6 +355,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#day-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Day 5
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#21-identities" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -413,6 +424,7 @@
 
 
 <h1 id="synthetic-lecture-3-category-theory-with-segal-types">Synthetic Lecture 3: Category theory with Segal types<a class="headerlink" href="#synthetic-lecture-3-category-theory-with-segal-types" title="Permanent link">&para;</a></h1>
+<h2 id="day-5">Day 5<a class="headerlink" href="#day-5" title="Permanent link">&para;</a></h2>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nd">#lang</span><span class="p"> </span><span class="s">rzk-1</span>
 </span></code></pre></div>
 <p>Our Segal types are supposed to (almost) play the role of <span class="arithmatex">\(\infty\)</span>-category. What is particularly nice in our setting is that we get a lot of the desired properties <strong>for free</strong>, including functoriality and naturality.</p>
@@ -545,7 +557,7 @@ $$ \text{ap-hom}_F(f) \equiv: F(f) $$</p>
 </span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>  := <span class="bp">?</span>
 </span></code></pre></div>
 <p>It will turn out that this is equivalent to the <strong>component-wise</strong> natural transformations:</p>
-<div class="arithmatex">\[\mathrm{nat-compw}(f,g) :\equiv \prod_{x:A} \hom_{B(x)}(f(x),g(x))\]</div>
+<div class="arithmatex">\[\text{nat-compw}(f,g) :\equiv \prod_{x:A} \hom_{B(x)}(f(x),g(x))\]</div>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:nat-trans-components" id="define:nat-trans-components" style="visibility: visible; position: relative; color: inherit">nat-trans-components</a></span>
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
 </span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>  <span class="p">( </span>B <span class="p">:</span> A → <span class="kt">U</span>)

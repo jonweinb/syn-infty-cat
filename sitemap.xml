@@ -2,18 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://jonweinb.github.io/syn-infty-cat/</loc>
-         <lastmod>2026-08-20</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://jonweinb.github.io/syn-infty-cat/01-rzk-hott.rzk/</loc>
-         <lastmod>2026-08-20</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://jonweinb.github.io/syn-infty-cat/02-shott.rzk/</loc>
-         <lastmod>2026-08-20</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://jonweinb.github.io/syn-infty-cat/03-more-segal.rzk/</loc>
-         <lastmod>2026-08-20</lastmod>
+         <lastmod>2026-08-21</lastmod>
+    </url>
+    <url>
+         <loc>https://jonweinb.github.io/syn-infty-cat/04-disc-segal-rezk.rzk/</loc>
+         <lastmod>2026-08-21</lastmod>
     </url>
 </urlset>
