@@ -16,7 +16,7 @@ This is a literate `rzk` file that compiles independently of the rest of this re
 
 Our work will require the following definitions from the homotopy type theory library.
 
-Product types are special cases of sigma types.
+Product types `product A B` are special cases of sigma types.
 
 ```rzk
 #def product
@@ -93,9 +93,9 @@ We will use the definitions of *contractible* types.
   := Σ (c : A) , (x : A) → c = x
 ```
 
-For expediency, we just use the built in `first` and `second` to extract the center of contraction and the contracting homotopy.
+For expediency, we just use the built-in `first` and `second` to extract the center of contraction and the contracting homotopy.
 
-Finally, to state the Yoneda lemma, we will assert that a particular map between types is an *equivalence*.
+Finally, to state the Yoneda lemma, we will assert that a particular map `f : A → B` between types is an *equivalence*.
 
 ```rzk
 #def is-equiv
@@ -132,16 +132,16 @@ Recall that a type `A` in simplicial HoTT comes with hom types, whose elements a
   ( x y : A)
   : U
   :=
-  ( t : Δ¹)
-  → A [ t ≡ 0₂ ↦ x , t ≡ 1₂ ↦ y ]
+  ( t : Δ¹) → A [ t ≡ 0₂ ↦ x , t ≡ 1₂ ↦ y ]
 ```
 
-In particular, for any `x : A` there is an *identity arrow* defined as the constant function at `x`.
+In particular, for any `x : A` there is an *identity arrow* defined as the constant function at `x`. Your first goal is to define it.
 
 ```rzk
 #def id-hom (A : U) (x : A)
   : hom A x x
   := ?
+
 ```
 
 The shape `Δ²` parametrizes commutative triangles in `A`. Given `x y z : A` and arrows `f : hom A x y`, `g : hom A y z`, and `h : hom A x z` they form a commutative triangle just when there is an element in the following type.
@@ -161,7 +161,7 @@ The shape `Δ²` parametrizes commutative triangles in `A`. Given `x y z : A` an
       , t₂ ≡ t₁ ↦ h t₂]
 ```
 
-As your first exercise, prove that for any `f : hom A x y`, we can form two commutative triangles where the diagonal edge is `f` and one of the spine edges is the identity on `x` or on `y`.
+As your second exercise, prove that for any `f : hom A x y`, we can form two commutative triangles where the diagonal edge is `f` and one of the spine edges is the identity on `x` or on `y`.
 
 ```rzk
 #def id-comp-witness
@@ -188,7 +188,7 @@ A type `A` is a *Segal type* when every composable pair of arrows has a unique c
   :=
   ( x : A) → (y : A) → (z : A)
   → ( f : hom A x y) → (g : hom A y z)
-  → is-contr (Σ (h : hom A x z) , (hom2 A x y z f g h))
+  → is-contr (Σ (h : hom A x z) , hom2 A x y z f g h)
 ```
 
 In this case, we can define a binary composition function and  a witness to the commutativity of the triangle involving the binary composite.
@@ -209,7 +209,8 @@ In this case, we can define a binary composition function and  a witness to the 
   ( x y z : A)
   ( f : hom A x y)
   ( g : hom A y z)
-  : hom2 A x y z f g (comp-is-segal A is-segal-A x y z f g)
+  : hom2 A x y z f g
+    ( comp-is-segal A is-segal-A x y z f g)
   := second (first (is-segal-A x y z f g))
 ```
 
@@ -244,7 +245,8 @@ Use this infrastructure to prove that in a Segal type, the composite of `f` with
   ( is-segal-A : is-segal A)
   ( x y : A)
   ( f : hom A x y)
-  : ( comp-is-segal A is-segal-A x x y (id-hom A x) f) = f
+  : comp-is-segal A is-segal-A x x y
+      ( id-hom A x) f = f
   := ?
 
 #def comp-id-is-segal
@@ -252,7 +254,8 @@ Use this infrastructure to prove that in a Segal type, the composite of `f` with
   ( is-segal-A : is-segal A)
   ( x y : A)
   ( f : hom A x y)
-  : ( comp-is-segal A is-segal-A x y y f (id-hom A y)) = f
+  : comp-is-segal A is-segal-A x y y
+      f (id-hom A y) = f
   := ?
 ```
 
@@ -312,7 +315,7 @@ The Yoneda lemma states that this function `contra-evid` is an equivalence. To p
   := ?
 ```
 
-To prove that these maps are inverse equivalences, we need to show that the composites are homotopic to the identity. One retraction is straightforward:
+To prove that these maps are inverse equivalences, we need to show that the composites are homotopic to the identity. One retraction is straightforward, once you work out (on paper) what the left-hand side `contra-evid A a b ((contra-yon A is-segal-A a b) v)` reduces to. `rzk` will reduce the left hand side to its definition automatically, so you just need to supply a reason why this definitionally-reduced left hand side equals the right-hand side `v`.
 
 ```rzk
 #def contra-evid-yon
@@ -325,7 +328,7 @@ To prove that these maps are inverse equivalences, we need to show that the comp
 ```
 
 The other retraction requires more work. Here we want a homotopy that has the form of an equation
-`contra-yon A is-segal-A a b (contra-evid A a b ϕ) = ϕ` for all `ϕ : (z : A) → hom A z a → hom A z b`. This is an equation between two natural transformations so we will start by proving that both of these define the same functions when applied to arguments `x : A` and `f : hom A x a`. Work out why this is true on paper before attempting to fill in the following hole.
+`contra-yon A is-segal-A a b (contra-evid A a b ϕ) = ϕ` for all `ϕ : (z : A) → hom A z a → hom A z b`. This is an equation between two natural transformations so we will start by proving that both of these define the same functions when applied to arguments `x : A` and `f : hom A x a`. This is the hardest goal in this problem set, so work out why this is true on paper before attempting to fill in the following hole.
 
 ```rzk
 #def contra-yon-evid-twice-pointwise uses (naturality-contravariant-fiberwise-representable-transformation)
