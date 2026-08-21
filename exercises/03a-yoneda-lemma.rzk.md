@@ -59,6 +59,22 @@ Using path induction, we can define *reversal* and *concatenation* of paths, as 
   :=
   ind-path A y (\ z' q' → (x = z')) p z q
 
+#def zig-zag-concat
+  ( A : U)
+  ( x y z : A)
+  ( p : x = y)
+  ( q : z = y)
+  : ( x = z)
+  := concat A x y z p (rev A z y q)
+
+#def zag-zig-concat
+  ( A : U)
+  ( x y z : A)
+  ( p : y = x)
+  ( q : y = z)
+  : ( x = z)
+  := concat A x y z (rev A y x p) q
+
 #def ap
   ( A B : U)
   ( x y : A)
@@ -259,6 +275,36 @@ Use this infrastructure to prove that in a Segal type, the composite of `f` with
   := ?
 ```
 
+For later use, we note that an uncurried commutative square can produce an equality between its sides.
+
+```rzk
+#def eq-square-is-segal
+  ( A : U)
+  ( is-segal-A : is-segal A)
+  ( α : Δ¹ → Δ¹ → A)
+  : comp-is-segal A is-segal-A (α 0₂ 0₂) (α 1₂ 0₂) (α 1₂ 1₂)
+    ( \ t → α t 0₂) (\ s → α 1₂ s)
+  = comp-is-segal A is-segal-A (α 0₂ 0₂) (α 0₂ 1₂) (α 1₂ 1₂)
+    ( \ s → α 0₂ s) (\ t → α t 1₂)
+  :=
+  zig-zag-concat (hom A (α 0₂ 0₂) (α 1₂ 1₂))
+  ( comp-is-segal A is-segal-A (α 0₂ 0₂) (α 1₂ 0₂) (α 1₂ 1₂)
+    ( \ t → α t 0₂) (\ s → α 1₂ s))
+  ( \ t → α t t)
+  ( comp-is-segal A is-segal-A (α 0₂ 0₂) (α 0₂ 1₂) (α 1₂ 1₂)
+    ( \ s → α 0₂ s) (\ t → α t 1₂))
+  ( uniqueness-comp-is-segal A is-segal-A (α 0₂ 0₂) (α 1₂ 0₂) (α 1₂ 1₂)
+    ( \ t → α t 0₂)
+    ( \ s → α 1₂ s)
+    ( \ t → α t t)
+    ( \ (t , s) → α t s))
+  ( uniqueness-comp-is-segal A is-segal-A (α 0₂ 0₂) (α 0₂ 1₂) (α 1₂ 1₂)
+    ( \ s → α 0₂ s)
+    ( \ t → α t 1₂)
+    ( \ t → α t t)
+    ( \ (t , s) → α s t))
+```
+
 ## Representable functors and natural transformations
 
 Fix a Segal type `A` and element `a : A`. We refer to the family of types `z : A ⊢ hom A z a` as the *contravariant family represented by* `a`. It is the family whose elements are arrows with arbitrary domain and with codomain `a`.
@@ -276,18 +322,60 @@ This commutativity condition can be expressed elementwise: for any `v : hom A y 
 `( comp-is-segal A is-segal-A x y b f (ϕ y v))
   = ( ϕ x (comp-is-segal A is-segal-A x y a f v))`
 
-In fact this is not a separate requirement, but is provable! See the [original Yoneda repository](https://emilyriehl.github.io/yoneda/master/simplicial-hott/13-yoneda-geodesic.rzk/), the sHoTT library, or the [Yoneda game](https://rzk-lang.github.io/yoneda-game/) for full details. As this proof takes a while to develop, we will just assume this result here.
+In fact this is not a separate requirement, but is provable!
 
 ```rzk
-#assume naturality-contravariant-fiberwise-representable-transformation :
+#def id-codomain-square
   ( A : U)
-  → ( is-segal-A : is-segal A)
-  → ( a b x y : A)
-  → ( f : hom A x y)
-  → ( v : hom A y a)
-  → ( ϕ : (z : A) → hom A z a → hom A z b)
-  → ( comp-is-segal A is-segal-A x y b f (ϕ y v))
+  ( is-segal-A : is-segal A)
+  ( a x y : A)
+  ( f : hom A x y)
+  ( v : hom A y a)
+  : ( t : Δ¹) → hom A (f t) a
+  := \ t s →
+      recOR
+      ( s ≤ t ↦
+        ( witness-comp-is-segal A is-segal-A x y a f v)
+          ( t , s)
+      , t ≤ s ↦
+        ( comp-id-witness A x a
+          ( comp-is-segal A is-segal-A x y a f v)) (s , t))
+
+#def square-representable-transformation
+  ( A : U)
+  ( is-segal-A : is-segal A)
+  ( a b x y : A)
+  ( f : hom A x y)
+  ( v : hom A y a)
+  ( ϕ : (z : A) → hom A z a → hom A z b)
+  : ( t : Δ¹) → hom A (f t) b
+  :=
+    \ t →
+      ϕ
+      ( f t)
+      ( id-codomain-square A is-segal-A a x y f v t)
+```
+
+This is why we defined `eq-square-is-segal`: it will convert this square into an equality, though not quite the equality we want. Compose that equality with a second equality to prove the naturality of `ϕ`.
+
+```rzk
+#def naturality-contravariant-fiberwise-representable-transformation
+  ( A : U)
+  ( is-segal-A : is-segal A)
+  ( a b x y : A)
+  ( f : hom A x y)
+  ( v : hom A y a)
+  ( ϕ : (z : A) → hom A z a → hom A z b)
+  : ( comp-is-segal A is-segal-A x y b f (ϕ y v))
   = ( ϕ x (comp-is-segal A is-segal-A x y a f v))
+  :=
+  concat (hom A x b)
+  ( comp-is-segal A is-segal-A x y b f (ϕ y v))
+  ( comp-is-segal A is-segal-A x b b  (ϕ x (comp-is-segal A is-segal-A x y a f v)) (id-hom A b))
+  ( ϕ x (comp-is-segal A is-segal-A x y a f v))
+  ( eq-square-is-segal A is-segal-A
+    ( square-representable-transformation A is-segal-A a b x y f v ϕ))
+  ( comp-id-is-segal A is-segal-A x b   (ϕ x (comp-is-segal A is-segal-A x y a f v)))
 ```
 
 In summary, the type of natural transformations between representable functors is just given by `(z : A) → hom A z a → hom A z b`. There is no naturality condition needed in the definition because it is provable!
@@ -331,7 +419,7 @@ The other retraction requires more work. Here we want a homotopy that has the fo
 `contra-yon A is-segal-A a b (contra-evid A a b ϕ) = ϕ` for all `ϕ : (z : A) → hom A z a → hom A z b`. This is an equation between two natural transformations so we will start by proving that both of these define the same functions when applied to arguments `x : A` and `f : hom A x a`. This is the hardest goal in this problem set, so work out why this is true on paper before attempting to fill in the following hole.
 
 ```rzk
-#def contra-yon-evid-twice-pointwise uses (naturality-contravariant-fiberwise-representable-transformation)
+#def contra-yon-evid-twice-pointwise
   ( A : U)
   ( is-segal-A : is-segal A)
   ( a b : A)
@@ -389,7 +477,7 @@ This assumption provides us with the following function
 which we use to get equalities between functions from homotopies. Use this to prove the following:
 
 ```rzk
-#def contra-yon-evid-once-pointwise uses (funext naturality-contravariant-fiberwise-representable-transformation)
+#def contra-yon-evid-once-pointwise uses (funext)
   ( A : U)
   ( is-segal-A : is-segal A)
   ( a b : A)
@@ -400,10 +488,10 @@ which we use to get equalities between functions from homotopies. Use this to pr
   := ?
 ```
 
-And then use this to prove the retraction we wanted all along
+And then use this to prove the retraction we wanted all along:
 
 ```rzk
-#def contra-yon-evid uses (funext naturality-contravariant-fiberwise-representable-transformation)
+#def contra-yon-evid uses (funext)
   ( A : U)
   ( is-segal-A : is-segal A)
   ( a b : A)
@@ -416,7 +504,7 @@ And then use this to prove the retraction we wanted all along
 We have now reached the boss level! Assemble all of these ingredients into a proof of the Yoneda lemma:
 
 ```rzk
-#def contra-yoneda-lemma uses (funext naturality-contravariant-fiberwise-representable-transformation)
+#def contra-yoneda-lemma uses (funext)
   ( A : U)
   ( is-segal-A : is-segal A)
   ( a b : A)
