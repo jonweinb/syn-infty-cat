@@ -34,6 +34,25 @@ This is permitted by an operation called `recOR` on the shape layer of Rzk. Ther
 
 Now apply this construction in the special case of a square that is witnessing the composition of two composable morphisms in a Segal type:
 
+<svg style="float: right" viewBox="0 0 200 200" width="150" height="150">
+  <path style="fill: rgb(256,128,0,0.5); stroke-cap: round;" d="M 52 40 L 160 40 L 160 148 Z"></path>
+  <path style="fill: rgb(256,128,0,0.5); stroke-cap: round;" d="M 40 52 L 40 160 L 148 160 Z"></path>
+  <polyline points="40,30 160,30" stroke="black" stroke-width="3" marker-end="url(#arrow)"></polyline>
+  <polyline points="170,45 170,160" stroke="black" stroke-width="3" marker-end="url(#arrow)"></polyline>
+  <polyline points="40,40 160,160" stroke="red" stroke-width="3" marker-end="url(#arrow-red)"></polyline>
+  <polyline points="30,40 30,160" stroke="black" stroke-width="3" marker-end="url(#arrow)"></polyline>
+  <polyline points="45,170 160,170" stroke="black" stroke-width="3" marker-end="url(#arrow)"></polyline>
+  <text x="30" y="30">x</text>
+  <text x="170" y="30">y</text>
+  <text x="170" y="170">z</text>
+  <text x="30" y="170">y</text>
+  <text x="100" y="15">f</text>
+  <text x="185" y="100">g</text>
+  <text x="90" y="110" transform="rotate(45, 90, 110)" fill="red">comp-is-segal</text>
+  <text x="100" y="190">g</text>
+  <text x="15" y="100">f</text>
+</svg>
+
 ```rzk
 #def witness-square-comp-is-segal
   ( A : U)
@@ -55,6 +74,18 @@ We will interpret these squares are arrows in the arrow type of a type `A`.
 ```
 
 We can interpret the `witness-square-comp-is-segal` as an arrow in the arrow type from `f` to `g`:
+
+<svg style="float: right" viewBox="0 0 200 200" width="150" height="150">
+  <polyline points="170,45 170,160" stroke="black" stroke-width="3" marker-end="url(#arrow)"></polyline>
+  <polyline points="30,40 30,160" stroke="black" stroke-width="3" marker-end="url(#arrow)"></polyline>
+  <polyline points="40,100 160,100" stroke="red" stroke-width="6" marker-end="url(#arrow-red)"></polyline>
+  <text x="30" y="30">x</text>
+  <text x="170" y="30">y</text>
+  <text x="170" y="170">z</text>
+  <text x="30" y="170">y</text>
+  <text x="15" y="100">f</text>
+  <text x="185" y="100">g</text>
+</svg>
 
 ```rzk
 #def arr-in-arr-is-segal
@@ -125,6 +156,31 @@ except we are not doing this here to avoid an unused variable error when this fi
 
 Back to associativity! Assume now that `A` is a Segal type with elements `w x y z : A` and three composable arrows `f : hom A w x`, `g : hom A x y`, and `h : hom A y z`. Using the fact that `arr A` is a Segal type, we can compose the arrow from `f` to `g` defined by `arr-in-arr-is-segal` and an analogous arrow from `g` to `h`. We will actually use the witness to this composition rather than just the composite arrow from `f` to `h`:
 
+<svg style="float: right" viewBox="0 0 200 250" width="150" height="200">
+  <polyline points="170,45 170,160" stroke="black" stroke-width="3" marker-end="url(#arrow)"></polyline>
+  <polyline points="30,40 30,160" stroke="black" stroke-width="3" marker-end="url(#arrow)"></polyline>
+  <polyline points="40,100 160,100" stroke="red" stroke-width="6" marker-end="url(#arrow-red)"></polyline>
+  <polyline points="40,30 160,30" stroke="lightgrey" stroke-width="3"></polyline>
+  <polyline points="40,170 160,170" stroke="lightgrey" stroke-width="3"></polyline>
+  <path style="fill: rgb(256,128,0,0.5); stroke-cap: round;" d="M 40 100 L 160 100 L 100 130 Z"></path>
+  <polyline points="100,70 100,190" stroke="black" stroke-width="3" marker-end="url(#arrow)"></polyline>
+  <polyline points="155,105 105,130" stroke="red" stroke-width="6" marker-end="url(#arrow-red)"></polyline>
+  <polyline points="45,105 95,130" stroke="red" stroke-width="6" marker-end="url(#arrow-red)"></polyline>
+  <polyline points="155,35 105,55" stroke="lightgrey" stroke-width="3"></polyline>
+  <polyline points="45,35 95,55" stroke="lightgrey" stroke-width="3"></polyline>
+  <polyline points="155,175 105,195" stroke="lightgrey" stroke-width="3"></polyline>
+  <polyline points="45,175 95,195" stroke="lightgrey" stroke-width="3"></polyline>
+  <text x="30" y="30">w</text>
+  <text x="170" y="30">x</text>
+  <text x="30" y="170">x</text>
+  <text x="170" y="170">y</text>
+  <text x="100" y="60">y</text>
+  <text x="100" y="200">z</text>
+  <text x="15" y="100">f</text>
+  <text x="185" y="100">g</text>
+  <text x="90" y="150">h</text>
+</svg>
+
 ```rzk
 #def witness-associative-is-segal uses (is-segal-arr)
   ( A : U)
@@ -147,6 +203,24 @@ Back to associativity! Assume now that `A` is a Segal type with elements `w x y 
 
 This `witness-associative-is-segal` defines a map `Δ² → Δ¹ → A` which curries to define a map `Δ²×Δ¹ → A`. We will extract a tetrahedron `Δ³ → A` from this data whose spine is `f` followed by `g` followed by `h`. This is done via a particular map `Δ³ → Δ²×Δ¹` defined by `\ ((t, s), r) → ((t, r), s)`.
 
+<svg style="float: right" viewBox="0 0 200 250" width="150" height="200">
+  <path style="fill: rgb(256,128,0,0.5); stroke-cap: round;"
+    d="M 35 35 L 165 35 L 165 165 L 102 190 Z"></path>
+  <polyline points="170,45 170,160" stroke="black" stroke-width="3" marker-end="url(#arrow)"></polyline>
+  <polyline points="30,40 95,190" stroke="red" stroke-width="3" marker-end="url(#arrow-red)"></polyline>
+  <polyline points="40,40 160,160" stroke="red" stroke-width="3" marker-end="url(#arrow-red)"></polyline>
+  <polyline points="160,40 110,180" stroke="red" stroke-width="3" marker-end="url(#arrow-red)"></polyline>
+  <polyline points="40,30 160,30" stroke="black" stroke-width="3" marker-end="url(#arrow)"></polyline>
+  <polyline points="155,175 110,195" stroke="black" stroke-width="3" marker-end="url(#arrow)"></polyline>
+  <text x="30" y="30">w</text>
+  <text x="170" y="30">x</text>
+  <text x="170" y="170">y</text>
+  <text x="100" y="200">z</text>
+  <text x="185" y="100">g</text>
+  <text x="100" y="15">f</text>
+  <text x="140" y="205">h</text>
+</svg>
+
 ```rzk
 #def tetrahedron-associative-is-segal uses (is-segal-arr)
   ( A : U)
@@ -163,6 +237,24 @@ This `witness-associative-is-segal` defines a map `Δ² → Δ¹ → A` which cu
 
 Using this data, we can extract a diagonal edge, defining the triple composite arrow from `w` to `z`.
 
+<svg style="float: right" viewBox="0 0 200 250" width="150" height="200">
+  <path style="fill: rgb(128,128,128,0.5); stroke-cap: round;"
+    d="M 35 35 L 165 35 L 165 165 L 102 190 Z"></path>
+  <polyline points="170,45 170,160" stroke="black" stroke-width="3" marker-end="url(#arrow)"></polyline>
+  <polyline points="30,40 95,190" stroke="red" stroke-width="3" marker-end="url(#arrow-red)"></polyline>
+  <polyline points="40,40 160,160" stroke="grey" stroke-width="3" marker-end="url(#arrow-grey)"></polyline>
+  <polyline points="160,40 110,180" stroke="grey" stroke-width="3" marker-end="url(#arrow-grey)"></polyline>
+  <polyline points="40,30 160,30" stroke="black" stroke-width="3" marker-end="url(#arrow)"></polyline>
+  <polyline points="155,175 110,195" stroke="black" stroke-width="3" marker-end="url(#arrow)"></polyline>
+  <text x="30" y="30">w</text>
+  <text x="170" y="30">x</text>
+  <text x="170" y="170">y</text>
+  <text x="100" y="200">z</text>
+  <text x="185" y="100">g</text>
+  <text x="100" y="15">f</text>
+  <text x="140" y="205">h</text>
+</svg>
+
 ```rzk
 #def triple-comp-is-segal uses (is-segal-arr)
   ( A : U)
@@ -177,6 +269,26 @@ Using this data, we can extract a diagonal edge, defining the triple composite a
 
 We also have witnesses that this triple composite arrow is a binary composite of both `g f` followed by `h` and `f` followed by `h g`.
 
+<svg style="float: right" viewBox="0 0 200 250" width="150" height="200">
+  <path style="fill: rgb(128,128,128,0.5); stroke-cap: round;"
+    d="M 40 35 L 165 35 L 165 160 Z"></path>
+  <path style="fill: rgb(256,128,0,0.5); stroke-cap: round;"
+    d="M 35 40 L 160 165 L 102 190 Z"></path>
+  <polyline points="170,45 170,160" stroke="black" stroke-width="3" marker-end="url(#arrow)"></polyline>
+  <polyline points="30,40 95,190" stroke="red" stroke-width="3" marker-end="url(#arrow-red)"></polyline>
+  <polyline points="40,40 160,160" stroke="red" stroke-width="3" marker-end="url(#arrow-red)"></polyline>
+  <polyline points="160,40 110,180" stroke="grey" stroke-width="3" marker-end="url(#arrow-grey)"></polyline>
+  <polyline points="40,30 160,30" stroke="black" stroke-width="3" marker-end="url(#arrow)"></polyline>
+  <polyline points="155,175 110,195" stroke="black" stroke-width="3" marker-end="url(#arrow)"></polyline>
+  <text x="30" y="30">w</text>
+  <text x="170" y="30">x</text>
+  <text x="170" y="170">y</text>
+  <text x="100" y="200">z</text>
+  <text x="185" y="100">g</text>
+  <text x="100" y="15">f</text>
+  <text x="140" y="205">h</text>
+</svg>
+
 ```rzk
 #def left-witness-associative-is-segal uses (is-segal-arr)
   ( A : U)
@@ -190,7 +302,29 @@ We also have witnesses that this triple composite arrow is a binary composite of
     h
     ( triple-comp-is-segal A is-segal-A w x y z f g h)
   := ?
+```
 
+<svg style="float: right" viewBox="0 0 200 250" width="150" height="200">
+  <path style="fill: rgb(256,128,0,0.5); stroke-cap: round;"
+    d="M 35 35 L 155 35 L 100 185 Z"></path>
+  <path style="fill: rgb(128,128,128,0.5); stroke-cap: round;"
+    d="M 165 40 L 165 165 L 115 185 Z"></path>
+  <polyline points="170,45 170,160" stroke="black" stroke-width="3" marker-end="url(#arrow)"></polyline>
+  <polyline points="30,40 95,190" stroke="red" stroke-width="3" marker-end="url(#arrow-red)"></polyline>
+  <polyline points="40,40 160,160" stroke="grey" stroke-width="3" marker-end="url(#arrow-grey)"></polyline>
+  <polyline points="160,40 110,180" stroke="red" stroke-width="3" marker-end="url(#arrow-red)"></polyline>
+  <polyline points="40,30 160,30" stroke="black" stroke-width="3" marker-end="url(#arrow)"></polyline>
+  <polyline points="155,175 110,195" stroke="black" stroke-width="3" marker-end="url(#arrow)"></polyline>
+  <text x="30" y="30">w</text>
+  <text x="170" y="30">x</text>
+  <text x="170" y="170">y</text>
+  <text x="100" y="200">z</text>
+  <text x="185" y="100">g</text>
+  <text x="100" y="15">f</text>
+  <text x="140" y="205">h</text>
+</svg>
+
+```rzk
 #def right-witness-associative-is-segal uses (is-segal-arr)
   ( A : U)
   ( is-segal-A : is-segal A)
