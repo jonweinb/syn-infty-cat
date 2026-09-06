@@ -1,0 +1,511 @@
+# Exercises: the Yoneda Lemma for Segal Types
+
+```rzk
+#lang rzk-1
+```
+
+The aim of this problem set is to prove the Yoneda lemma for Segal types, characterizing natural transformations between representable functors.
+
+The argument given here is very easily adapted to proving a more general result characterizing natural transformations from a representable functor to either a *covariant family* (in the case of a covariant representable) or a *contravariant family* (in the case of a contravariant representable). But to pursue the general case would require a detour to explain these notions, which we do not discuss here.
+
+In fact, an interesting generalization of the Yoneda lemma came out of this synthetic approach to higher category theory. There is a principle of *arrow induction* which is analogous to *path induction*, aka the mapping out universal property of identity types. This gives a further generalization of the Yoneda lemma that we call the *dependent Yoneda lemma*. As it is also stated using covariant or contravariant families, we also do not pursue it here. See [RS17] or the sHoTT library for details.
+
+This is a literate `rzk` file that compiles independently of the rest of this repository (by duplicating definitions found elsewhere here). Typecheck by running `rzk typecheck exercises/03a-yoneda-lemma.rzk.md --allow-holes` from the root of this repository.
+
+## Homotopy type theory prerequisites
+
+Our work will require the following definitions from the homotopy type theory library.
+
+Product types `product A B` are special cases of sigma types.
+
+```rzk
+#def product
+  ( A B : U)
+  : U
+  := Σ (_ : A) , B
+```
+
+The elimination rule for identity types defines an operation called *path induction*:
+
+```rzk
+#def ind-path
+  ( A : U)
+  ( x : A)
+  ( C : (y : A) → (x = y) → U)
+  ( d : C x refl)
+  ( y : A)
+  ( p : x = y)
+  : C y p
+  := idJ(A , x , C , d , y , p)
+```
+
+Using path induction, we can define *reversal* and *concatenation* of paths, as well as the *application* of functions to paths.
+
+```rzk
+#def rev
+  ( A : U)
+  ( x : A)
+  ( y : A)
+  ( p : x = y)
+  : y = x
+  := ind-path A x (\ y' → \ p' → (y' = x)) refl y p
+
+#def concat
+  ( A : U)
+  ( x y z : A)
+  ( p : x = y)
+  ( q : y = z)
+  : x = z
+  :=
+  ind-path A y (\ z' q' → (x = z')) p z q
+
+#def zig-zag-concat
+  ( A : U)
+  ( x y z : A)
+  ( p : x = y)
+  ( q : z = y)
+  : ( x = z)
+  := concat A x y z p (rev A z y q)
+
+#def zag-zig-concat
+  ( A : U)
+  ( x y z : A)
+  ( p : y = x)
+  ( q : y = z)
+  : ( x = z)
+  := concat A x y z (rev A y x p) q
+
+#def ap
+  ( A B : U)
+  ( x y : A)
+  ( f : A → B)
+  ( p : x = y)
+  : f x = f y
+  :=
+  ind-path A x (\ y' p' → f x = f y') refl y p
+```
+
+We will also need to project from a path in a sigma type to a path between the first components of the pairs.
+
+```rzk
+#def first-path-Σ
+  ( A : U)
+  ( B : A → U)
+  ( s t : Σ (a : A) , B a)
+  ( e : s = t)
+  : first s = first t
+  :=
+  ind-path
+  ( Σ ( a : A) , B a) s
+  ( \ t' e' → first s = first t') refl t e
+```
+
+We will use the definitions of *contractible* types.
+
+```rzk
+#def is-contr
+  ( A : U)
+  : U
+  := Σ (c : A) , (x : A) → c = x
+```
+
+For expediency, we just use the built-in `first` and `second` to extract the center of contraction and the contracting homotopy.
+
+Finally, to state the Yoneda lemma, we will assert that a particular map `f : A → B` between types is an *equivalence*.
+
+```rzk
+#def is-equiv
+  ( A B : U)
+  ( f : A → B)
+  : U
+  :=
+  product
+  ( Σ ( r : B → A)
+    , ( a : A) → r (f a) = a)
+  ( Σ ( s : B → A)
+    , ( b : B) → f (s b) = b)
+```
+
+## Review of Segal types
+
+In simplicial HoTT, we can define certain shapes:
+
+```rzk
+#def Δ¹
+  : 2 → TOPE
+  := \ t → TOP
+
+#def Δ²
+  : ( 2 × 2) → TOPE
+  := \ (t , s) → s ≤ t
+```
+
+Recall that a type `A` in simplicial HoTT comes with hom types, whose elements are called *arrows*.
+
+```rzk
+#def hom
+  ( A : U)
+  ( x y : A)
+  : U
+  :=
+  ( t : Δ¹) → A [ t ≡ 0₂ ↦ x , t ≡ 1₂ ↦ y ]
+```
+
+In particular, for any `x : A` there is an *identity arrow* defined as the constant function at `x`. Your first goal is to define it.
+
+```rzk
+#def id-hom
+  ( A : U)
+  ( x : A)
+  : hom A x x
+  := \ _ → x
+```
+
+The shape `Δ²` parametrizes commutative triangles in `A`. Given `x y z : A` and arrows `f : hom A x y`, `g : hom A y z`, and `h : hom A x z` they form a commutative triangle just when there is an element in the following type.
+
+```rzk
+#def hom2
+  ( A : U)
+  ( x y z : A)
+  ( f : hom A x y)
+  ( g : hom A y z)
+  ( h : hom A x z)
+  : U
+  :=
+  ( ( t₁ , t₂) : Δ²)
+  → A [ t₂ ≡ 0₂ ↦ f t₁
+      , t₁ ≡ 1₂ ↦ g t₂
+      , t₂ ≡ t₁ ↦ h t₂]
+```
+
+As your second exercise, prove that for any `f : hom A x y`, we can form two commutative triangles where the diagonal edge is `f` and one of the spine edges is the identity on `x` or on `y`.
+
+```rzk
+#def id-comp-witness
+  ( A : U)
+  ( x y : A)
+  ( f : hom A x y)
+  : hom2 A x x y (id-hom A x) f f
+  := \ (t , s) → f s
+
+#def comp-id-witness
+  ( A : U)
+  ( x y : A)
+  ( f : hom A x y)
+  : hom2 A x y y f (id-hom A y) f
+  := \ (t , s) → f t
+```
+
+A type `A` is a *Segal type* when every composable pair of arrows has a unique composite.
+
+```rzk
+#def is-segal
+  ( A : U)
+  : U
+  :=
+  ( x : A) → (y : A) → (z : A)
+  → ( f : hom A x y) → (g : hom A y z)
+  → is-contr (Σ (h : hom A x z) , hom2 A x y z f g h)
+```
+
+In this case, we can define a binary composition function and  a witness to the commutativity of the triangle involving the binary composite.
+
+```rzk
+#def comp-is-segal (A : U) (is-segal-A : is-segal A)
+  ( x y z : A) (f : hom A x y) (g : hom A y z)
+  : hom A x z
+  := first (first (is-segal-A x y z f g))
+
+#def witness-comp-is-segal
+  ( A : U)
+  ( is-segal-A : is-segal A)
+  ( x y z : A)
+  ( f : hom A x y)
+  ( g : hom A y z)
+  : hom2 A x y z f g
+    ( comp-is-segal A is-segal-A x y z f g)
+  := second (first (is-segal-A x y z f g))
+```
+
+Moreover, if there is any other commutative triangle `alpha : hom2 A x y z f g h` then the binary composite of `f` and `g` equals `h`.
+
+```rzk
+#def uniqueness-comp-is-segal
+  ( A : U)
+  ( is-segal-A : is-segal A)
+  ( x y z : A)
+  ( f : hom A x y)
+  ( g : hom A y z)
+  ( h : hom A x z)
+  ( alpha : hom2 A x y z f g h)
+  : ( comp-is-segal A is-segal-A x y z f g) = h
+  :=
+  first-path-Σ
+  ( hom A x z)
+  ( hom2 A x y z f g)
+  ( comp-is-segal A is-segal-A x y z f g
+    , witness-comp-is-segal A is-segal-A x y z f g)
+  ( h , alpha)
+  ( ( second (is-segal-A x y z f g))
+      ( h , alpha))
+```
+
+Use this infrastructure to prove that in a Segal type, the composite of `f` with an identity is *equal to* `f`.
+
+```rzk
+#def id-comp-is-segal
+  ( A : U)
+  ( is-segal-A : is-segal A)
+  ( x y : A)
+  ( f : hom A x y)
+  : comp-is-segal A is-segal-A x x y
+      ( id-hom A x) f = f
+  := uniqueness-comp-is-segal A is-segal-A x x y (id-hom A x) f f (id-comp-witness A x y f)
+
+#def comp-id-is-segal
+  ( A : U)
+  ( is-segal-A : is-segal A)
+  ( x y : A)
+  ( f : hom A x y)
+  : comp-is-segal A is-segal-A x y y
+      f (id-hom A y) = f
+  := uniqueness-comp-is-segal A is-segal-A x y y f (id-hom A y) f (comp-id-witness A x y f)
+```
+
+For later use, we note that an uncurried commutative square can produce an equality between its sides.
+
+```rzk
+#def eq-square-is-segal
+  ( A : U)
+  ( is-segal-A : is-segal A)
+  ( α : Δ¹ → Δ¹ → A)
+  : comp-is-segal A is-segal-A (α 0₂ 0₂) (α 1₂ 0₂) (α 1₂ 1₂)
+    ( \ t → α t 0₂) (\ s → α 1₂ s)
+  = comp-is-segal A is-segal-A (α 0₂ 0₂) (α 0₂ 1₂) (α 1₂ 1₂)
+    ( \ s → α 0₂ s) (\ t → α t 1₂)
+  :=
+  zig-zag-concat (hom A (α 0₂ 0₂) (α 1₂ 1₂))
+  ( comp-is-segal A is-segal-A (α 0₂ 0₂) (α 1₂ 0₂) (α 1₂ 1₂)
+    ( \ t → α t 0₂) (\ s → α 1₂ s))
+  ( \ t → α t t)
+  ( comp-is-segal A is-segal-A (α 0₂ 0₂) (α 0₂ 1₂) (α 1₂ 1₂)
+    ( \ s → α 0₂ s) (\ t → α t 1₂))
+  ( uniqueness-comp-is-segal A is-segal-A (α 0₂ 0₂) (α 1₂ 0₂) (α 1₂ 1₂)
+    ( \ t → α t 0₂)
+    ( \ s → α 1₂ s)
+    ( \ t → α t t)
+    ( \ (t , s) → α t s))
+  ( uniqueness-comp-is-segal A is-segal-A (α 0₂ 0₂) (α 0₂ 1₂) (α 1₂ 1₂)
+    ( \ s → α 0₂ s)
+    ( \ t → α t 1₂)
+    ( \ t → α t t)
+    ( \ (t , s) → α s t))
+```
+
+## Representable functors and natural transformations
+
+Fix a Segal type `A` and element `a : A`. We refer to the family of types `z : A ⊢ hom A z a` as the *contravariant family represented by* `a`. It is the family whose elements are arrows with arbitrary domain and with codomain `a`.
+
+The Yoneda lemma concerns characterizes natural transformations between representable functors so fix a second element `b : A` and consider the contravariant family `z : A ⊢ hom A z b` represented by `b`. What is a natural transformation?
+
+The *data* of a natural transformation is given by its *components*, which are encoded by a dependent function
+`φ : (z : A) → hom A z a → hom A z b`.
+
+The adjective *natural* in the name *natural transformation* refers to a property called naturality, which refers to a commutative square defined for any `f : hom A x y`. The components of the natural transformation at `x` and `y` define functions: `φ x : hom A x a → hom A x b` and `φ y : hom A y a → hom A y b`. Composition with `f` defines functions
+`hom A y a → hom A x a` and `hom A y b → hom A x b`. Naturality asserts that the square that starts with `hom A y a` and ends with `hom A x b` by applying a component of `φ` or composing with `f` in either order commutes.
+
+This commutativity condition can be expressed elementwise: for any `v : hom A y a`, we require that
+
+`( comp-is-segal A is-segal-A x y b f (φ y v))
+  = ( φ x (comp-is-segal A is-segal-A x y a f v))`
+
+In fact this is not a separate requirement, but is provable!
+
+To start, we arrange the arrows `f : hom A x y` and
+`v : hom A y a` into a square with their composite and the arrow `id-hom A a`.
+
+```rzk
+#def id-codomain-square
+  ( A : U)
+  ( is-segal-A : is-segal A)
+  ( a x y : A)
+  ( f : hom A x y)
+  ( v : hom A y a)
+  : ( t : Δ¹) → hom A (f t) a
+  := \ t s →
+      recOR
+      ( s ≤ t ↦
+        ( witness-comp-is-segal A is-segal-A x y a f v)
+          ( t , s)
+      , t ≤ s ↦
+        ( comp-id-witness A x a
+          ( comp-is-segal A is-segal-A x y a f v)) (s , t))
+```
+
+Now apply `φ` to produce a square with boundary given by `f`, `φ y v`, `φ` of the composite, and `id-hom A b`.
+
+```rzk
+#def square-representable-transformation
+  ( A : U)
+  ( is-segal-A : is-segal A)
+  ( a b x y : A)
+  ( f : hom A x y)
+  ( v : hom A y a)
+  ( φ : (z : A) → hom A z a → hom A z b)
+  : ( t : Δ¹) → hom A (f t) b
+  := \ t → φ (f t) (id-codomain-square A is-segal-A a x y f v t)
+```
+
+This is why we defined `eq-square-is-segal`: it will convert this square into an equality, though not quite the equality we want. Compose that equality with a second equality to prove the naturality of `φ`.
+
+```rzk
+#def naturality-contravariant-fiberwise-representable-transformation
+  ( A : U)
+  ( is-segal-A : is-segal A)
+  ( a b x y : A)
+  ( f : hom A x y)
+  ( v : hom A y a)
+  ( φ : (z : A) → hom A z a → hom A z b)
+  : ( comp-is-segal A is-segal-A x y b f (φ y v))
+  = ( φ x (comp-is-segal A is-segal-A x y a f v))
+  := ?
+```
+
+In summary, the type of natural transformations between representable functors is just given by `(z : A) → hom A z a → hom A z b`. There is no naturality condition needed in the definition because it is provable!
+
+## The Yoneda lemma
+
+We can now state and prove the Yoneda lemma. Its statement involves a function that takes a natural transformation `φ : (z : A) → hom A z a → hom A z b` and returns an element of `hom A a b` defined by evaluating at the identity. Your first task is to define this function:
+
+```rzk
+#def contra-evid
+  ( A : U)
+  ( a b : A)
+  : ( ( z : A) → hom A z a → hom A z b) → hom A a b
+  := \ φ → φ a (id-hom A a)
+```
+
+The Yoneda lemma states that this function `contra-evid` is an equivalence. To prove this we start by defining a function in the other direction:
+
+```rzk
+#def contra-yon
+  ( A : U)
+  ( is-segal-A : is-segal A)
+  ( a b : A)
+  : hom A a b → ((z : A) → hom A z a → hom A z b)
+  := \ v z f → comp-is-segal A is-segal-A z a b f v
+```
+
+To prove that these maps are inverse equivalences, we need to show that the composites are homotopic to the identity. One retraction is straightforward, once you work out (on paper) what the left-hand side `contra-evid A a b ((contra-yon A is-segal-A a b) v)` reduces to. `rzk` will reduce the left hand side to its definition automatically, so you just need to supply a reason why this definitionally-reduced left hand side equals the right-hand side `v`.
+
+```rzk
+#def contra-evid-yon
+  ( A : U)
+  ( is-segal-A : is-segal A)
+  ( a b : A)
+  ( v : hom A a b)
+  : contra-evid A a b ((contra-yon A is-segal-A a b) v) = v
+  := id-comp-is-segal A is-segal-A a b v
+```
+
+The other retraction requires more work. Here we want a homotopy that has the form of an equation
+`contra-yon A is-segal-A a b (contra-evid A a b φ) = φ` for all `φ : (z : A) → hom A z a → hom A z b`. This is an equation between two natural transformations so we will start by proving that both of these define the same functions when applied to arguments `x : A` and `f : hom A x a`. This is the hardest goal in this problem set, so work out why this is true on paper before attempting to fill in the following hole.
+
+```rzk
+#def contra-yon-evid-twice-pointwise
+  ( A : U)
+  ( is-segal-A : is-segal A)
+  ( a b : A)
+  ( φ : (z : A) → hom A z a → hom A z b)
+  ( x : A)
+  ( f : hom A x a)
+  : ( ( contra-yon A is-segal-A a b)
+        ( ( contra-evid A a b) φ)) x f = φ x f
+  := ?
+```
+
+To use this to conclude that
+`contra-yon A is-segal-A a b (contra-evid A a b φ) = φ` we have to apply something called *function extensionality*, which says that you can get an equality between functions from a homotopy.
+
+```rzk
+#def htpy-eq
+  ( X : U)
+  ( A : X → U)
+  ( f g : (x : X) → A x)
+  ( p : f = g)
+  : ( x : X) → (f x = g x)
+  :=
+  ind-path
+    ( ( x : X) → A x)
+    ( f)
+    ( \ g' p' → (x : X) → (f x = g' x))
+    ( \ x → refl)
+    ( g)
+    ( p)
+
+#def FunExt
+  : U
+  :=
+  ( X : U)
+  → ( A : X → U)
+  → ( f : (x : X) → A x)
+  → ( g : (x : X) → A x)
+  → is-equiv (f = g)
+    ( ( x : X) → f x = g x) (htpy-eq X A f g)
+
+#assume funext : FunExt
+```
+
+This assumption provides us with the following function
+
+```rzk
+#def eq-htpy uses (funext)
+  ( X : U)
+  ( A : X → U)
+  ( f g : (x : X) → A x)
+  : ( ( x : X) → f x = g x) → (f = g)
+  := first (first (funext X A f g))
+```
+
+which we use to get equalities between functions from homotopies. Use this to prove the following:
+
+```rzk
+#def contra-yon-evid-once-pointwise uses (funext)
+  ( A : U)
+  ( is-segal-A : is-segal A)
+  ( a b : A)
+  ( φ : (z : A) → hom A z a → hom A z b)
+  ( x : A)
+  : ( ( contra-yon A is-segal-A a b)
+        ( ( contra-evid A a b) φ)) x = φ x
+  := ?
+```
+
+And then use this to prove the retraction we wanted all along:
+
+```rzk
+#def contra-yon-evid uses (funext)
+  ( A : U)
+  ( is-segal-A : is-segal A)
+  ( a b : A)
+  ( φ : (z : A) → hom A z a → hom A z b)
+  : ( contra-yon A is-segal-A a b)
+        ( ( contra-evid A a b) φ) = φ
+  := ?
+```
+
+We have now reached the boss level! Assemble all of these ingredients into a proof of the Yoneda lemma:
+
+```rzk
+#def yoneda-lemma uses (funext)
+  ( A : U) (is-segal-A : is-segal A) (a b : A)
+  : is-equiv ((z : A) → hom A z a → hom A z b) (hom A a b)
+    ( contra-evid A a b)
+  :=
+    ( ( ?
+      , ?)
+    , ( ?
+      , ?))
+```
+
+If you want a further challenge: *dualize* this development to state and prove the Yoneda lemma for covariant representable functor `z : A ⊢ hom A a z`.

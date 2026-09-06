@@ -312,15 +312,15 @@ Fix a Segal type `A` and element `a : A`. We refer to the family of types `z : A
 The Yoneda lemma concerns characterizes natural transformations between representable functors so fix a second element `b : A` and consider the contravariant family `z : A ⊢ hom A z b` represented by `b`. What is a natural transformation?
 
 The *data* of a natural transformation is given by its *components*, which are encoded by a dependent function
-`ϕ : (z : A) → hom A z a → hom A z b`.
+`φ : (z : A) → hom A z a → hom A z b`.
 
-The adjective *natural* in the name *natural transformation* refers to a property called naturality, which refers to a commutative square defined for any `f : hom A x y`. The components of the natural transformation at `x` and `y` define functions: `ϕ x : hom A x a → hom A x b` and `ϕ y : hom A y a → hom A y b`. Composition with `f` defines functions
-`hom A y a → hom A x a` and `hom A y b → hom A x b`. Naturality asserts that the square that starts with `hom A y a` and ends with `hom A x b` by applying a component of `ϕ` or composing with `f` in either order commutes.
+The adjective *natural* in the name *natural transformation* refers to a property called naturality, which refers to a commutative square defined for any `f : hom A x y`. The components of the natural transformation at `x` and `y` define functions: `φ x : hom A x a → hom A x b` and `φ y : hom A y a → hom A y b`. Composition with `f` defines functions
+`hom A y a → hom A x a` and `hom A y b → hom A x b`. Naturality asserts that the square that starts with `hom A y a` and ends with `hom A x b` by applying a component of `φ` or composing with `f` in either order commutes.
 
 This commutativity condition can be expressed elementwise: for any `v : hom A y a`, we require that
 
-`( comp-is-segal A is-segal-A x y b f (ϕ y v))
-  = ( ϕ x (comp-is-segal A is-segal-A x y a f v))`
+`( comp-is-segal A is-segal-A x y b f (φ y v))
+  = ( φ x (comp-is-segal A is-segal-A x y a f v))`
 
 In fact this is not a separate requirement, but is provable!
 
@@ -345,7 +345,7 @@ To start, we arrange the arrows `f : hom A x y` and
           ( comp-is-segal A is-segal-A x y a f v)) (s , t))
 ```
 
-Now apply `ϕ` to produce a square with boundary given by `f`, `ϕ y v`, `ϕ` of the composite, and `id-hom A b`.
+Now apply `φ` to produce a square with boundary given by `f`, `φ y v`, `φ` of the composite, and `id-hom A b`.
 
 ```rzk
 #def square-representable-transformation
@@ -354,12 +354,12 @@ Now apply `ϕ` to produce a square with boundary given by `f`, `ϕ y v`, `ϕ` of
   ( a b x y : A)
   ( f : hom A x y)
   ( v : hom A y a)
-  ( ϕ : (z : A) → hom A z a → hom A z b)
+  ( φ : (z : A) → hom A z a → hom A z b)
   : ( t : Δ¹) → hom A (f t) b
   := ?
 ```
 
-This is why we defined `eq-square-is-segal`: it will convert this square into an equality, though not quite the equality we want. Compose that equality with a second equality to prove the naturality of `ϕ`.
+This is why we defined `eq-square-is-segal`: it will convert this square into an equality, though not quite the equality we want. Compose that equality with a second equality to prove the naturality of `φ`.
 
 ```rzk
 #def naturality-contravariant-fiberwise-representable-transformation
@@ -368,9 +368,9 @@ This is why we defined `eq-square-is-segal`: it will convert this square into an
   ( a b x y : A)
   ( f : hom A x y)
   ( v : hom A y a)
-  ( ϕ : (z : A) → hom A z a → hom A z b)
-  : ( comp-is-segal A is-segal-A x y b f (ϕ y v))
-  = ( ϕ x (comp-is-segal A is-segal-A x y a f v))
+  ( φ : (z : A) → hom A z a → hom A z b)
+  : ( comp-is-segal A is-segal-A x y b f (φ y v))
+  = ( φ x (comp-is-segal A is-segal-A x y a f v))
   := ?
 ```
 
@@ -378,7 +378,7 @@ In summary, the type of natural transformations between representable functors i
 
 ## The Yoneda lemma
 
-We can now state and prove the Yoneda lemma. Its statement involves a function that takes a natural transformation `ϕ : (z : A) → hom A z a → hom A z b` and returns an element of `hom A a b` defined by evaluating at the identity. Your first task is to define this function:
+We can now state and prove the Yoneda lemma. Its statement involves a function that takes a natural transformation `φ : (z : A) → hom A z a → hom A z b` and returns an element of `hom A a b` defined by evaluating at the identity. Your first task is to define this function:
 
 ```rzk
 #def contra-evid
@@ -412,23 +412,23 @@ To prove that these maps are inverse equivalences, we need to show that the comp
 ```
 
 The other retraction requires more work. Here we want a homotopy that has the form of an equation
-`contra-yon A is-segal-A a b (contra-evid A a b ϕ) = ϕ` for all `ϕ : (z : A) → hom A z a → hom A z b`. This is an equation between two natural transformations so we will start by proving that both of these define the same functions when applied to arguments `x : A` and `f : hom A x a`. This is the hardest goal in this problem set, so work out why this is true on paper before attempting to fill in the following hole.
+`contra-yon A is-segal-A a b (contra-evid A a b φ) = φ` for all `φ : (z : A) → hom A z a → hom A z b`. This is an equation between two natural transformations so we will start by proving that both of these define the same functions when applied to arguments `x : A` and `f : hom A x a`. This is the hardest goal in this problem set, so work out why this is true on paper before attempting to fill in the following hole.
 
 ```rzk
 #def contra-yon-evid-twice-pointwise
   ( A : U)
   ( is-segal-A : is-segal A)
   ( a b : A)
-  ( ϕ : (z : A) → hom A z a → hom A z b)
+  ( φ : (z : A) → hom A z a → hom A z b)
   ( x : A)
   ( f : hom A x a)
   : ( ( contra-yon A is-segal-A a b)
-        ( ( contra-evid A a b) ϕ)) x f = ϕ x f
+        ( ( contra-evid A a b) φ)) x f = φ x f
   := ?
 ```
 
 To use this to conclude that
-`contra-yon A is-segal-A a b (contra-evid A a b ϕ) = ϕ` we have to apply something called *function extensionality*, which says that you can get an equality between functions from a homotopy.
+`contra-yon A is-segal-A a b (contra-evid A a b φ) = φ` we have to apply something called *function extensionality*, which says that you can get an equality between functions from a homotopy.
 
 ```rzk
 #def htpy-eq
@@ -477,10 +477,10 @@ which we use to get equalities between functions from homotopies. Use this to pr
   ( A : U)
   ( is-segal-A : is-segal A)
   ( a b : A)
-  ( ϕ : (z : A) → hom A z a → hom A z b)
+  ( φ : (z : A) → hom A z a → hom A z b)
   ( x : A)
   : ( ( contra-yon A is-segal-A a b)
-        ( ( contra-evid A a b) ϕ)) x = ϕ x
+        ( ( contra-evid A a b) φ)) x = φ x
   := ?
 ```
 
@@ -491,9 +491,9 @@ And then use this to prove the retraction we wanted all along:
   ( A : U)
   ( is-segal-A : is-segal A)
   ( a b : A)
-  ( ϕ : (z : A) → hom A z a → hom A z b)
+  ( φ : (z : A) → hom A z a → hom A z b)
   : ( contra-yon A is-segal-A a b)
-        ( ( contra-evid A a b) ϕ) = ϕ
+        ( ( contra-evid A a b) φ) = φ
   := ?
 ```
 
