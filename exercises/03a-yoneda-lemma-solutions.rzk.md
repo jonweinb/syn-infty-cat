@@ -368,7 +368,16 @@ This is why we defined `eq-square-is-segal`: it will convert this square into an
   ( φ : (z : A) → hom A z a → hom A z b)
   : ( comp-is-segal A is-segal-A x y b f (φ y v))
   = ( φ x (comp-is-segal A is-segal-A x y a f v))
-  := ?
+  :=
+  concat (hom A x b)
+  ( comp-is-segal A is-segal-A x y b f (φ y v))
+  ( comp-is-segal A is-segal-A x b b
+    ( φ x (comp-is-segal A is-segal-A x y a f v)) (id-hom A b))
+  ( φ x (comp-is-segal A is-segal-A x y a f v))
+  ( eq-square-is-segal A is-segal-A
+    ( square-representable-transformation A is-segal-A a b x y f v φ))
+  ( comp-id-is-segal A is-segal-A x b
+    ( φ x (comp-is-segal A is-segal-A x y a f v)))
 ```
 
 In summary, the type of natural transformations between representable functors is just given by `(z : A) → hom A z a → hom A z b`. There is no naturality condition needed in the definition because it is provable!
@@ -378,17 +387,17 @@ In summary, the type of natural transformations between representable functors i
 We can now state and prove the Yoneda lemma. Its statement involves a function that takes a natural transformation `φ : (z : A) → hom A z a → hom A z b` and returns an element of `hom A a b` defined by evaluating at the identity. Your first task is to define this function:
 
 ```rzk
-#def contra-evid
+#def evid
   ( A : U)
   ( a b : A)
   : ( ( z : A) → hom A z a → hom A z b) → hom A a b
   := \ φ → φ a (id-hom A a)
 ```
 
-The Yoneda lemma states that this function `contra-evid` is an equivalence. To prove this we start by defining a function in the other direction:
+The Yoneda lemma states that this function `evid` is an equivalence. To prove this we start by defining a function in the other direction:
 
 ```rzk
-#def contra-yon
+#def yon
   ( A : U)
   ( is-segal-A : is-segal A)
   ( a b : A)
@@ -396,36 +405,39 @@ The Yoneda lemma states that this function `contra-evid` is an equivalence. To p
   := \ v z f → comp-is-segal A is-segal-A z a b f v
 ```
 
-To prove that these maps are inverse equivalences, we need to show that the composites are homotopic to the identity. One retraction is straightforward, once you work out (on paper) what the left-hand side `contra-evid A a b ((contra-yon A is-segal-A a b) v)` reduces to. `rzk` will reduce the left hand side to its definition automatically, so you just need to supply a reason why this definitionally-reduced left hand side equals the right-hand side `v`.
+To prove that these maps are inverse equivalences, we need to show that the composites are homotopic to the identity. One retraction is straightforward, once you work out (on paper) what the left-hand side `evid A a b ((yon A is-segal-A a b) v)` reduces to. `rzk` will reduce the left hand side to its definition automatically, so you just need to supply a reason why this definitionally-reduced left hand side equals the right-hand side `v`.
 
 ```rzk
-#def contra-evid-yon
+#def evid-yon
   ( A : U)
   ( is-segal-A : is-segal A)
   ( a b : A)
   ( v : hom A a b)
-  : contra-evid A a b ((contra-yon A is-segal-A a b) v) = v
+  : evid A a b ((yon A is-segal-A a b) v) = v
   := id-comp-is-segal A is-segal-A a b v
 ```
 
 The other retraction requires more work. Here we want a homotopy that has the form of an equation
-`contra-yon A is-segal-A a b (contra-evid A a b φ) = φ` for all `φ : (z : A) → hom A z a → hom A z b`. This is an equation between two natural transformations so we will start by proving that both of these define the same functions when applied to arguments `x : A` and `f : hom A x a`. This is the hardest goal in this problem set, so work out why this is true on paper before attempting to fill in the following hole.
+`yon A is-segal-A a b (evid A a b φ) = φ` for all `φ : (z : A) → hom A z a → hom A z b`. This is an equation between two natural transformations so we will start by proving that both of these define the same functions when applied to arguments `x : A` and `f : hom A x a`. This is the hardest goal in this problem set, so work out why this is true on paper before attempting to fill in the following hole.
 
 ```rzk
-#def contra-yon-evid-twice-pointwise
-  ( A : U)
-  ( is-segal-A : is-segal A)
-  ( a b : A)
+#def yon-evid-twice-pointwise (A : U)
+  ( is-segal-A : is-segal A) (a b : A)
   ( φ : (z : A) → hom A z a → hom A z b)
-  ( x : A)
-  ( f : hom A x a)
-  : ( ( contra-yon A is-segal-A a b)
-        ( ( contra-evid A a b) φ)) x f = φ x f
-  := ?
+  ( x : A) (f : hom A x a)
+  : ( ( yon A is-segal-A a b) ((evid A a b) φ)) x f = φ x f
+  :=
+  concat (hom A x b)
+  ( ( ( yon A is-segal-A a b) ((evid A a b) φ)) x f)
+  ( φ x (comp-is-segal A is-segal-A x a a f (id-hom A a)))
+  ( φ x f)
+  ( naturality-contravariant-fiberwise-representable-transformation A is-segal-A a b x a f (id-hom A a) φ)
+  ( ap (hom A x a) (hom A x b)
+  ( comp-is-segal A is-segal-A x a a f (id-hom A a)) f (φ x) (comp-id-is-segal A is-segal-A x a f))
 ```
 
 To use this to conclude that
-`contra-yon A is-segal-A a b (contra-evid A a b φ) = φ` we have to apply something called *function extensionality*, which says that you can get an equality between functions from a homotopy.
+`yon A is-segal-A a b (evid A a b φ) = φ` we have to apply something called *function extensionality*, which says that you can get an equality between functions from a homotopy.
 
 ```rzk
 #def htpy-eq
@@ -470,28 +482,40 @@ This assumption provides us with the following function
 which we use to get equalities between functions from homotopies. Use this to prove the following:
 
 ```rzk
-#def contra-yon-evid-once-pointwise uses (funext)
+#def yon-evid-once-pointwise uses (funext)
   ( A : U)
   ( is-segal-A : is-segal A)
   ( a b : A)
   ( φ : (z : A) → hom A z a → hom A z b)
   ( x : A)
-  : ( ( contra-yon A is-segal-A a b)
-        ( ( contra-evid A a b) φ)) x = φ x
-  := ?
+  : ( ( yon A is-segal-A a b)
+        ( ( evid A a b) φ)) x = φ x
+  :=
+  eq-htpy
+  ( hom A x a)
+  ( \ _ → hom A x b)
+  ( ( ( yon A is-segal-A a b) ((evid A a b) φ)) x)
+  ( φ x)
+  ( yon-evid-twice-pointwise A is-segal-A a b φ x)
 ```
 
 And then use this to prove the retraction we wanted all along:
 
 ```rzk
-#def contra-yon-evid uses (funext)
+#def yon-evid uses (funext)
   ( A : U)
   ( is-segal-A : is-segal A)
   ( a b : A)
   ( φ : (z : A) → hom A z a → hom A z b)
-  : ( contra-yon A is-segal-A a b)
-        ( ( contra-evid A a b) φ) = φ
-  := ?
+  : ( yon A is-segal-A a b)
+        ( ( evid A a b) φ) = φ
+  :=
+  eq-htpy A
+  ( \ x → hom A x a → hom A x b)
+  ( ( yon A is-segal-A a b)
+        ( ( evid A a b) φ))
+  ( φ)
+  ( yon-evid-once-pointwise A is-segal-A a b φ)
 ```
 
 We have now reached the boss level! Assemble all of these ingredients into a proof of the Yoneda lemma:
@@ -500,12 +524,12 @@ We have now reached the boss level! Assemble all of these ingredients into a pro
 #def yoneda-lemma uses (funext)
   ( A : U) (is-segal-A : is-segal A) (a b : A)
   : is-equiv ((z : A) → hom A z a → hom A z b) (hom A a b)
-    ( contra-evid A a b)
+    ( evid A a b)
   :=
-    ( ( ?
-      , ?)
-    , ( ?
-      , ?))
+    ( ( yon A is-segal-A a b
+      , yon-evid A is-segal-A a b)
+    , ( yon A is-segal-A a b
+      , evid-yon A is-segal-A a b))
 ```
 
 If you want a further challenge: *dualize* this development to state and prove the Yoneda lemma for covariant representable functor `z : A ⊢ hom A a z`.
