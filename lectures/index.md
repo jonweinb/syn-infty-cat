@@ -11,4 +11,6 @@ Literate [Rzk](https://rzk-lang.github.io/) lecture notes on higher category the
 
 ## Exercises
 
-- [Associativity in Segal types](exercises/03a-associativity.rzk.md)
+- [Associativity in Segal types](exercises/02a-associativity.rzk.md)
+- [Yoneda lemma for Segal types](exercises/03a-yoneda-lemma.rzk.md)
+- [Yoneda lemma solutions](exercises/03a-yoneda-lemma-solutions.rzk.md)

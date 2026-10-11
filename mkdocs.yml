@@ -17,7 +17,9 @@ nav:
   - Lecture 3 — Category theory with Segal types: 03-more-segal.rzk.md
   - Lecture 4 — Discrete and Rezk types: 04-disc-segal-rezk.rzk.md
   - Exercises:
-      - Associativity in Segal types: exercises/03a-associativity.rzk.md
+      - Associativity in Segal types: exercises/02a-associativity.rzk.md
+      - Yoneda lemma for Segal types: exercises/03a-yoneda-lemma.rzk.md
+      - Yoneda lemma solutions: exercises/03a-yoneda-lemma-solutions.rzk.md
 
 theme:
   name: material
@@ -65,3 +67,6 @@ plugins:
   - rzk:
       render_svg: false
       anchor_definitions: true
+
+hooks:
+  - hooks.py

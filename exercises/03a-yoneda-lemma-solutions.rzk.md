@@ -1,4 +1,4 @@
-# Exercises: the Yoneda Lemma for Segal Types
+# Solutions: the Yoneda Lemma for Segal Types
 
 ```rzk
 #lang rzk-1
@@ -10,7 +10,9 @@ The argument given here is very easily adapted to proving a more general result 
 
 In fact, an interesting generalization of the Yoneda lemma came out of this synthetic approach to higher category theory. There is a principle of *arrow induction* which is analogous to *path induction*, aka the mapping out universal property of identity types. This gives a further generalization of the Yoneda lemma that we call the *dependent Yoneda lemma*. As it is also stated using covariant or contravariant families, we also do not pursue it here. See [RS17] or the sHoTT library for details.
 
-This is a literate `rzk` file that compiles independently of the rest of this repository (by duplicating definitions found elsewhere here). Typecheck by running `rzk typecheck exercises/03a-yoneda-lemma.rzk.md --allow-holes` from the root of this repository.
+This is a literate `rzk` file that compiles independently of the rest of this repository (by duplicating definitions found elsewhere here). Typecheck by running `rzk typecheck exercises/03a-yoneda-lemma-solutions.rzk.md --allow-holes` from the root of this repository.
+
+These are solutions to [03a-yoneda-lemma.rzk.md](03a-yoneda-lemma.rzk.md).
 
 ## Homotopy type theory prerequisites
 

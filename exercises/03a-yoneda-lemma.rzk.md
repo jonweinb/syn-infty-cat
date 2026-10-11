@@ -12,6 +12,8 @@ In fact, an interesting generalization of the Yoneda lemma came out of this synt
 
 This is a literate `rzk` file that compiles independently of the rest of this repository (by duplicating definitions found elsewhere here). Typecheck by running `rzk typecheck exercises/03a-yoneda-lemma.rzk.md --allow-holes` from the root of this repository.
 
+Solutions are in [03a-yoneda-lemma-solutions.rzk.md](03a-yoneda-lemma-solutions.rzk.md).
+
 ## Homotopy type theory prerequisites
 
 Our work will require the following definitions from the homotopy type theory library.

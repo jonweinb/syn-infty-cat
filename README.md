@@ -13,7 +13,9 @@ The HTML notes are published at [jonweinb.github.io/syn-infty-cat](https://jonwe
 
 ## Exercises
 
-- [Associativity in Segal types](lectures/exercises/03a-associativity.rzk.md)
+- [Associativity in Segal types](exercises/02a-associativity.rzk.md)
+- [Yoneda lemma for Segal types](exercises/03a-yoneda-lemma.rzk.md)
+- [Yoneda lemma solutions](exercises/03a-yoneda-lemma-solutions.rzk.md)
 
 ## Prerequisites
 

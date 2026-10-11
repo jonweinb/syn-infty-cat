@@ -95,7 +95,7 @@ $$ \text{ap-hom}_F : \prod_{x,y:A} \hom_A(x,y) \to \hom_B( F(x), F(y)). $$
   ( x y : A)
   ( f : hom A x y)
   : hom B (F x) (F y)
-  := ?
+  := \ t → F (f t)
 
 ```
 
@@ -169,7 +169,7 @@ $$ \mathrm{nat}(f,g) :\equiv \hom_{A \to B}(f,g). $$
 
 It's not more expensive to define this for the dependent case, where $f,g : \prod_{x:A} B(x)$ are **dependent** functions:
 
-$$ \mathrm{nat}(f,g) :\equiv \hom_{(x:A) \to B(x)}(f,g). $$
+$$ \mathrm{nat'}(f,g) :\equiv \hom_{(x:A) \to B(x)}(f,g). $$
 
 This showcases another big strength of dependent type theory.
 
