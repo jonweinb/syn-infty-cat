@@ -536,7 +536,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../exercises/03a-associativity.rzk.md" class="md-nav__link">
+      <a href="../exercises/02a-associativity.rzk/" class="md-nav__link">
         
   
   
@@ -544,6 +544,62 @@
     
   
     Associativity in Segal types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exercises/03a-yoneda-lemma.rzk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Yoneda lemma for Segal types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exercises/03a-yoneda-lemma-solutions.rzk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Yoneda lemma solutions
   
 
     
@@ -729,7 +785,7 @@
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  <span class="p">( </span>x y <span class="p">:</span> A)
 </span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>  <span class="p">( </span>f <span class="p">:</span> hom A x y)
 </span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>  : hom B (F x) (F y)
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>  := <span class="bp">?</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>  := <span class="p">\ </span>t → F (f t)
 </span></code></pre></div>
 <p>Thus, indeed we get an action arrows from just a function <span class="arithmatex">\(F : A \to B\)</span>.</p>
 <p>We also get an action on <span class="arithmatex">\(2\)</span>-simplices:</p>
@@ -783,7 +839,7 @@ $$ \text{ap-hom}_F(f) \equiv: F(f) $$</p>
 <p>We define the type of natural transformations of functors <span class="arithmatex">\(f,g :A \to B\)</span> as</p>
 <div class="arithmatex">\[ \mathrm{nat}(f,g) :\equiv \hom_{A \to B}(f,g). \]</div>
 <p>It's not more expensive to define this for the dependent case, where <span class="arithmatex">\(f,g : \prod_{x:A} B(x)\)</span> are <strong>dependent</strong> functions:</p>
-<div class="arithmatex">\[ \mathrm{nat}(f,g) :\equiv \hom_{(x:A) \to B(x)}(f,g). \]</div>
+<div class="arithmatex">\[ \mathrm{nat'}(f,g) :\equiv \hom_{(x:A) \to B(x)}(f,g). \]</div>
 <p>This showcases another big strength of dependent type theory.</p>
 <div class="language-rzk highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kr">#def</span><span class="p"> </span><span class="nf"><a href="#define:nat-trans" id="define:nat-trans" style="visibility: visible; position: relative; color: inherit">nat-trans</a></span>
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>  <span class="p">( </span>A <span class="p">:</span> <span class="kt">U</span>)
